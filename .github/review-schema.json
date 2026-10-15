@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["summary", "issues"],
+  "properties": {
+    "summary": { "type": "string" },
+    "issues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["file", "line", "severity", "category", "problem", "improvement", "fixed_code"],
+        "properties": {
+          "file": { "type": "string" },
+          "line": { "type": "integer" },
+          "severity": { "type": "string", "enum": ["high", "medium", "low"] },
+          "category": { "type": "string", "enum": ["バグ", "セキュリティ", "設計", "性能", "デグレ"] },
+          "problem": { "type": "string" },
+          "improvement": { "type": "string" },
+          "fixed_code": { "type": "string" }
+        }
+      }
+    }
+  }
+}
