@@ -1,0 +1,151 @@
+apply plugin: 'com.android.application'
+
+def applicationName = ''
+
+android {
+    compileSdkVersion 33
+    defaultConfig {
+        applicationId "com.rfidpk"
+        minSdkVersion 25
+        targetSdkVersion 33
+        versionCode 33
+        versionName '4.3.0.4'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+
+    // APKを作成する署名情報に関する情報をbuild.gradleから参照できるようにする
+    apply from: 'signingConfigs/release.gradle', to: android
+
+    //ビルド種別を定義
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+        }
+    }
+
+    //Flavorの定義
+    //※対象となるメーカーと機種を定義
+    flavorDimensions 'source'
+    productFlavors {
+        //デンソー製 BHT-1800
+        denso_bht_1800 {
+            dimension = 'source'
+        }
+
+        //デンソー製 BHT-M80
+        denso_bht_m80 {
+            dimension = 'source'
+            minSdkVersion "29"
+        }
+
+        //ZEBRA製 TCシリーズ
+        zebra_tc {
+            dimension = 'source'
+        }
+
+        //Keyence製 DXシリーズ
+        keyence_dx {
+            dimension = 'source'
+            minSdkVersion "29"
+        }
+
+        //iData
+        idata {
+            dimension = 'source'
+        }
+
+        //サイファーラボ製 RS35
+        cipherlab_rs35 {
+            dimension = 'source'
+            minSdkVersion "29"
+        }
+    }
+
+    //各Flavor 参照ソース設定
+    sourceSets {
+        //BHT-M80はBHT-1800とソースコードを共有する
+        denso_bht_m80 {
+            java.srcDirs = ['src/denso_bht_1800/java']
+        }
+    }
+
+    //APK出力ファイル名
+    applicationVariants.all { variant ->
+        if (variant.buildType.name != "release") {
+            return
+        }
+        variant.outputs.all {
+            //productFlavorsによってAPKファイルの名称を設定する
+            switch (variant.flavorName) {
+                case 'denso_bht_1800':
+                    applicationName = 'denso_bht1800'
+                    break
+                case 'denso_bht_m80':
+                    applicationName = 'denso_m80'
+                    break
+                case 'zebra_tc':
+                    applicationName = 'zebra'
+                    break
+                case 'keyence_dx':
+                    applicationName = 'keyence_dx'
+                    break
+                case 'idata':
+                    applicationName = 'sato_idata'
+                    break
+                case 'cipherlab_rs35':
+                    applicationName = 'cipherlab_rs35'
+                    break
+            }
+            outputFileName = "${applicationName}.apk"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    //noinspection GradleCompatible
+    implementation 'com.google.android.material:material:1.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    implementation project(':RFIDAPI3Library')
+
+    //デンソー製 BHT-1800ライブラリ
+    denso_bht_1800Implementation files('libs/BHTSDK_1800/bhtsdk_r1030001_v1.03.00.aar')
+    denso_bht_1800Implementation project(':DENSOScannerSDK')
+
+    //デンソー製 BHT-M80ライブラリ
+    denso_bht_m80Implementation files('libs/BHTSDK_M80/bhtsdk_A10_r1020007_v1.02.00.aar')
+    denso_bht_m80Implementation project(':DENSOScannerSDK')
+
+    //Keyence製 DXシリーズライブラリ
+    keyence_dxImplementation files('libs/KeyenceDxSDK/rfid_sdk.jar')
+    keyence_dxImplementation files('libs/KeyenceDxSDK/scan_sdk.jar')
+
+    //iDataライブラリ
+    idataImplementation files('libs/IdataLibrary/IdataRFIDLibrary.aar')
+
+    //サイファーラボ製 RS35ライブラリ
+    cipherlab_rs35Implementation files('libs/CIPHERLAB_RS35/BarcodeAPI_V1_1_58.jar')
+    cipherlab_rs35Implementation files('libs/CIPHERLAB_RS35/RfidAPI_V1_0_24.jar')
+
+    //implementation files('libs/stream-1.2.1.jar')
+    implementation files('libs/jackson-annotations-2.9.9.jar')
+    implementation files('libs/jackson-core-2.9.9.jar')
+    implementation files('libs/jackson-databind-2.9.9.jar')
+
+    // Log関連
+    implementation files('libs/android-logging-log4j-1.0.3.jar')
+    implementation files('libs/log4j-1.2.17.jar')
+    compileOnly 'com.symbol:emdk:9.1.1'
+}
+

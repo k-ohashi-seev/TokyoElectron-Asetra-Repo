@@ -1,0 +1,818 @@
+﻿@charset "UTF-8"; 
+
+/* Styles for basic forms                                    
+-----------------------------------------------------------*/
+	body {
+		 font-family:"Segoe UI", Verdana, Helvetica, Sans-Serif;
+		 /*background-color:#fff;*/
+         width:98%;
+         margin:0 auto;
+		 height:auto;     /* ページ全体の縦サイズはここで出来ません。 一覧テーブルはTable.css の div_sousa_d heightとdiv_koumoku_d  heightで調整してください */
+	}
+	header, footer, nav, section {
+		 /*display:block;*/
+	}
+    header {
+        margin:8px 0;
+        position:relative;
+		min-width:1450px;     /* ページ全体の幅サイズはここで設定できます  */
+    }
+
+    .logo{
+        margin-left:10px;
+    }
+
+    .container {
+      max-width: none !important;
+    }
+
+#input-default {
+    font-size: 1.0em;
+    width:300px;
+    height:15px;
+}
+
+
+/* ヘルパー出力のフォーマット      パスワードなしエラー等    
+-----------------------------------------------------------*/
+	.field-validation-error {
+		color:#f00;
+        display:none;
+	}
+	.field-validation-valid {
+		display:none;
+	}
+	.input-error {
+		border:1px solid #f00;
+		background-color:#fee;
+	}
+	/*[CC431] ADD Start 20261009*/
+	/* Select2 のエラー表示：元の select に付いた input-error を、すぐ後ろの Select2 の表示部分に反映する
+	   （元の select は Select2 が隠しているため、.input-error だけでは赤くならない） */
+	select.input-error + .select2-container--default .select2-selection--single,
+	select.input-error + .select2-container--default .select2-selection--multiple {
+		border:1px solid #f00;
+		background-color:#fee;
+	}
+	/*[CC431] ADD End 20261009*/
+
+	.validation-summary-errors {
+		font-weight:bold;
+		color:#f00;
+	}
+	.validation-summary-valid {
+		display:none;
+	}
+	hr {
+		background-color:#808080;
+		border:none;
+		height:1px;
+	}
+/* レイアウトレベルの画面全体の調整                          
+-----------------------------------------------------------*/
+	div#header {
+		position:relative; 
+	}
+	div#content{
+		background-color:rgba(0,0,255,0); 
+		min-height:2px;     
+	}
+	/* ページフッター */
+	div#footer {              
+		border-top:0px solid #D0D0D0;    
+		text-align:center;
+	}
+/*                         
+-----------------------------------------------------------*/
+	div.float-left {
+		float:left;
+	}
+	div.float-right {
+		float:right;
+	}
+	input.float-right {
+		float:right;
+	}
+
+/* タイトル                                                  
+-----------------------------------------------------------*/
+    /* h1で使われた場合のタイトル */
+	h1#site-title {
+		margin:5px 0 3px 10px;
+		font-size:20px;
+        min-height: 20px;
+	}
+    /* h2で使われた場合のタイトル */
+	h2#page-title {
+		margin:0px 0px 1px 0px;
+	}
+    /* spanで使われた場合のタイトル */
+	span#page-title {
+		margin:0px 0px 1px 0px;
+		font-weight:900;
+		font-size:20px;
+	}
+    /* テーブルヘッダで使われた場合のタイトル *//* 各ページのタイトル */
+	th.page-title {
+		width:200px;
+		font-weight:500;
+		font-size:20px;
+		text-align:left;
+		border:1px solid #ffffff;
+	}                       
+	input.logout {
+		background:url(../Images/navibackground.png) no-repeat;
+		border-style:none;
+		background-color:#DDD;
+		height:20px;
+		font-size:12px;
+		width:125px;
+	}
+	input.logout:hover {
+		background:url(../Images/navibackground_red.png) no-repeat;
+		/*background-color:#Df9090;*/
+	}					  			
+/*  Line                                                     
+-----------------------------------------------------------*/
+	p.Line{
+		border-bottom:2px double green;
+		margin:1px;
+	 }
+	p.Line2{
+		border-bottom:1px dashed green;
+		margin:0px;
+	 }
+	p.Line3{
+		border-bottom-width:2px;
+		border-bottom-style:double;
+		border-bottom-color:rgba(0, 87, 194, 1);
+		margin:0px;
+	 }
+	p.Line4{
+		border-bottom-width:1px;
+		border-bottom-style:solid;
+		border-bottom-color:#b1b8cc;
+		margin:0px;
+	 }
+	p.Line5{
+		border-bottom:1px solid #DDDDDD;
+		margin:0px;
+	 }
+	p.Line6{
+		border-bottom:1px solid #FFFFFF;
+		margin:0px;
+	 }
+	p.Line7{
+		border-bottom:1px double white;
+		margin:0px;
+	 }
+	tr.head-row{
+		font-size:12px;
+		background-color:#afeeee;
+		padding:2px;
+		vertical-align:middle;
+	}
+	.head-col{
+		background-color:#afeeee;
+		padding:3px;
+        display:inline-block;
+        width:100px;
+        vertical-align:middle;
+	}
+	.head-col.separate {
+        margin-right: 3px;
+	}
+    .head-col.wide {
+        width:200px;
+    }
+	.head-col.small {
+		width: 100px;
+	}
+    /* 2021/09/07 nv miyaji add start */
+    .head-col-no-color{
+		background-color:white;
+		padding:3px;
+        display:inline-block;
+        width:100px;
+        vertical-align:middle;
+	}
+	.head-col-no-color.separate {
+        margin-right: 3px;
+	}
+    .head-col-no-color.wide {
+        width:150px;
+    }
+    /* 2021/09/07 nv miyaji add end */
+	.condition-col{
+		background-color:#ffffff;
+		padding:3px;
+        display:inline-block;
+        width:160px;
+        vertical-align:middle;
+	}
+    .search-wrap .condition-col {
+            height: 30px;
+    }
+
+	
+	tr.detail-row{
+		font-size:12px;
+		background-color:#ffffff;
+		padding:3px;
+		vertical-align:middle;
+        height: 20px;
+        line-height:20px;
+	}
+	table.detail-table {
+		background-color:#ffffff;
+		padding:3px;
+	}
+    /* テーブル内のドロップダウン */
+    table.detail-table select {
+        display: inline-block;
+	    padding: .15em 0 .15em 0;
+	    width: 100%;
+	    max-width: 100%; 
+	    box-sizing: border-box;
+	    margin: 0;
+	}
+
+    /* お知らせ欄　20230430 Sato v2.4 ADD */
+    table.news-table {
+        table-layout: fixed;
+        word-wrap:break-word;
+    }
+
+	.require {
+		color:#ff0000;
+		font-size:16px;
+	}
+
+	.label-require {
+		color: #ff0000;
+		font-size: 14px;
+	}
+
+	input.readonly{
+		background-color:#aaaaaa;
+	}
+	img{
+		vertical-align:top;
+		margin-left: 2px;
+	}
+	.content-title{
+        margin:3px 0;
+		position:relative;
+	}
+	.content-title .user-area{
+		position:absolute;
+		right:10px;
+		bottom:5px;
+		font-size:14px;
+	}
+	.content-title .user-area .username{
+		margin:10px;
+	}
+	.content-title .user-area .password{
+	}
+
+
+    /* TODO:実棚照会画面の数量表示用に追加 */
+	td.head-quantity-col{
+		background-color:#ffffff;
+		padding:3px;
+        display:inline-block;
+        width:100px;
+        font-weight: bold;
+	}
+	td.quantity-col{
+		background-color:#ffffff;
+        display:inline-block;
+        width:80px;
+        text-align:left;
+        font-weight: bold;
+        padding:3px 20px 3px 3px;
+	}
+
+/*ポップアップ画面　タイトル
+------------------------------------------------------------*/
+    .popup-title-wrap
+    {
+        margin:5px 0 10px 0;
+    }
+
+    #popup-title {
+        margin: 3px 0;
+        font-size: 20px;
+    }
+    #popup-title-csv {
+        margin: 3px 0;
+        font-size: 20px;
+    }
+    #modal-content .head-col{
+        width:150px;
+        margin: 3px 0px;
+    }
+	#modal-content .head-col.large {
+        width:200px;
+	}
+    #modal-content .head-col.category-large {
+        width:250px;
+	}
+    #modal-csv-content .head-col{
+        width:150px;
+        margin: 3px 0px;
+    }
+    #popup-title-prt {
+        margin: 3px 0;
+        font-size: 20px;
+    }
+    #modal-prt-content .head-col{
+        width:150px;
+        margin: 3px 0px;
+    }
+    #popup-title-cart {
+        margin: 3px 0;
+        font-size: 100%;
+        font-weight: normal;
+    }
+    #modal-cart-content .head-col{
+        width:150px;
+        margin: 3px 0px;
+    }
+    #popup-title-reserve {
+        margin: 3px 0;
+        font-size: 20px;
+    }
+    #modal-reserve-content .head-col{
+        width:150px;
+        margin: 3px 0px;
+    }
+	/* 2023/03/22 Kawamoto ADD START */
+	#popup-title-attachment {
+		margin: 3px 0;
+		font-size: 20px;
+	}
+	/* 2023/03/22 Kawamoto ADD END */
+    #popup-title-const-complete {
+        margin: 3px 0;
+        font-size: 20px;
+    }
+
+    #popup-title-asset-reserve {
+        margin: 3px 0;
+        font-size: 20px;
+    }
+
+/* エラー画面 
+------------------------------------------------------------*/
+    .error-content{
+        margin-left:20px;
+    }
+
+    .error-content p {
+        margin: 0;
+    }
+
+    .error-title {
+        margin:15px 0;
+    }
+
+    .error-content input {
+        padding:3px 5px;
+    }
+
+    .error-detail p{
+        margin:0;
+    }
+
+    .error-detail {
+        border: 1px solid #cccccc;
+        padding: 10px;
+        border-radius: 10px;
+        width: 800px;
+    }
+
+/* ラジオボタン、チェックボックスなどの選択入力ツールの位置                        
+-----------------------------------------------------------*/
+    div.input-select-item {
+        display: inline-block;
+        margin-right: 20px;
+    }
+    div.input-select-item-last {
+        display:inline-block;
+    }
+
+    div.input-select-radio {
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    div.input-select-item-text {
+        display: inline-block;
+        width:100%;
+    }
+
+
+    div.box-srcollbar {
+        overflow:auto;
+        width: 90%;
+        height:110px;
+        border:1px solid #000;
+    }
+
+/* マージン設定 
+------------------------------------------------------------*/
+/* bottom */
+.mb10 {margin-bottom: 10px;}
+.mb15 {margin-bottom: 15px;}
+.mb20 {margin-bottom: 20px;}
+/* right */
+.mr5 {margin-right: 5px;}
+.mr10 {margin-right: 10px;}
+.mr50 {margin-right: 50px;}
+
+/* 2023/03/22 Kawamoto ADD START */
+/* フィールドセット                        
+-----------------------------------------------------------*/
+legend.attachment {
+	width: auto;
+	border-bottom: none;
+	margin-bottom: 0;
+}
+/* 2023/03/22 Kawamoto ADD END */
+
+/* 検索条件コントロール                        
+-----------------------------------------------------------*/
+.cond-control {
+  display: block;
+  width: 100%;
+  height:24px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #555555;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+    border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+          transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.cond-control-data[type="date"] {
+  display: block;
+  width: 100%;
+  height:24px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #555555;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+          transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+
+  box-sizing: border-box;  /* パディングやボーダーも含めて幅を調整 */
+  min-width: 0;     /* 最小幅を解除 */
+}
+
+.grid-head-col{
+    background-color:#afeeee;
+	padding:3px;
+    display:inline-block;
+    width:100%;
+    vertical-align:middle;
+}
+
+.grid-condition-col{
+	background-color:#ffffff;
+    /*padding:3px;*/
+    padding-top:3px;
+    padding-bottom:3px;
+	display:inline-block;
+	vertical-align:middle;
+    width:100%
+}
+
+.grid-condition-col-asset {
+	background-color: #ffffff;
+	/*padding: 3px;*/
+    padding-top:3px;
+    padding-bottom:3px;
+	display: flex;
+	vertical-align: middle;
+	width: 100%;
+}
+
+.grid-condition-col-common {
+	background-color: #ffffff;
+	/*padding: 3px;*/
+    padding-top:3px;
+    padding-bottom:3px;
+	display: flex;
+	vertical-align: middle;
+	width: 100%;
+}
+
+.custom-margin {
+	margin-right: 100px; /* 右側に10pxのマージンを追加 */
+}
+
+.col-sm-2 {
+	min-width:250px;
+}
+
+/* 入力コントロール                        
+-----------------------------------------------------------*/
+.label-control {
+  background-color: transparent;
+  border: none;
+  pointer-events: none; 
+}
+
+.text-control {
+  resize: none;
+  display: block;
+  width: 100%;
+  height:24px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #555555;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+          transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.textarea-control {
+  resize: none;
+  display: block;
+  width: 541px;
+  height:147px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #555555;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+          transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+/* 入力コントロール（絞込プルダウン）
+-----------------------------------------------------------*/
+@media (min-width: 768px) {
+	.filter-combo-area {
+		height: 56px;
+	}
+}
+.select2-container--default .select2-selection__rendered {
+	line-height: 20px !important;
+}
+
+#item-conditions .select2-container--default .select2-selection--single {
+	border: 1px solid #ccc;
+	height: 25px !important;
+	line-height: 25px;
+	box-sizing: border-box;
+}
+
+#modal-content .select2-container--default .select2-selection--single {
+	border: 1px solid #666666;
+	height: 23px !important;
+	line-height: 23px;
+	box-sizing: border-box;
+	border-radius: 2px;
+}
+
+/* 全画面ローディング 固定配置・半透明・最前面                        
+-----------------------------------------------------------*/
+#overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.3);
+	z-index: 9999;
+	cursor: wait;
+	display: none; 
+}
+
+/* 検索条件：項目の高さが伸びても段が崩れないようにする
+   （float だと背の高い項目の横に次の段の項目が回り込むため、flex で段ごとに揃える。
+     col-sm-* の幅が効くのは 768px 以上のため、それ未満は従来どおり縦並び）
+   ※複数選択のSelect2を使う画面のみ、#item-conditions 直下の col-md-12 に condition-flex クラスを付ける
+-----------------------------------------------------------*/
+@media (min-width: 768px) {
+	#item-conditions > .col-md-12.condition-flex {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	#item-conditions-detail > .col-md-12.condition-flex {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	#item-conditions-detail.condition-flex {
+		flex-wrap: wrap;
+	}
+}
+
+/* 並び順：見出し・選択肢の左右の端を、上の検索条件の項目（col-sm-2 の左右の余白 15px の内側）に揃える（実棚照会と同じ位置・幅） */
+#item-sort .sort-head-col {
+	margin-left: 15px;
+	margin-right: 15px;
+	width: calc(100% - 30px);
+}
+
+#item-sort .sort-condition-col {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: 15px;
+	margin-right: 15px;
+	width: calc(100% - 30px);
+}
+
+#item-sort .sort-condition-col .input-select-item {
+	margin-right: 15px;
+	white-space: nowrap;
+}
+
+.slick-cell.cell-right {
+	text-align: right;
+}
+
+/* 複数選択のSelect2（普段は1行分、選択数が増えたら2行分まで伸び、それ以上は枠内を縦スクロール）
+   ※外枠は filter-combo-area（高さ固定）ではなく combo-area にする
+-----------------------------------------------------------*/
+#item-conditions .select2-container--default .select2-selection--multiple {
+	position: relative;
+	border: 1px solid #ccc;
+	height: auto;
+	min-height: 25px;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* スクロールは選択値の一覧（ul）に付ける。
+   スクロールバーの有無で×ボタンの位置が変わらないよう、スクロールバー分の領域は常に確保し（scrollbar-gutter）、
+   その左に×ボタン用の余白を空けておく */
+#item-conditions .select2-container--default .select2-selection--multiple .select2-selection__rendered {
+	max-height: 46px;  /* 2行分（タグ1行＝22px×2＋余白）。これを超えたらスクロール */
+	overflow-y: auto;
+	scrollbar-gutter: stable;
+	padding: 0 18px 0 4px;
+}
+
+/* ×ボタン（全解除）はスクロールしても表示されたままにする。スクロールバーと重ならないよう、その左に置く */
+#item-conditions .select2-container--default .select2-selection--multiple .select2-selection__clear {
+	position: absolute;
+	top: 2px;
+	right: 20px;
+	margin: 0;
+	float: none;
+	line-height: 18px;
+}
+
+#item-conditions .select2-container--default .select2-selection--multiple .select2-selection__choice {
+	margin-top: 2px;
+	line-height: 18px;
+}
+
+#item-conditions .select2-container--default .select2-selection--multiple .select2-search__field {
+	margin-top: 2px;
+}
+
+/* 複数入力（テキストボックス内の×、複数ボタン、複数入力ダイアログ）
+-----------------------------------------------------------*/
+.grid-condition-col-multi {
+	background-color: #ffffff;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	display: flex;
+	vertical-align: middle;
+	width: 100%;
+}
+
+.clearable {
+	position: relative;
+	display: block;
+	flex: 1;
+	min-width: 0;
+}
+
+	.clearable input {
+		padding-right: 20px;	/* ×と文字が重ならないように */
+	}
+
+	.clearable select {
+		padding-right: 36px;	/* ×・▼と文字が重ならないように */
+	}
+
+		.clearable select ~ .clearable-clear {
+			right: 24px;	/* プルダウンの▼の左に表示 */
+		}
+
+.clearable-clear {
+	display: none;
+	position: absolute;
+	top: 50%;
+	right: 6px;
+	transform: translateY(-50%);
+	color: #999999;
+	line-height: 1;
+	cursor: pointer;
+}
+
+	.clearable-clear:hover {
+		color: #333333;
+	}
+
+.multi-input-button {
+	margin-left: 4px;
+	height: 24px;
+	padding: 0 8px;
+	font-size: 12px;
+	line-height: 22px;
+}
+
+/* 複数入力のボタン色（「複数」ボタン、ダイアログの「キャンセル」「選択」ボタン）
+   他画面のボタン（Content\Operation.css の input.defButton）と同じ色にする。
+   色を変える場合はここの background-color / border-color / color を変更する */
+/* 通常の色（:focus は Bootstrap のグレーを上書きするため。ダイアログを閉じた後にフォーカスが残っても通常の色のまま） */
+.btn.multi-input-button,
+.btn.multi-input-button:focus,
+#multi-input-dialog .btn.multi-input-cancel,
+#multi-input-dialog .btn.multi-input-cancel:focus,
+#multi-input-dialog .btn.multi-input-select,
+#multi-input-dialog .btn.multi-input-select:focus {
+	background-color: #79A7DA;
+	border-color: #7DA4CF;
+	color: #fff;
+}
+
+/* マウスを乗せた時・押した時の色 */
+.btn.multi-input-button:hover,
+.btn.multi-input-button:active,
+#multi-input-dialog .btn.multi-input-cancel:hover,
+#multi-input-dialog .btn.multi-input-cancel:active,
+#multi-input-dialog .btn.multi-input-select:hover,
+#multi-input-dialog .btn.multi-input-select:active {
+	background-color: #Df9090;
+	border-color: #Df9090;
+	color: #fff;
+}
+
+#multi-input-dialog .multi-input-item {
+	margin-bottom: 6px;
+}
+
+/*[CC431] ADD Start 20261013*/
+/* 入力欄の最大文字数を超えたときのエラー表示欄（空でも高さを固定して、表示・消去でボタンの位置が動かないようにする） */
+#multi-input-dialog .multi-input-message {
+	min-height: 20px;
+	padding: 0 15px;
+	color: #ff0000;
+	font-size: 12px;
+	line-height: 20px;
+}
+
+/* キャンセルボタンを左端（入力欄の左端と同じ位置）に表示する。選択ボタンは右端のまま */
+#multi-input-dialog .multi-input-cancel {
+	float: left;
+}
+/*[CC431] ADD End 20261013*/
+
+/* Bootstrap 3.0 には modal-sm がないため、複数入力ダイアログ用に定義する */
+@media (min-width: 768px) {
+	#multi-input-dialog .modal-sm {
+		width: 300px;
+	}
+}
+
+/* 見出し内のチェックボックス（例：ロケーション小区分の「場所から選ぶ」）
+   見出し（grid-head-col）の右端に緑の帯で表示し、チェックボックスを上下中央にそろえる
+-----------------------------------------------------------*/
+.head-check {
+	float: right;
+	display: flex;
+	align-items: center;
+	margin: 0;
+	padding: 0 4px;
+	background-color: #28a745;
+	color: #ffffff;
+	border-radius: 3px;
+	font-weight: normal;
+	font-size: 90%;
+	cursor: pointer;
+}
+
+	.head-check input[type="checkbox"] {
+		margin: 0 3px 0 0;
+	}

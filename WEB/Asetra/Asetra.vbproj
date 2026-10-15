@@ -1,0 +1,798 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{042B3898-25DC-4F2D-B50F-B8B265C06F3F}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Asetra</RootNamespace>
+    <AssemblyName>Asetra</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionStrict>Off</OptionStrict>
+    <OptionInfer>On</OptionInfer>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Asetra.xml</DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+    <WarningsAsErrors>
+    </WarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Asetra.xml</DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
+    <WarningsAsErrors>
+    </WarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.2.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.8.2\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GrapeCity.Documents.Common, Version=2.2.0.310, Culture=neutral, PublicKeyToken=d55d733d2bfd5065, processorArchitecture=MSIL">
+      <HintPath>..\packages\GrapeCity.DioDocs.Common.ja.2.2.0.310\lib\net461\GrapeCity.Documents.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GrapeCity.Documents.Excel, Version=2.2.1.0, Culture=neutral, PublicKeyToken=c57ae7fc6891b71d, processorArchitecture=MSIL">
+      <HintPath>..\packages\GrapeCity.DioDocs.Excel.ja.2.2.1\lib\net461\GrapeCity.Documents.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GrapeCity.Documents.Imaging, Version=2.2.0.310, Culture=neutral, PublicKeyToken=d55d733d2bfd5065, processorArchitecture=MSIL">
+      <HintPath>..\packages\GrapeCity.DioDocs.Imaging.ja.2.2.0.310\lib\net461\GrapeCity.Documents.Imaging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GrapeCity.Documents.Pdf, Version=2.2.0.310, Culture=neutral, PublicKeyToken=d55d733d2bfd5065, processorArchitecture=MSIL">
+      <HintPath>..\packages\GrapeCity.DioDocs.Pdf.ja.2.2.0.310\lib\net461\GrapeCity.Documents.Pdf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.0.0.999, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.0.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.2.0\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.2.0\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.2.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.Web, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.2.0\lib\net45\Microsoft.AI.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.2.0\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ApplicationInsights.2.2.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Memory, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.0\lib\netstandard1.1\System.Memory.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.0\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Collections.Specialized" />
+    <Import Include="System.Configuration" />
+    <Import Include="System.Text" />
+    <Import Include="System.Text.RegularExpressions" />
+    <Import Include="System.Web" />
+    <Import Include="System.Web.Caching" />
+    <Import Include="System.Web.Mvc" />
+    <Import Include="System.Web.Mvc.Ajax" />
+    <Import Include="System.Web.Mvc.Html" />
+    <Import Include="System.Web.Routing" />
+    <Import Include="System.Web.SessionState" />
+    <Import Include="System.Web.Security" />
+    <Import Include="System.Web.Profile" />
+    <Import Include="System.Web.UI" />
+    <Import Include="System.Web.UI.WebControls" />
+    <Import Include="System.Web.UI.WebControls.WebParts" />
+    <Import Include="System.Web.UI.HtmlControls" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.vb" />
+    <Compile Include="App_Start\FilterConfig.vb" />
+    <Compile Include="App_Start\RouteConfig.vb" />
+    <Compile Include="Controllers\AssetDetailController.vb" />
+    <Compile Include="Controllers\AssetHistoryController.vb" />
+    <Compile Include="Controllers\AssetLabelPrintController.vb" />
+    <Compile Include="Controllers\ColSetController.vb" />
+    <Compile Include="Controllers\ConstAssetHistController.vb" />
+    <Compile Include="Controllers\ConstAssetListController.vb" />
+    <Compile Include="Controllers\ConstructionHistController.vb" />
+    <Compile Include="Controllers\ConstructionListController.vb" />
+    <Compile Include="Controllers\DrugManageListController.vb" />
+    <Compile Include="Controllers\InventoryLocHistoryController.vb" />
+    <Compile Include="Controllers\LendingHistoryController.vb" />
+    <Compile Include="Controllers\AssetLeasePlaceDetailController.vb" />
+    <Compile Include="Controllers\AssetLeasePlaceListController.vb" />
+    <Compile Include="Controllers\AssetListController.vb" />
+    <Compile Include="Controllers\CalendarController.vb" />
+    <Compile Include="Controllers\CategoryController.vb" />
+    <Compile Include="Controllers\CsvMappingController.vb" />
+    <Compile Include="Controllers\DepartmentController.vb" />
+    <Compile Include="Controllers\EmployeeController.vb" />
+    <Compile Include="Controllers\EntryProductKeyController.vb" />
+    <Compile Include="Controllers\GateController.vb" />
+    <Compile Include="Controllers\GatePassLogController.vb" />
+    <Compile Include="Controllers\GoodsController.vb" />
+    <Compile Include="Controllers\InventoryHistoryController.vb" />
+    <Compile Include="Controllers\InventoryAssetHistoryController.vb" />
+    <Compile Include="Controllers\LendingEntryController.vb" />
+    <Compile Include="Controllers\AssetLeaseHitoryController.vb" />
+    <Compile Include="Controllers\LendingListController.vb" />
+    <Compile Include="Controllers\LendingMainteEntryController.vb" />
+    <Compile Include="Controllers\LendingStatusController.vb" />
+    <Compile Include="Controllers\LicenseController.vb" />
+    <Compile Include="Controllers\OperationLogController.vb" />
+    <Compile Include="Controllers\InventoryInquiryController.vb" />
+    <Compile Include="Controllers\LeasePlaceController.vb" />
+    <Compile Include="Controllers\LocationController.vb" />
+    <Compile Include="Controllers\LoginController.vb" />
+    <Compile Include="Controllers\MenuController.vb" />
+    <Compile Include="Controllers\DrugSpecListController.vb" />
+    <Compile Include="Controllers\StockListController.vb" />
+    <Compile Include="Controllers\InventorySummaryController.vb" />
+    <Compile Include="Controllers\SettingController.vb" />
+    <Compile Include="Controllers\Shared\BaseController.vb" />
+    <Compile Include="Controllers\Shared\ErrorController.vb" />
+    <Compile Include="Controllers\Shared\GeneralBaseController.vb" />
+    <Compile Include="Controllers\Shared\PageBaseController.vb" />
+    <Compile Include="Controllers\TempAssetListController.vb" />
+    <Compile Include="Controllers\TemporaryListController.vb" />
+    <Compile Include="Controllers\WordController.vb" />
+    <Compile Include="Dao\clsSV_DB.vb" />
+    <Compile Include="Dao\ToolAsetraVer.vb" />
+    <Compile Include="Dao\ToolAsset.vb" />
+    <Compile Include="Dao\ToolCategory.vb" />
+    <Compile Include="Dao\ToolColSet.vb" />
+    <Compile Include="Dao\ToolCommon.vb" />
+    <Compile Include="Dao\ToolConstruction.vb" />
+    <Compile Include="Dao\ToolCSVHeader.vb" />
+    <Compile Include="Dao\ToolDepartment.vb" />
+    <Compile Include="Dao\ToolDrugManageList.vb" />
+    <Compile Include="Dao\ToolDrugSpecList.vb" />
+    <Compile Include="Dao\ToolEmployee.vb" />
+    <Compile Include="Dao\ToolGate.vb" />
+    <Compile Include="Dao\ToolGoods.vb" />
+    <Compile Include="Dao\ToolInAsset.vb" />
+    <Compile Include="Dao\ToolInvAsset.vb" />
+    <Compile Include="Dao\ToolInventory.vb" />
+    <Compile Include="Dao\ToolLeasePlace.vb" />
+    <Compile Include="Dao\ToolLendingConfirm.vb" />
+    <Compile Include="Dao\ToolLendingInvoice.vb" />
+    <Compile Include="Dao\ToolAssetExcelImport.vb" />
+    <Compile Include="Dao\ToolNewsDownload.vb" />
+    <Compile Include="Dao\ToolLocation.vb" />
+    <Compile Include="Dao\ToolMail.vb" />
+    <Compile Include="Dao\ToolMakeQr.vb" />
+    <Compile Include="Dao\ToolDrugDueLog.vb" />
+    <Compile Include="Dao\ToolOperationLog.vb" />
+    <Compile Include="Dao\ToolReserve.vb" />
+    <Compile Include="Dao\ToolLendingLabel.vb" />
+    <Compile Include="Dao\ToolSetting.vb" />
+    <Compile Include="Filters\AllFilterAttribute.vb" />
+    <Compile Include="Global.asax.vb">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\PagerHelper.vb" />
+    <Compile Include="Misc\CartInfo.vb" />
+    <Compile Include="Misc\AuthInfo.vb" />
+    <Compile Include="Misc\clsSV_CsvExport.vb" />
+    <Compile Include="Misc\clsSV_CsvFile.vb" />
+    <Compile Include="Misc\CommonSettingKey.vb" />
+    <Compile Include="Misc\CommonWord.vb" />
+    <Compile Include="Misc\CommonRfid.vb" />
+    <Compile Include="Misc\CommonConst.vb" />
+    <Compile Include="Misc\DrugManageInfo.vb" />
+    <Compile Include="Misc\DrugSpecInfo.vb" />
+    <Compile Include="Misc\LendingEntryInfo.vb" />
+    <Compile Include="Misc\LendingMainteEntryInfo.vb" />
+    <Compile Include="Misc\LoginUser.vb" />
+    <Compile Include="Misc\MessageRfid.vb" />
+    <Compile Include="Misc\QRImageInfo.vb" />
+    <Compile Include="Misc\RedirectAssetListInfo.vb" />
+    <Compile Include="Misc\RedirectConstructionListInfo.vb" />
+    <Compile Include="Misc\SettingInfo.vb" />
+    <Compile Include="Misc\SlickGridInfo.vb" />
+    <Compile Include="Models\AssetDetail\AssetDetailModel.vb" />
+    <Compile Include="Models\AssetDetail\AssetDetailViewModel.vb" />
+    <Compile Include="Models\AssetHistory\AssetHistoryViewModel.vb" />
+    <Compile Include="Models\AssetHistory\AssetHistoryModel.vb" />
+    <Compile Include="Models\AssetLabelPrint\AssetLabelPrintModel.vb" />
+    <Compile Include="Models\AssetLabelPrint\AssetLabelPrintViewModel.vb" />
+    <Compile Include="Models\AssetLeaseHitory\AssetLeaseHitoryViewModel.vb" />
+    <Compile Include="Models\AssetLeasePlaceDetail\AssetLeasePlaceDetailViewModel.vb" />
+    <Compile Include="Models\AssetLeasePlaceList\AssetLeasePlaceListViewModel.vb" />
+    <Compile Include="Models\AssetList\AssetListMNG_LOC_L_CDCNTModel.vb" />
+    <Compile Include="Models\AssetList\AssetListLOC_L_CDCNTModel.vb" />
+    <Compile Include="Models\AssetList\AssetListLOC_L_CDModel.vb" />
+    <Compile Include="Models\AssetList\AssetListLabelModel.vb" />
+    <Compile Include="Models\AssetList\AssetListModel.vb" />
+    <Compile Include="Models\AssetList\AssetListViewModel.vb" />
+    <Compile Include="Models\AssetList\AssetListWorkModel.vb" />
+    <Compile Include="Models\Calendar\CalendarViewModel.vb" />
+    <Compile Include="Models\Category\AssetIdRegDivDropdownModel.vb" />
+    <Compile Include="Models\Category\CategoryCsvModel.vb" />
+    <Compile Include="Models\Category\CategoryModel.vb" />
+    <Compile Include="Models\Category\CategoryViewModel.vb" />
+    <Compile Include="Models\Category\EpcCompanyKeyDropdownModel.vb" />
+    <Compile Include="Models\ColSet\ColSetDropdownModel.vb" />
+    <Compile Include="Models\ColSet\ColSetDetailModel.vb" />
+    <Compile Include="Models\ColSet\ColSetDetailViewModel.vb" />
+    <Compile Include="Models\ColSet\ColSetModel.vb" />
+    <Compile Include="Models\ConstAssetHist\ConstAssetHistViewModel.vb" />
+    <Compile Include="Models\ConstAssetList\ConstAssetListModel.vb" />
+    <Compile Include="Models\ConstAssetList\ConstAssetListViewModel.vb" />
+    <Compile Include="Models\ConstructionHist\ConstructionHistModel.vb" />
+    <Compile Include="Models\ConstructionHist\ConstructionHistViewModel.vb" />
+    <Compile Include="Models\ConstructionList\ConstructionListCsvModel.vb" />
+    <Compile Include="Models\ConstructionList\ConstructionListReserveListViewModel.vb" />
+    <Compile Include="Models\ConstructionList\ConstructionListModel.vb" />
+    <Compile Include="Models\ConstructionList\ConstructionListTempListViewModel.vb" />
+    <Compile Include="Models\ConstructionList\ConstructionListTermModel.vb" />
+    <Compile Include="Models\ConstructionList\ConstructionListViewModel.vb" />
+    <Compile Include="Models\ConstructionList\ReserveListModel.vb" />
+    <Compile Include="Models\CsvMapping\CsvMapDetailViewModel.vb" />
+    <Compile Include="Models\CsvMapping\CsvMapDetailModel.vb" />
+    <Compile Include="Models\CsvMapping\CsvMapModel.vb" />
+    <Compile Include="Models\DrugManageList\DrugManageListViewModel.vb" />
+    <Compile Include="Models\Employee\EmployeeCsvModel.vb" />
+    <Compile Include="Models\Employee\EmployeeHubModel.vb" />
+    <Compile Include="Models\EntryProductKey\EntryProductKeyViewModel.vb" />
+    <Compile Include="Models\GatePassLog\GatePassLogViewModel.vb" />
+    <Compile Include="Models\Gate\GateViewModel.vb" />
+    <Compile Include="Models\Gate\GateModel.vb" />
+    <Compile Include="Models\Gate\GateAntennaModel.vb" />
+    <Compile Include="Models\Goods\GoodsModel.vb" />
+    <Compile Include="Models\Goods\GoodsViewModel.vb" />
+    <Compile Include="Models\InventoryInquiry\ApiResponse.vb" />
+    <Compile Include="Models\InventoryInquiry\ChangeAssetResponse.vb" />
+    <Compile Include="Models\InventoryInquiry\EditedContainModel.vb" />
+    <Compile Include="Models\InventoryLocHistory\InventoryLocHistoryViewModel.vb" />
+    <Compile Include="Models\InventorySummary\InventorySummaryHedViewModel.vb" />
+    <Compile Include="Models\LendingHistory\LendingHistoryViewModel.vb" />
+    <Compile Include="Models\LendingHistory\LendingHistoryModel.vb" />
+    <Compile Include="Models\LendingList\LendingListViewModel.vb" />
+    <Compile Include="Models\LendingStatus\CsvImportModel.vb" />
+    <Compile Include="Models\LendingStatus\LendingEntryViewModel.vb" />
+    <Compile Include="Models\LendingStatus\LendingEntryModel.vb" />
+    <Compile Include="Models\LendingStatus\LendingMainteEntryModel.vb" />
+    <Compile Include="Models\LendingStatus\LendingMainteEntryViewModel.vb" />
+    <Compile Include="Models\LendingStatus\LendingRefListCsvModel.vb" />
+    <Compile Include="Models\LendingStatus\LendingRefMainteCsvModel.vb" />
+    <Compile Include="Models\LendingStatus\LendingStatusReserveInfoModel.vb" />
+    <Compile Include="Models\LendingStatus\LendingStatusViewModel.vb" />
+    <Compile Include="Models\LendingStatus\ReserveDetailModel.vb" />
+    <Compile Include="Models\LendingStatus\ReserveDetailViewModel.vb" />
+    <Compile Include="Models\LendingStatus\SearchMainteViewModel.vb" />
+    <Compile Include="Models\Location\LocationNameModel.vb" />
+    <Compile Include="Models\Login\LoginViewModel.vb" />
+    <Compile Include="Models\Calendar\CalendarModel.vb" />
+    <Compile Include="Models\Auth\AuthModel.vb" />
+    <Compile Include="Models\Shared\AuthLocationSFModel.vb" />
+    <Compile Include="Models\Shared\CategoryDropdownModel.vb" />
+    <Compile Include="Models\Category\EpcSizeDropdownModel.vb" />
+    <Compile Include="Models\Department\DepartmentModel.vb" />
+    <Compile Include="Models\Department\DepartmentViewModel.vb" />
+    <Compile Include="Models\Employee\EmployeeModel.vb" />
+    <Compile Include="Models\Employee\EmployeeViewModel.vb" />
+    <Compile Include="Models\InventoryAssetHistory\InventoryAssetHistoryViewModel.vb" />
+    <Compile Include="Models\InventoryAssetHistory\IASInventoryViewModel.vb" />
+    <Compile Include="Models\InventoryHistory\InventoryHistoryViewModel.vb" />
+    <Compile Include="Models\InventorySummary\AssetViewModel.vb" />
+    <Compile Include="Models\InventorySummary\AssetStatusCountViewModel.vb" />
+    <Compile Include="Models\InventorySummary\InventorySummaryViewModel.vb" />
+    <Compile Include="Models\InventorySummary\ISInventoryViewModel.vb" />
+    <Compile Include="Models\InventorySummary\NoItemNumberViewModel.vb" />
+    <Compile Include="Models\InventorySummary\PhysicalInventoryCountViewModel.vb" />
+    <Compile Include="Models\LeasePlace\LeasePlaceModel.vb" />
+    <Compile Include="Models\LeasePlace\LeasePlaceViewModel.vb" />
+    <Compile Include="Models\Location\LocationUsageModel.vb" />
+    <Compile Include="Models\Location\LocationCsvModel.vb" />
+    <Compile Include="Models\Shared\CheckReserveSF.vb" />
+    <Compile Include="Models\Shared\ConstAssetModel.vb" />
+    <Compile Include="Models\Shared\DropdownModel.vb" />
+    <Compile Include="Models\Shared\LocationDropdownModel.vb" />
+    <Compile Include="Models\Location\LocationViewModel.vb" />
+    <Compile Include="Models\Location\LocationModel.vb" />
+    <Compile Include="Models\OperationLog\OperationLogViewModel.vb" />
+    <Compile Include="Models\Shared\MstAssetModel.vb" />
+    <Compile Include="Models\Shared\MstConstructionModel.vb" />
+    <Compile Include="Models\Shared\OperationLogModel.vb" />
+    <Compile Include="Models\Shared\PrinterDropdownModel.vb" />
+    <Compile Include="Models\Shared\ReserveMainteInfoSF.vb" />
+    <Compile Include="Models\DrugSpecList\DrugSpecListViewModel.vb" />
+    <Compile Include="Models\Shared\SearchInputItemModel.vb" />
+    <Compile Include="Models\StockList\StockListModel.vb" />
+    <Compile Include="Models\StockList\StockListViewModel.vb" />
+    <Compile Include="Models\InventoryInquiry\InventoryModel.vb" />
+    <Compile Include="Models\InventoryInquiry\InventoryViewModel.vb" />
+    <Compile Include="Models\InventoryInquiry\InventoryInquiryViewModel.vb" />
+    <Compile Include="Models\InventoryInquiry\InventoryInquiryModel.vb" />
+    <Compile Include="Models\Setting\SettingModel.vb" />
+    <Compile Include="Models\Setting\SettingViewModel.vb" />
+    <Compile Include="Models\Shared\M_WORDModel.vb" />
+    <Compile Include="Models\Shared\BaseModel.vb" />
+    <Compile Include="Misc\Pager.vb" />
+    <Compile Include="Models\Shared\SystemDBContext.vb" />
+    <Compile Include="Models\GatePassLog\GatePassLogModel.vb" />
+    <Compile Include="Models\Mail\MailModel.vb" />
+    <Compile Include="Models\Mail\MailToModel.vb" />
+    <Compile Include="Models\TempAssetList\TempAssetListModel.vb" />
+    <Compile Include="Models\TempAssetList\TempAssetListViewModel.vb" />
+    <Compile Include="Models\TemporaryList\TemporaryListModel.vb" />
+    <Compile Include="Models\TemporaryList\TemporaryListViewModel.vb" />
+    <Compile Include="Models\Word\WordModel.vb" />
+    <Compile Include="Models\Word\WordViewModel.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Startup.vb" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\customize.css" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\Menu.css" />
+    <Content Include="Content\Modal.css" />
+    <Content Include="Content\Operation.css" />
+    <Content Include="Content\select2\select2.min.css" />
+    <Content Include="Content\slick-default-theme.css" />
+    <Content Include="Content\slick.grid.css" />
+    <Content Include="Content\styles.css" />
+    <Content Include="Content\Table.css" />
+    <Content Include="Exe\AxInterop.QRMAKERADLib.dll" />
+    <Content Include="Exe\ExecQRMaker.exe" />
+    <Content Include="Exe\ExecQRMaker.pdb" />
+    <Content Include="Exe\ExecQRMaker.xml" />
+    <Content Include="Exe\Interop.QRMAKERADLib.dll" />
+    <Content Include="Exe\QRmakerAd.ocx" />
+    <Content Include="Exe\QRmakerAd64.ocx" />
+    <Content Include="Exe\stdole.dll" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\ASETRA.jpg" />
+    <Content Include="Images\download.png" />
+    <Content Include="Images\Loading.gif" />
+    <Content Include="Images\minus.png" />
+    <Content Include="Images\noimage.png" />
+    <Content Include="Exe\ExecQRMaker.exe.config" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\PublishProfiles\Asetra.pubxml" />
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Content\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Images\plus.png" />
+    <Content Include="ImageTmp\dummy.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="QRimages\dummy.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripts\common.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.binarytransport.js" />
+    <Content Include="Scripts\jquery.dropdown.js" />
+    <Content Include="Scripts\jquery.event.drag-2.3.0.js" />
+    <Content Include="Scripts\multi-input-dialog.js" />
+    <Content Include="Scripts\myslickgrid.js" />
+    <Content Include="Scripts\select-code-name.js" />
+    <Content Include="Scripts\select2-common.js" />
+    <Content Include="Scripts\select2\i18n\ja.js" />
+    <Content Include="Scripts\select2\select2.min.js" />
+    <Content Include="Scripts\slick.checkboxselectcolumn.js" />
+    <Content Include="Scripts\slick.colgroup.js" />
+    <Content Include="Scripts\slick.core.js" />
+    <Content Include="Scripts\slick.dataview.js" />
+    <Content Include="Scripts\slick.editors.js" />
+    <Content Include="Scripts\slick.grid.js" />
+    <Content Include="Scripts\slick.rowmovemanager.js" />
+    <Content Include="Scripts\slick.rowselectionmodel.js" />
+    <Content Include="Views\Location\Index.vbhtml" />
+    <Content Include="Views\Shared\Lockout.vbhtml" />
+    <Content Include="Views\Shared\_LoginPartial.vbhtml" />
+    <Content Include="Views\Shared\_MultiInputDialog.vbhtml" />
+    <Content Include="Views\Error\Index.vbhtml" />
+    <Content Include="Views\Error\NotFound.vbhtml" />
+    <Content Include="Views\Error\NoSession.vbhtml" />
+    <Content Include="Views\Setting\Index.vbhtml" />
+    <Content Include="Views\InventoryInquiry\Index.vbhtml" />
+    <Content Include="Views\Employee\Index.vbhtml" />
+    <Content Include="Views\Menu\Index.vbhtml" />
+    <Content Include="Views\LeasePlace\Index.vbhtml" />
+    <Content Include="Views\Department\Index.vbhtml" />
+    <Content Include="Views\Category\Index.vbhtml" />
+    <Content Include="Views\InventorySummary\Index.vbhtml" />
+    <Content Include="Views\StockList\Index.vbhtml" />
+    <Content Include="Views\AssetList\Index.vbhtml" />
+    <Content Include="Views\Login\index.vbhtml" />
+    <Content Include="Views\InventoryHistory\Index.vbhtml" />
+    <Content Include="Views\AssetHistory\Index.vbhtml" />
+    <Content Include="Views\InventoryAssetHistory\Index.vbhtml" />
+    <Content Include="Views\OperationLog\Index.vbhtml" />
+    <Content Include="Views\Word\Index.vbhtml" />
+    <Content Include="Views\Shared\_LayoutLogin.vbhtml" />
+    <Content Include="Views\AssetDetail\Index.vbhtml" />
+    <Content Include="Views\AssetList\Init.vbhtml" />
+    <Content Include="Views\StockList\Init.vbhtml" />
+    <Content Include="Template\QRDaicho.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\CsvMapping\Index.vbhtml" />
+    <Content Include="Views\EntryProductKey\Index.vbhtml" />
+    <Content Include="Views\AssetLeasePlaceList\Index.vbhtml" />
+    <Content Include="Views\AssetLeasePlaceDetail\Index.vbhtml" />
+    <Content Include="Views\Gate\Index.vbhtml" />
+    <Content Include="Views\GatePassLog\Index.vbhtml" />
+    <Content Include="Views\Calendar\Index.vbhtml" />
+    <Content Include="Views\LendingStatus\Index.vbhtml" />
+    <Content Include="Views\LendingEntry\index.vbhtml" />
+    <Content Include="Views\LendingList\Index.vbhtml" />
+    <Content Include="Views\LendingMainteEntry\index.vbhtml" />
+    <Content Include="Views\Goods\Index.vbhtml" />
+    <Content Include="Views\AssetLeaseHitory\Index.vbhtml" />
+    <Content Include="Views\LendingHistory\Index.vbhtml" />
+    <Content Include="Template\LEASE_PRINT.xlsx" />
+    <Content Include="Views\DrugSpecList\index.vbhtml" />
+    <Content Include="Views\DrugManageList\index.vbhtml" />
+    <Content Include="Template\DRUG_MANAGE_LIST.xlsx" />
+    <Content Include="Template\DRUG_SPEC_LIST.xlsx" />
+    <Content Include="Views\InventoryLocHistory\Index.vbhtml" />
+    <Content Include="Views\ColSet\Index.vbhtml" />
+    <Content Include="Views\ConstructionList\Index.vbhtml" />
+    <Content Include="Views\TemporaryList\Index.vbhtml" />
+    <Content Include="Views\TempAssetList\Index.vbhtml" />
+    <Content Include="Views\ConstAssetList\Index.vbhtml" />
+    <Content Include="Views\ConstructionHist\Index.vbhtml" />
+    <Content Include="Views\ConstAssetHist\Index.vbhtml" />
+    <Content Include="Template\CONST_PRINT.xlsx" />
+    <Content Include="Views\AssetLabelPrint\Index.vbhtml" />
+    <Content Include="Template\INVENTRY_RESULT.xlsx" />
+    <Content Include="Template\QRDaicho_Custom1.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Views\_ViewStart.vbhtml" />
+    <Content Include="Views\Shared\_Layout.vbhtml" />
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\License\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AsetraLibEpc\AsetraLibEpc.vbproj">
+      <Project>{680f45c5-a392-48cf-8f71-8b3eecf64d90}</Project>
+      <Name>AsetraLibEpc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AsetraLibRegist\AsetraLibRegist.vbproj">
+      <Project>{03fc4ccd-bdff-4f79-a6e0-5ef1928fae0b}</Project>
+      <Name>AsetraLibRegist</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AsetraLibWebApi\AsetraLibWebApi.vbproj">
+      <Project>{e902fc12-a362-42ff-a3ea-d943a9da3728}</Project>
+      <Name>AsetraLibWebApi</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2433</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2434/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:2434/</IISAppRootUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

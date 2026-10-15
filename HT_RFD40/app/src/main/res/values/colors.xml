@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary2">#4F90AF</color>
+    <color name="colorPrimary">#4E6EA7</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="ButtonMenu2">#73C6C6</color>
+    <color name="ButtonMenu3">#79A7DA</color>
+    <color name="ButtonMenu">#79B8DA</color>
+    <color name="ButtonUnder">#009688</color>
+    <color name="ButtonUnder2">#61B7C4</color>
+    <color name="ButtonChange">#BF7900</color>
+    <color name="ButtonDefault">#9CD6E7</color>
+    <color name="BorderLine">#0000FF</color>
+    <color name="ListViewBack">#DFE7DF</color>
+    <color name="ListViewBack2">#FFFFFF</color>
+    <color name="ButtonMenuColor">#FFFFFF</color>
+    <color name="BackgroundColor">#E0EAF1</color>
+    <color name="DialogColor">#DA7F78</color>
+    <color name="ConfirmColor">#4E6EA7</color>
+    <color name="TagModeON">#D81B60</color>
+    <color name="TagModeOFF">#BABCC0</color>
+    <color name="ButtonDisable">#BABCC0</color>
+    <color name="Information">#709744</color>
+    <color name="ListViewHeader">#6ab3b3</color>
+    <color name="Blue">#0000FF</color>
+    <color name="Red">#ff0000</color>
+    <color name="Black">#FF000000</color>
+    <color name="White">#FFFFFF</color>
+</resources>

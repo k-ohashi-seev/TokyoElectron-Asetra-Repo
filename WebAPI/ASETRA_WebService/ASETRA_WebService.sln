@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ASETRA_WebService", "ASETRA_WebService\ASETRA_WebService.vbproj", "{CD610B38-C275-439A-B38A-0E26438C7EFA}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ASETRA_WebService.Tests", "ASETRA_WebService.Tests\ASETRA_WebService.Tests.vbproj", "{E27AEC24-3B02-4070-90A3-1EEA2A99BA96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CD610B38-C275-439A-B38A-0E26438C7EFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD610B38-C275-439A-B38A-0E26438C7EFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD610B38-C275-439A-B38A-0E26438C7EFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD610B38-C275-439A-B38A-0E26438C7EFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E27AEC24-3B02-4070-90A3-1EEA2A99BA96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E27AEC24-3B02-4070-90A3-1EEA2A99BA96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E27AEC24-3B02-4070-90A3-1EEA2A99BA96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E27AEC24-3B02-4070-90A3-1EEA2A99BA96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://seev-db-sv:8081/tfs/%E3%82%B7%E3%83%BC%E3%83%93%E3%82%B8%E3%83%A7%E3%83%B3
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ASETRA_WebService\\ASETRA_WebService.vbproj
+		SccProjectName1 = ASETRA_WebService
+		SccLocalPath1 = ASETRA_WebService
+		SccProjectUniqueName2 = ASETRA_WebService.Tests\\ASETRA_WebService.Tests.vbproj
+		SccProjectName2 = ASETRA_WebService.Tests
+		SccLocalPath2 = ASETRA_WebService.Tests
+	EndGlobalSection
+EndGlobal

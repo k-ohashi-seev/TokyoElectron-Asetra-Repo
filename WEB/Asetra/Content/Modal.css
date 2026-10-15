@@ -1,0 +1,233 @@
+#modal-content {
+	/*width: 1005px ;*/
+	margin: 0 ;
+	padding: 10px 20px ;
+	border: 2px solid #aaa ;
+	background: #fff ;
+	position: fixed ;
+	display: none ;
+	z-index: 2 ;
+}
+
+#modal-csv-content {
+	margin: 0 ;
+	padding: 10px 20px ;
+	border: 2px solid #aaa ;
+	background: #fff ;
+	position: fixed ;
+	display: none ;
+	z-index: 2 ;
+}
+
+#modal-qr-content {
+	margin: 0 ;
+	padding: 10px 10px ;
+	border: 2px solid #aaa ;
+	background: #fff ;
+	position: fixed ;
+	display: none ;
+	z-index: 2 ;
+}
+
+#modal-prt-content {
+	margin: 0 ;
+	padding: 10px 10px ;
+	border: 2px solid #aaa ;
+	background: #fff ;
+	position: fixed ;
+	display: none ;
+	z-index: 2 ;
+}
+
+#modal-invoice-content {
+	margin: 0 ;
+	padding: 10px 10px ;
+	border: 2px solid #aaa ;
+	background: #fff ;
+	position: fixed ;
+	display: none ;
+	z-index: 2 ;
+}
+
+#modal-cart-content {
+	margin: 0 ;
+	padding: 10px 10px ;
+	border: 2px solid #aaa ;
+	background: #fff ;
+	position: fixed ;
+	display: none ;
+	z-index: 2 ;
+}
+
+#modal-reserve-content {
+	margin: 0 ;
+	padding: 10px 10px ;
+	border: 2px solid #aaa ;
+	background: #fff ;
+	position: fixed ;
+	display: none ;
+	z-index: 2 ;
+}
+
+#modal-hikitsugi-content {
+	margin: 0 ;
+	padding: 10px 10px ;
+	border: 2px solid #aaa ;
+	background: #fff ;
+	position: fixed ;
+	display: none ;
+	z-index: 2 ;
+}
+
+#modal-kikanencho-content {
+	margin: 0 ;
+	padding: 10px 10px ;
+	border: 2px solid #aaa ;
+	background: #fff ;
+	position: fixed ;
+	display: none ;
+	z-index: 2 ;
+}
+
+/* 2023/03/22 Kawamoto ADD START */
+#modal-attachment-content {
+	margin: 0;
+	padding: 10px 20px;
+	border: 2px solid #aaa;
+	background: #fff;
+	position: fixed;
+	display: none;
+	z-index: 3;
+}
+
+#modal-filedrop-content {
+	margin: 0;
+	padding: 10px 20px;
+	border: 2px solid #aaa;
+	background: #fff;
+	position: fixed;
+	display: none;
+	z-index: 4;
+}
+/* 2023/03/22 Kawamoto ADD END */
+
+#modal-location-content {
+	margin: 0;
+	padding: 10px 20px;
+	border: 2px solid #aaa;
+	background: #fff;
+	position: fixed;
+	display: none;
+	z-index: 3;
+}
+
+#modal-const-complete-content {
+	margin: 0 ;
+	padding: 10px 10px ;
+	border: 2px solid #aaa ;
+	background: #fff ;
+	position: fixed ;
+	display: none ;
+	z-index: 2 ;
+}
+
+#modal-asset-reserve-content {
+	margin: 0 ;
+	padding: 10px 20px ;
+	border: 2px solid #aaa ;
+	background: #fff ;
+	position: fixed ;
+	display: none ;
+	z-index: 3 ;
+}
+
+.modal-p{
+	margin-top:1em;
+}
+
+.modal-p:first-child{
+	margin-top:0;
+}
+
+.button-link{
+	color:#00f;
+	text-decoration:underline;
+}
+ 
+.button-link:hover{
+	cursor:pointer;
+	color:#f00;
+}
+
+#modal-overlay {
+	z-index: 1 ;
+	display: none ;
+	position: fixed ;
+	top: 0 ;
+	left: 0 ;
+	width: 100% ;
+	height: 120% ;
+	background-color: #aaa ;
+    opacity:0.7
+}
+
+/* エラーメッセージ */
+.show-message-wrap .ui-dialog-titlebar {
+    background: #ec9f92;
+}
+
+/* 確認メッセージ */
+.show-confirm-wrap .ui-dialog-titlebar {
+    background: #8ce4ff;
+}
+
+/* エラーメッセージ */
+.show-message-wrap .ui-dialog-titlebar-close {
+    display: none;
+}
+
+/* 確認メッセージ */
+.show-confirm-wrap .ui-dialog-titlebar-close {
+    display: none;
+}
+
+/* エラーメッセージ */    
+.show-message-wrap .ui-dialog-buttonset button {
+    min-width:80px;
+}
+.show-message-wrap button:hover {
+    background: #Df9090
+}
+
+/* 確認メッセージ */    
+.show-confirm-wrap .ui-dialog-buttonset button {
+    min-width:80px;
+}
+.show-confirm-wrap .ui-dialog-buttonset button:hover {
+    background: #Df9090
+}
+
+/* 非活性ボタン */    
+.disable {
+    background: #cecece;
+}
+
+/* 数値テキスト */
+.numText {
+	text-align: right;	
+}
+
+/* 各画面のモーダルサイズ
+-----------------------------------------------------------*/
+/* 社員マスタ */
+/*div .modal-Employee {
+    width: 545px ;
+}*/
+/* 部署マスタ */
+/*.modal-department {
+    min-width: 545px;
+}*/
+/* 貸出先マスタ */
+/*.modal-leaseplace {
+    min-width: 545px ;
+}*/

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E6E4E0"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.rfid.main.MainActivity"
+    tools:showIn="@layout/activity_main">
+
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+		<TextView
+			android:id="@+id/MenuLblLoginName"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="5dp"
+			android:layout_marginTop="10dp"
+			android:layout_marginBottom="10dp"
+			android:textSize="24sp"
+			android:text="作業者：佐藤太郎"/>
+
+		<TableLayout
+			android:id="@+id/tableLayout2"
+			android:layout_width="240dp"
+			android:layout_height="match_parent"
+			android:layout_marginLeft="5dp"
+			android:layout_marginTop="5dp"
+			android:layout_marginRight="5dp"
+			android:layout_marginBottom="10dp"
+			android:layout_weight="0.9"
+			android:layout_gravity="center"
+			android:background="@color/BackgroundColor">
+
+			<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1">
+
+				<Button
+					android:id="@+id/btnMnu1"
+					android:layout_width="100dp"
+					android:layout_height="match_parent"
+					android:layout_marginLeft="5dp"
+					android:layout_marginTop="5dp"
+					android:layout_marginRight="3dp"
+					android:layout_marginBottom="0dp"
+					android:layout_weight="1"
+					android:background="@color/ButtonMenu"
+					android:drawableTop="@drawable/inventory"
+					android:drawablePadding="10dp"
+					android:gravity="center"
+					android:paddingTop="55dp"
+					android:paddingBottom="5dp"
+					android:text="棚卸"
+					android:textColor="@color/ButtonMenuColor"
+					android:textSize="@dimen/menu_button" />
+
+
+
+
+
+
+			</TableRow>
+
+		</TableLayout>>
+
+		<TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="0.9"
+            android:background="@color/BackgroundColor">
+
+
+
+			<TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+				android:visibility="gone">
+
+				<Button
+                    android:id="@+id/btnMnu3"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:background="@color/ButtonMenu"
+                    android:drawableTop="@drawable/rent"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="貸出"
+                    android:textColor="@color/ButtonMenuColor"
+                    android:textSize="@dimen/menu_button" />
+
+
+				<Button
+                    android:id="@+id/btnMnu4"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:background="@color/ButtonMenu"
+                    android:drawableTop="@drawable/returnable"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="返却"
+                    android:textColor="@color/ButtonMenuColor"
+                    android:textSize="@dimen/menu_button" />
+
+			</TableRow>
+
+			<TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+				android:visibility="gone">
+
+				<Button
+                    android:id="@+id/btnMnu5"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:background="@color/ButtonMenu"
+                    android:drawableTop="@drawable/hokan"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="保管"
+                    android:textColor="@color/ButtonMenuColor"
+                    android:textSize="@dimen/menu_button" />
+
+
+				<Button
+                    android:id="@+id/btnMnu6"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:background="@color/ButtonMenu"
+                    android:drawableTop="@drawable/trash"
+                    android:drawablePadding="10dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="5dp"
+                    android:text="除却"
+                    android:textColor="@color/ButtonMenuColor"
+                    android:textSize="@dimen/menu_button" />
+
+			</TableRow>
+
+			<TableRow
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1">
+
+				<Button
+					android:id="@+id/btnMnu2"
+					android:layout_width="100dp"
+					android:layout_height="match_parent"
+					android:layout_marginLeft="3dp"
+					android:layout_marginTop="0dp"
+					android:layout_marginRight="8dp"
+					android:layout_marginBottom="5dp"
+					android:layout_weight="1"
+					android:background="@color/ButtonMenu"
+					android:drawableTop="@drawable/search"
+					android:drawablePadding="10dp"
+					android:paddingTop="55dp"
+					android:paddingBottom="5dp"
+					android:text="探索"
+					android:textColor="@color/ButtonMenuColor"
+					android:textSize="@dimen/menu_button" />
+
+				<Button
+					android:id="@+id/btnMnu7"
+					android:layout_width="100dp"
+					android:layout_height="match_parent"
+					android:layout_marginLeft="8dp"
+					android:layout_marginTop="0dp"
+					android:layout_marginRight="5dp"
+					android:layout_marginBottom="5dp"
+					android:layout_weight="1"
+					android:background="@color/ButtonMenu"
+					android:drawableTop="@drawable/tag"
+					android:drawablePadding="10dp"
+					android:paddingTop="55dp"
+					android:paddingBottom="5dp"
+					android:text="タグ紐付"
+					android:textColor="@color/ButtonMenuColor"
+					android:textSize="@dimen/menu_button" />
+
+			</TableRow>
+		</TableLayout>
+
+		<LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.25"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+			<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+				<Button
+                    android:id="@+id/btnMnuSendData"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="1"
+                    android:background="@color/ButtonUnder"
+                    android:drawableLeft="@drawable/upload"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/menu_label_senddata"
+                    android:textColor="@color/ButtonMenuColor"
+                    android:textSize="@dimen/menu_webapi_button"
+                    android:textStyle="bold" />
+
+				<Button
+                    android:id="@+id/btnMnuReceiveData"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:background="@color/ButtonUnder"
+                    android:drawableLeft="@drawable/download"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="20dp"
+                    android:text="@string/menu_label_recivedata"
+                    android:textColor="@color/ButtonMenuColor"
+                    android:textSize="@dimen/menu_webapi_button"
+                    android:textStyle="bold" />
+			</LinearLayout>
+
+			<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+				<TextView
+                    android:id="@+id/labReciveFlag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="データ有"
+                    android:textColor="#FF0000" />
+
+				<TextView
+                    android:id="@+id/lblReceiveDateTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="マスタ受信日時:" />
+
+				<TextView
+                    android:id="@+id/lblReceiveDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:gravity="right"
+                    android:text="2019/04/10 16:00" />
+			</LinearLayout>
+
+			<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+				<TextView
+                    android:id="@+id/LabMnuVersion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Version 1.0.0" />
+
+				<TextView
+                    android:id="@+id/LabMnuSP1BatteryRemain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="RFIDリーダ 電池残：" />
+
+				<ImageView
+                    android:id="@+id/ImgViewMnuBattery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@mipmap/battery_0" />
+			</LinearLayout>
+
+		</LinearLayout>
+	</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.rfid.main.MainActivity">
+
+    <item
+        android:id="@+id/action_logout"
+        android:orderInCategory="100"
+        android:title=""
+        android:icon="@drawable/baseline_logout_48"
+        app:showAsAction="always" >
+    </item>
+    <item
+        android:id="@+id/action_setting"
+        android:icon="@drawable/setting"
+        android:orderInCategory="100"
+        android:title=""
+        app:showAsAction="always"></item>
+</menu>

@@ -1,0 +1,258 @@
+﻿@charset "UTF-8"; 
+
+/* ボタン                                                    
+-----------------------------------------------------------*/
+    /* 全体ボタン */
+    input{
+        border:1px solid #666666;
+    }
+
+    /* 検索 新規 OpenXMLボタン */
+	input.defButton{
+/* TODO NV MOD */
+		/*width:90px;*/
+		/*width:100px; yamada*/
+        width:120px;
+        background-color: #79A7DA;
+        border: 0.2px solid #7DA4CF;
+        color: #fff;
+	}
+	/* 検索 新規 OpenXMLボタン */
+	input.defButton:hover{
+		/*width:90px;*/
+		/*width:100px; yamada*/
+        width:120px;
+		background-color:#Df9090;
+        cursor:pointer;
+	}
+    /* 更新ボタン */
+    input.update-btn {
+	    background-color: #79A7DA;
+        border: 0.2px solid #7DA4CF;
+        color: #fff;
+    }
+    /* 変更ボタン */
+    input.change-btn {
+        display: block;
+        width:65px;
+	    background-color: #79A7DA;
+        border: 0.2px solid #7DA4CF;
+        color: #fff;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    input.defUpdateButton:hover, input.update-btn:hover, input.change-btn:hover{
+        background-color:#Df9090;
+        cursor:pointer;
+    }
+	/* 操作枠ボタン          */
+	input.button{
+		border-collapse:collapse;
+		height:22px; 
+		border:0.2px solid #A0A0A0;
+		background-color:#DfDfDf;
+		float:left;
+		width:23px;
+		margin:0px;
+		margin-top:0px;
+		margin-left:0px;
+		margin-right:0px;
+		text-indent:-5px;
+		font-weight:500;
+		font-size:16px;
+	}
+	/* 操作枠ボタン          */
+	input.button:hover{
+		background-color:#ffffff;
+		text-decoration:none;
+	}
+
+    /* ボタンサイズ調整 */
+	input.defButton.size-x-large {
+		width: 200px;
+	}
+    /* 棚卸名変更ボタン */
+	input.defButton.Inventory-large {
+		width: 240px;
+	}
+    /* プロダクトキー入力ボタン */
+	input.defButton.productkey-large {
+		width: 135px;
+        margin-right:10px;
+	}
+
+/* 検索フォーム                                              
+-----------------------------------------------------------*/
+	searchbox {
+		width:400px
+	}
+	div.search-wrap{
+        margin-top: 10px;
+		margin-bottom:20px;
+        position:relative;
+        /*width:1050px;*/   /* 検索部の罫線追加のためコメントアウト */
+	}
+    div.search-wrap p {
+        margin: 5px 0;
+    }
+	div.form-group {
+		margin:10px;
+	}
+	div.tableArea {
+		clear:both;
+		width:900px;
+	}
+	table.scrollTable {
+		border:1px solid #000000;
+		border-collapse:collapse;
+	}
+
+    div.search-btn{
+        position:absolute;
+        /*right:0;*/
+        /*bottom:0;*/
+        right:10px;
+        bottom:10px;
+    }
+    .search-border {
+        border: 1px solid #79A7DA;
+        padding: 12px 10px 10px 10px;
+    }
+    .search-title {
+        position: absolute;
+        top: -15px;
+        left: 10px;
+        padding: 0 5px;
+        background-color: #fff;
+    }
+
+    /* TODO:ドロップダウン*/
+	dropdown-control{
+        width:180px;
+        padding:3px;
+	}
+
+    /* ドロップダウン項目非活性 */
+    .dropdown-disabled {
+    background-color: #cecece !important;
+    color: black !important;
+    pointer-events: none; /* 操作を無効にする */
+}
+
+/* ページング枠 
+-----------------------------------------------------------*/
+    div#pager-wrap{
+        margin: 5px 0;
+    }
+
+    div#pager-wrap .page-title{
+        margin:0 5px;
+    }
+
+    div#pager-wrap ul{
+        list-style:none;
+        display:inline-block;
+        margin: 0;
+    }
+
+    div#pager-wrap ul li{
+        display:inline-block;
+        margin:0 10px;
+    }
+
+    div#pager-wrap .page-input-btn {
+        border: none;
+        background: none;
+        color: rgba(0, 62, 255, 1);
+        text-decoration: underline;
+        margin: 0;
+        padding: 0;
+    }
+
+/* 一覧表示上のボタン枠
+-----------------------------------------------------------*/   
+    div.view-area{
+        position:relative;
+        width:1050px;
+        height:auto;
+    }
+    div.view-area-button {
+        position:absolute;
+        right:0;
+    }
+    div#view-area-button-parent {
+        overflow: hidden;
+    }
+    div.view-area-button-left {
+        float:left;
+        margin:0 20px 0 0;
+        /*TODO NV ADD*/
+        /*width:400px;*/
+    }
+    div.view-area-button-right {
+        float:right;
+        margin:0 0 0 20px;
+        /*TODO NV ADD*/
+        /*width:400px;*/
+    }
+    div.view-area-label {
+        display: inline-block;
+    }
+    div.view-area-label-assetlist {
+        position:absolute;
+        right:-250px;
+    }
+
+    div.lending-view-area {
+        position: relative;
+        width: 1550px;
+        height: auto;
+    }
+    /* 凡例表示 */
+    div.guide-area {
+        border: 1px solid #000000;
+        width: 380px;
+        height: 40px;
+        float: right;
+        margin-left: 50px;
+    }
+    div.guide-unit-area {
+        padding: 10px 5px 10px 20px;
+        float: left;
+    }
+    div.guide-color-area {
+        border: #000000 solid 1px;
+        height: 15px;
+        width: 15px;
+        float: left;
+        margin-right: 5px;
+    }
+
+/* 入力テキストボックス
+-----------------------------------------------------------*/
+/* コード */
+input.text-box-cd {
+    width: 150px;
+}
+input.text-box-cd-small {
+    width: 50px;
+}
+/* 名称 */
+input.text-box-name {
+    width: 300px;
+}
+
+/* ラジオボタン
+-----------------------------------------------------------*/
+.radio-group:before,
+.radio-group:after {
+  display: table;
+  content: " ";
+}
+.radio-group:after {
+    clear: both;
+}
+.radio-group .col {
+    float: left;
+    margin-right: 15px;
+}

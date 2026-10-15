@@ -1,0 +1,17 @@
+# 前提
+・Android Studioのターミナルで実行する
+
+
+# 手順
+
+1. JAVA_HOMEの環境変数が設定済みか確認
+未設定なら以下のようにコマンドを実行して設定する
+※パスは異なる場合あり
+set JAVA_HOME=C:\Program Files\Android\Android Studio\jbr
+
+2.   一括作成
+ソースのルート(gradlewファイルが存在するパス)に移動して、以下のコマンドを実行すると一括で作成される。
+gradlew assembleRelease
+
+3.   APKの場所
+app\build\outputs配下にapkが作成される。

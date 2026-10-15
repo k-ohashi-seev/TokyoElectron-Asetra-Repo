@@ -1,0 +1,48 @@
+.formbox {
+	margin: 5px auto; border-radius: 8px; border: 2px solid rgb(255, 255, 255); border-image: none; width: 500px; font-size: 11px; box-shadow: 0px 1px 12px rgba(0,0,0,0.4); background-image: linear-gradient(rgb(255, 255, 255), rgb(248, 248, 247)); -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4); -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4); -pie-background: linear-gradient(#FFFFFF, #F8F8F7);
+}
+.formbox2 {
+	margin: 5px auto; border-radius: 8px; border: 2px solid rgb(255, 255 , 255); border-image: none; width: 620px; font-size: 11px; box-shadow: 0px 1px 12px rgba(0,0,0,0.4); background-image: linear-gradient(rgb(255, 255, 255), rgb(248, 248, 247)); -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4); -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.4); -pie-background: linear-gradient(#FFFFFF, #F8F8F7);
+}
+.formbox .form1 table {
+	width: 90%; position: relative;
+}
+.formboxheader3 {
+	background: linear-gradient(rgb(22, 127, 232), rgb(0, 60, 123)) rgb(0, 27, 137); padding: 5px 10px; font-family: Arial, "ÇlÇr ÉSÉVÉbÉN", sans-serif; font-weight: bold; border-top-left-radius: 5px; border-top-right-radius: 5px;
+}
+.formboxheader4 {
+	background: linear-gradient(rgb(217, 51, 63), rgb(183, 40, 46)) rgb(106, 25, 23); padding: 5px 10px; font-family: Arial, "ÇlÇr ÉSÉVÉbÉN", sans-serif; font-weight: bold; border-top-left-radius: 5px; border-top-right-radius: 5px;
+}
+.form1 .login {
+	background: rgb(238, 238, 238); margin: 0.5em 25px; padding: 4px; border-radius: 3px; text-align: right; white-space: nowrap; position: relative; -moz-border-radius: 3px; -webkit-border-radius: 3px;
+}
+.form1 .login .lab {
+	width: 130px; color: rgb(17, 36, 71); font-size: 14px; font-weight: bold; text-shadow: 0px 2px 1px #fff;
+}
+.form1 .login .lab2 {
+	color: rgb(17, 36, 71); font-size: 14px; font-weight: bold; text-shadow: 0px 2px 1px #fff;
+}
+.form1 .productKey {
+	background: rgb(238, 238, 238); margin: 0.5em 25px; padding: 4px; border-radius: 3px; text-align: right; white-space: nowrap; position: relative; -moz-border-radius: 3px; -webkit-border-radius: 3px;
+}
+.form1 .productKey .lab {
+	width: 100px; color: rgb(17, 36, 71); font-size: 14px; font-weight: bold; text-shadow: 0px 2px 1px #fff;
+}
+.form1 .trialLabel {
+	background: rgb(238, 238, 238); margin: 0.5em 200px; padding: 4px; border-radius: 3px; text-align: right; white-space: nowrap; position: relative; -moz-border-radius: 3px; -webkit-border-radius: 3px;
+}
+.formboxheader h2 {
+	text-align: left; color: rgb(238, 238, 238); line-height: 30px; letter-spacing: 0.5px; padding-top: 0px; padding-bottom: 0px; font-size: 17px; margin-top: 0px; margin-bottom: 0px; float: left; text-shadow: 0px -1px 0px #002240;
+}
+.formboxheader2 h2 {
+	text-align: left; color: rgb(0, 27, 137); line-height: 30px; letter-spacing: 0.5px; padding-top: 0px; padding-bottom: 0px; font-size: 15px; font-weight: normal; margin-top: 0px; margin-bottom: 0px; float: left;
+}
+.formboxheader3 h2 {
+	text-align: left; color: rgb(48, 187, 219); line-height: 30px; letter-spacing: 0.5px; padding-top: 0px; padding-bottom: 0px; font-size: 17px; margin-top: 0px; margin-bottom: 0px; float: left; text-shadow: 0px -1px 0px #002240;
+}
+.formboxheader4 h2 {
+	text-align: left; color: rgb(243, 166, 140); line-height: 30px; letter-spacing: 0.5px; padding-top: 0px; padding-bottom: 0px; font-size: 17px; margin-top: 0px; margin-bottom: 0px; float: left; text-shadow: 0px -1px 0px #002240;
+}
+.formboxheader_certificate h2 {
+	background-position: 0px; text-align: left; color: rgb(238, 238, 238); line-height: 30px; letter-spacing: 0.5px; padding-top: 0px; padding-bottom: 0px; padding-left: 35px; font-size: 17px; margin-top: 0px; margin-bottom: 0px; float: left; text-shadow: 0px -1px 0px #002240; background-image: url("../img/ssolock_white.png"); background-repeat: no-repeat;
+}

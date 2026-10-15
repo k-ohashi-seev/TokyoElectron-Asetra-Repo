@@ -1,0 +1,83 @@
+﻿@charset "UTF-8";
+
+/* メニュー                                                  
+-----------------------------------------------------------*/	
+ul#navi {
+    margin-top:0px;
+    padding:0;
+    list-style:none;
+    display:inline-block;
+    position:absolute;
+    right:0;
+    left: 250px;
+    background-color:rgba(13, 55, 114, 1);
+    
+}
+ 
+ul#navi li {
+    margin:0;
+    padding:0;
+    border-right:1px solid #fff;
+    position:relative;
+    float:left;
+    width:150px;
+}
+ 
+ul#navi li.last-child {
+    border-right:none;
+}
+ 
+ul#navi li a {
+    padding:10px;
+    background-color:rgba(13, 55, 114, 1);
+    display:block;
+    color:#fff;
+    text-decoration:none;
+    line-height:1em;
+    text-align:center;
+    white-space: nowrap;
+}
+ 
+ul#navi li a:hover,
+ul#navi li a.open {
+    background-color:#333; 
+}
+ 
+ul#navi li ul {
+    margin-left:0;
+    padding-top:1px;
+    list-style:none;
+    /*position:absolute;
+    'left:-40px;*/
+    z-index:999;
+}
+ 
+ul#navi li ul li {
+    padding-bottom:1px;
+    border-right:none;
+    float:none;
+}
+ 
+ul#navi li ul li ul {
+    padding-top:0;
+    padding-left:1px;
+    position:absolute;
+    top:0;
+    left:120px;
+}	
+
+ul#navi li.dropdown:hover > .dropdown-menu{
+  display: block;
+}
+
+ul#navi .dropdown-menu {
+    min-width:0px;
+    padding:0px;
+}
+
+ul#navi li {
+    width:200px;
+}
+ul#navi .dropdown-menu a {
+    width:200px;
+}

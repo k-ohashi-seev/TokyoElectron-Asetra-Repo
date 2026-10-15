@@ -1,0 +1,36 @@
+Ksoap2組込方法
+	ksoap2-android-2.5.2.jar を (root)\app\libs に置く
+
+	プロジェクトの表示方法を、Android から プロジェクトにする
+
+	libs フォルダの ksoap2-android-2.5.2.jar を選択
+	右クリックして ライブラリに組み込みを実行する。
+
+
+リリースAPK作成方法
+
+「ビルド」→「署名済みバンドル/APKの作成」
+
+画面１
+	「APK」を選択する
+
+画面２	
+
+	キー保管パス		(root)\signature.jks
+	パスワード			RFIDInventoryHT
+	キー・エイリアス	Key0
+
+新規キーストア
+	パスワード			RFIDInventoryHT
+	キー・エイリアス	Key0
+	国					jp
+
+画面３
+	ビルトバリアント	release
+
+	署名バージョン		V1・V2 共にチェック
+
+
+生成フォルダ・ファイル
+	(root)\app\release\app-release.apk
+

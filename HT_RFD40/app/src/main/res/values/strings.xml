@@ -1,0 +1,205 @@
+<resources>
+	<string name="app_name">ASETRA</string>
+
+	<string name="menu_item_Sett">設定</string>
+	<string name="menu_item_Logout">ログアウト</string>
+	<string name="menu_label_intensity">棚卸</string>
+	<string name="menu_label_search">探索</string>
+	<string name="menu_label_lending">貸出</string>
+	<string name="menu_label_return">返却</string>
+	<string name="menu_label_keep">保管</string>
+	<string name="menu_label_except">除却</string>
+	<string name="menu_label_tag">タグ紐付</string>
+	<string name="menu_label_senddata">蓄積データ送信</string>
+	<string name="menu_label_recivedata">マスタ取込受信</string>
+	<string name="label_tagread_start">読取開始して下さい</string>
+	<string name="button_name_select">選択</string>
+	<string name="button_name_register">登録</string>
+	<string name="button_name_return">戻る</string>
+	<string name="button_name_next">次へ</string>
+	<string name="button_name_details">詳細表示</string>
+	<string name="button_name_inventory">実棚</string>
+	<string name="button_name_inventory_noloc">実棚(ロケ指定)</string>
+	<string name="button_name_inv_tagread_start">タグ読取開始</string>
+	<string name="button_name_inv_tagread_end">タグ読取終了</string>
+	<string name="button_name_construction_tagread_search">検索</string>
+	<string name="button_name_construction_tagread_clear">クリア</string>
+	<string name="default_language">JP</string>
+	<string-array name="SessionList">
+		<item>S0</item>
+		<item>S1</item>
+		<item>S2</item>
+		<item>S3</item>
+	</string-array>
+
+	<string-array name="QValueList">
+		<item>0</item>
+		<item>1</item>
+		<item>2</item>
+		<item>3</item>
+		<item>4</item>
+		<item>5</item>
+		<item>6</item>
+		<item>7</item>
+	</string-array>
+
+	<string-array name="BuzzerVolume">
+		<item>S</item>
+		<item>M</item>
+		<item>L</item>
+	</string-array>
+
+	<string-array name="Reader">
+		<item>Reader</item>
+		<item>Android</item>
+	</string-array>
+
+	<string-array name="Transfer">
+		<item>WebAPI</item>
+		<item>USB</item>
+	</string-array>>
+
+	<string-array name="Collation">
+		<item>管理</item>
+		<item>一般</item>
+	</string-array>>
+
+	<!--<string name="default_bt_read_intensity">30</string>-->
+	<string name="default_bt_read_intensity">280</string>
+	<string name="default_bt_read_intensity_invL">280</string>
+	<string name="default_bt_read_intensity_invM">200</string>
+	<string name="default_bt_read_intensity_invS">120</string>
+	<string name="default_bt_read_intensity_lease">120</string>
+	<string name="default_bt_read_intensity_return">120</string>
+	<string name="default_bt_read_intensity_dispose">120</string>
+	<string name="default_bt_read_intensity_storage">120</string>
+	<string name="default_bt_read_intensity_mat_in">120</string>
+	<string name="default_bt_read_intensity_mat_out">120</string>
+	<string name="default_bt_read_intensity_mat_temp">120</string>
+	<string name="default_bt_read_intensity_mat_ret">120</string>
+	<string name="default_bt_read_intensity_search">280</string>
+
+	<string name="denso_default_bt_read_intensity">30</string>
+	<string name="denso_default_bt_read_intensity_invL">30</string>
+	<string name="denso_default_bt_read_intensity_invM">20</string>
+	<string name="denso_default_bt_read_intensity_invS">10</string>
+	<string name="denso_default_bt_read_intensity_lease">30</string>
+	<string name="denso_default_bt_read_intensity_return">30</string>
+	<string name="denso_default_bt_read_intensity_dispose">30</string>
+	<string name="denso_default_bt_read_intensity_storage">30</string>
+	<string name="denso_default_bt_read_intensity_mat_in">30</string>
+	<string name="denso_default_bt_read_intensity_mat_out">30</string>
+	<string name="denso_default_bt_read_intensity_mat_temp">30</string>
+	<string name="denso_default_bt_read_intensity_mat_ret">30</string>
+	<string name="denso_default_bt_read_intensity_search">30</string>
+
+	<string name="default_bt_read_session">1</string>
+	<string name="default_bt_read_Q_value">4</string>
+	<string name="default_bt_connect_timeout">60</string>
+	<string name="default_bt_no_control_time">0</string>
+	<string name="default_bt_auto_link">false</string>
+	<string name="default_bt_RFID_reader_use">1</string>
+	<string name="default_bt_RFID_reader_use_setting">1</string>
+	<string name="default_bt_employee_prev_set">false</string>
+
+	<string name="default_log_level">Debug</string>
+	<string name="default_log_Output">YES</string>
+	<string name="default_log_rolling">10</string>
+	<string name="default_log_maxsize">500</string>
+
+	<string name="waiting_for_connection">RFIDリーダライタとのペアリングを行っています。%1接続に失敗する場合は、ペアリングボタンを押して、ペアリング状態にしてください。</string>
+	<string name="connection_error">スキャナ接続エラー</string>
+	<string name="E_MSG_NO_CONNECTION">SP1が接続されていません。</string>
+	<string name="E_MSG_DIS_CONNECTION">SP1との接続が途切れました。</string>
+	<string name="E_MSG_COMMUNICATION">SP1との通信に失敗しました。</string>
+	<string name="E_MSG_RECONNECTION">スキャナ接続異常、SP1のPAIRボタンを押して再接続してください。</string>
+	<string name="E_MSG_NotConnecting">スキャナ接続異常のため、画面移動できません。</string>
+	<string name="E_MSG_INV_NO_SHELF">棚番号を入力してください。</string>
+	<string name="E_MSG_INV_DUAL_SHELF">既に入力済みの棚番号です。</string>
+	<string name="E_MSG_MOV_NO_GARANTE">保証番号を読取りしてください。</string>
+	<string name="E_MSG_MOV_DUAL_GARANTE">既に入力済みの保証番号です。</string>
+	<string name="E_MSG_DialogOK">OK</string>
+	<string name="E_MSG_DialogYes">YES</string>
+	<string name="E_MSG_DialogNo">NO</string>
+	<string name="title_activity_login_mn">LoginMn</string>
+
+	<string name="image_desc_tag_radar">Tag radar</string>
+	<string name="image_desc_tag_circle">Tag circle</string>
+	<integer name="stage2_max_read_power_level_on_search">-36</integer>
+	<integer name="stage3_max_read_power_level_on_search">-49</integer>
+	<integer name="stage4_max_read_power_level_on_search">-63</integer>
+	<integer name="stage5_max_read_power_level_on_search">-75</integer>
+	<integer name="zebra_stage2_max_read_power_level_on_search">95</integer>
+	<integer name="zebra_stage3_max_read_power_level_on_search">70</integer>
+	<integer name="zebra_stage4_max_read_power_level_on_search">50</integer>
+	<integer name="zebra_stage5_max_read_power_level_on_search">30</integer>
+	<integer name="zebra_list_stage2_max_read_power_level_on_search">-36</integer>
+	<integer name="zebra_list_stage3_max_read_power_level_on_search">-40</integer>
+	<integer name="zebra_list_stage4_max_read_power_level_on_search">-50</integer>
+	<integer name="zebra_list_stage5_max_read_power_level_on_search">-60</integer>
+	<!-- 20230221 ADD Sato Start v2.3 -->
+	<integer name="idata_stage2_max_read_power_level_on_search">-39</integer>
+	<integer name="idata_stage3_max_read_power_level_on_search">-50</integer>
+	<integer name="idata_stage4_max_read_power_level_on_search">-60</integer>
+	<integer name="idata_stage5_max_read_power_level_on_search">-70</integer>
+	<integer name="idata_list_stage2_max_read_power_level_on_search">-39</integer>
+	<integer name="idata_list_stage3_max_read_power_level_on_search">-50</integer>
+	<integer name="idata_list_stage4_max_read_power_level_on_search">-60</integer>
+	<integer name="idata_list_stage5_max_read_power_level_on_search">-70</integer>
+	<integer name="keyence_dx_stage2_max_read_power_level_on_search">-50</integer>
+	<integer name="keyence_dx_stage3_max_read_power_level_on_search">-65</integer>
+	<integer name="keyence_dx_stage4_max_read_power_level_on_search">-80</integer>
+	<integer name="keyence_dx_stage5_max_read_power_level_on_search">-100</integer>
+	<!-- 20230221 ADD Sato End v2.3 -->
+	<!-- 20230221 ADD Sato Start v2.3.1 -->
+	<integer name="rs35_stage2_max_read_power_level_on_search">-40</integer>
+	<integer name="rs35_stage3_max_read_power_level_on_search">-50</integer>
+	<integer name="rs35_stage4_max_read_power_level_on_search">-60</integer>
+	<integer name="rs35_stage5_max_read_power_level_on_search">-70</integer>
+	<integer name="rs35_list_stage2_max_read_power_level_on_search">-39</integer>
+	<integer name="rs35_list_stage3_max_read_power_level_on_search">-50</integer>
+	<integer name="rs35_list_stage4_max_read_power_level_on_search">-60</integer>
+	<integer name="rs35_list_stage5_max_read_power_level_on_search">-70</integer>
+	<!-- 20230221 ADD Sato End v2.3.1 -->
+
+	<integer name="beep_sampling_rate_hz">44100</integer>
+	<integer name="beep_repeat_count">255</integer>
+	<integer-array name="beep_frequencies_hz">
+		<item>2793</item>
+		<item>1396</item>
+		<item>1396</item>
+		<item>698</item>
+		<item>349</item>
+	</integer-array>
+	<integer-array name="beep_sound_durations_ms">
+		<item>100</item>
+		<item>100</item>
+		<item>100</item>
+		<item>100</item>
+		<item>100</item>
+	</integer-array>
+	<integer-array name="beep_silent_durations_ms">
+		<item>300</item>
+		<item>400</item>
+		<item>500</item>
+		<item>700</item>
+		<item>900</item>
+	</integer-array>
+	<item name="beep_volume" type="dimen" format="float">1.0</item>
+
+
+
+	<!--    IData-->
+	<string name="poweon_failed">Power on fail</string>
+	<string name="notice_power_failed">
+		1.Please check Settings-〉User Define-〉EMSH Service Settings-〉Chose Enable EMSH service \n
+		2.Please make sure there are two battery icons in the upper right corner of the PDA, and both display power；\n
+		If there is only one battery icon, make sure the gun is connected reliably to the PDA；\n If the battery icon on the left show the gun battery is out of power, please use 3-in-1 seat for charging\n
+		3.If you still have questions, please take a screenshot of EMSH setting -> EMSH status and send it to technical engineer
+	</string>
+	<string name="poweron_success">Power on successful</string>
+	<string name="charing">Charing</string>
+	<string name="charing_full">The gun battery is full</string>
+	<string name="battery">Battery</string>
+	<string name="battery_low">The gun battery is Low</string>
+</resources>

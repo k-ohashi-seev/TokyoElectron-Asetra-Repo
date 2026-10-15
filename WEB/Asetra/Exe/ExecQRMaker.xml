@@ -1,0 +1,78 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+ExecQRMaker
+</name>
+</assembly>
+<members>
+<member name="T:ExecQRMaker.My.Resources.Resources">
+<summary>
+  ローカライズされた文字列などを検索するための、厳密に型指定されたリソース クラスです。
+</summary>
+</member>
+<member name="P:ExecQRMaker.My.Resources.Resources.ResourceManager">
+<summary>
+  このクラスで使用されているキャッシュされた ResourceManager インスタンスを返します。
+</summary>
+</member>
+<member name="P:ExecQRMaker.My.Resources.Resources.Culture">
+<summary>
+  厳密に型指定されたこのリソース クラスを使用して、すべての検索リソースに対し、
+  現在のスレッドの CurrentUICulture プロパティをオーバーライドします。
+</summary>
+</member>
+<member name="M:ExecQRMaker.ExecQRMaker.Main(System.String[])">
+ <summary>
+ スタートモジュール
+ </summary>
+ <param name="args">
+ args(0)=QRコードにする文字列
+ args(1)=QR画像で出力するファイル名(フルパス)
+ </param> 
+ <remarks>
+ 2019/08/20 Nicevision Inoue
+ </remarks>
+ 
+</member>
+<member name="T:ExecQRMaker.QRMaker">
+ <summary>
+ システム名    ：ＲＦＩＤ資産管理パッケージ
+ サブシステム名：
+ クラス名      ：QRMaker クラス
+ 作成日        ：2019/08/17      Inoue
+ 修正日        ：0000/00/00
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="F:ExecQRMaker.QRMaker._QRmakerAd">
+ <summary>AxQRMAKERADLib</summary>
+</member>
+<member name="M:ExecQRMaker.QRMaker.#ctor(AxQRMAKERADLib.AxQRmakerAd)">
+ <summary>
+ コンストラクタ
+ </summary>
+ <param name="QRmakerAd">QRMakerAD コントロール</param>
+ <remarks></remarks>
+</member>
+<member name="M:ExecQRMaker.QRMaker.MakeQrData(System.String,System.String)">
+ <summary>
+ QRデータ画像ファイルを作成する
+ </summary>
+ <param name="sQrStr">出力文字列</param>
+ <param name="sFileNm">出力ファイル名（フルパス）</param>
+ <returns>
+ DataTable
+ </returns>
+</member>
+<member name="M:ExecQRMaker.QRMaker.GetQRMakerMsg(System.Int32)">
+ <summary>
+ statusコード→QRMakerメッセージの変換
+ </summary>
+ <param name="status">QRMaker 処理ステータス</param>
+ <returns>
+ DataTable
+ </returns>
+</member>
+</members>
+</doc>

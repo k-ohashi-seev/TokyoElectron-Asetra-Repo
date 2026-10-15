@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('bhtsdk_r1001300_v1.00.13.aar'))

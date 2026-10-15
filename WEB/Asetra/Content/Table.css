@@ -1,0 +1,3836 @@
+﻿@charset "UTF-8";
+
+/* 一覧テーブル                                              
+-----------------------------------------------------------*/
+	div.tbl_scroll {
+		overflow-x:scroll;
+		/*width: 1050px;*/
+	}
+	div.list-view {
+		position:relative;
+		/* 一覧背景サイズ */
+        width: calc(100% - 0px);
+		/* 一覧背景サイズ  これは一覧テーブルのheightの +8px にします。一覧テーブルはTable.css の div_sousa_d heightとdiv_koumoku_d  heightで調整してください */     
+		height:0px;                
+		border:0px hidden;
+		background-color:#EEE;
+	}
+	/* 一覧テーブル全体定義に 最優先設定               */
+	table.ich_table {
+		border-collapse:collapse;
+		table-layout:fixed;
+		font-size:12px;
+	}
+	table.refer_table {
+		border-collapse:collapse;
+		table-layout:fixed;
+		font-size:12px;
+	}
+	/* 一覧テーブル全てのtr要素(行)に 優先設定         */                      
+	table.ich_table tr{
+		height:26px;
+	}
+	/* 一覧テーブル全てのtd要素(データ項目)に 優先設定 */                   
+	table.ich_table td{
+		border:1px solid #000;
+	}
+
+/* 操作枠ヘッダ                                                
+-----------------------------------------------------------*/
+	#div_sousa_h {
+		/*position:absolute;*/
+		display: inline-block;
+		border-bottom:1px solid #CCC;
+		padding:0px; 
+		margin:0;
+	}
+	table.tbl_sousa_h {
+		float:left;
+		border:1px solid #000;
+		background-color:#555;
+		font-weight:600;
+		color:#fff;
+		z-index:101;
+		padding:0px; 
+		margin:0;
+	}
+	[id="tbl_sousa_h"] {
+		width:47px; /* アップすると操作が重なって大きくなる */
+	}
+	[id="tbl_label_h"] {
+		font-size:12px;
+		width:80px; /* アップすると操作が重なって大きくなる */
+	}
+	 /* 操作枠ヘッダ枠(テーブル)のtr要素(行全体) */
+	[id="tbl_sousa_h"] tr{
+		background-color:#555;
+	}               
+	[id="tbl_sousa_h"] th{
+		width:47.2px;  /* アップすると項目がずれていく */
+	}
+	[id="tbl_label_h"] th{
+		width:80px;  /* アップすると項目がずれていく */
+	}
+
+/* 操作枠データ                                              
+-----------------------------------------------------------*/
+	#data_area {}
+	#div_sousa_d {
+		/*position:absolute;*/
+		float:left;
+		width:50px;
+		height:8000px;                       /* 縦のテーブルサイズを変更するには div_koumoku_d とセットで変更  */		overflow-x:hidden;                  /* 縦のサイズ調整のため機能しないが必要 */
+		overflow-y:hidden;
+		scrollbar-shadow-color:#CCC;        /* 編削下部のスクロール枠 */ 
+		scrollbar-base-color :#FFF;
+		scrollbar-arrow-color:#FFF;
+		scrollbar-darkshadow-color:#FFF;
+		scrollbar-face-color:#FFF;
+		scrollbar-track-color:#EEE;
+		scrollbar-highlight-color:#FFF; 
+		scrollbar-3dlight-color:#EEE; 
+	}
+	/* 操作枠データ枠の全て */
+	[id="tbl_sousa_d"] {
+		border:0px solid #999;
+	}    
+	 /* 操作枠データ枠の全てのth要素(ヘッダ項目) */
+	[id="tbl_sousa_d"] th{
+		width:90px;
+	}
+	/* 操作枠データ枠の全てのtr要素(行) */
+	[id="tbl_sousa_d"] tr{
+		border:0px solid #999; 
+	}
+	/* 操作枠データ枠の全てのtd要素(データ項目) */
+	[id="tbl_sousa_d"] td{
+		width:50px
+	}
+	
+/* 一覧枠ヘッダ(共通)            th要素[id="tbl_koumoku_h"]より優先
+-----------------------------------------------------------*/
+/* 一覧ヘッダ枠(テーブル) */
+	#div_koumoku_h {
+		width: calc(100% - 18px);
+		padding:0px; 
+		margin:0;
+	}
+    /* 一覧ヘッダ枠(テーブル) */
+	.div_koumoku_h {
+		width: calc(100% - 18px);
+		padding:0px; 
+		margin:0;
+	}
+	/* 一覧ヘッダ枠(テーブル) */
+	table.ich_table th{
+		border:1px solid #000;
+		border-right:1px solid #999;
+        border-color: #000000 #999999 #cccccc #000000;
+        border-image: none;
+		background-color:#6ab3b3;
+        border-bottom:1px solid #CCC;
+		font-weight:600;
+		color:#fff;
+		z-index:100;
+		/* padding:0px; 設定されている */  
+		margin:0;
+        text-align: center;
+	}
+
+/* 一覧枠ヘッダ(Memberマスタメンテ)            
+-----------------------------------------------------------*/
+    #member-master [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#member-master [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#member-master [id="tbl_koumoku_h"] th.col1 {
+		width:50px;
+	}
+
+	#member-master [id="tbl_koumoku_h"] th.col2 {
+		width:100px;
+	}
+
+	#member-master [id="tbl_koumoku_h"] th.col3 {
+		width:200px;
+	}
+
+	#member-master [id="tbl_koumoku_h"] th.col4 {
+		width:200px;
+	}
+
+    #member-master [id="tbl_koumoku_h"] th.col5 {
+		width:200px;
+	}
+
+    /* 一覧枠ヘッダ(Employeeマスタメンテ)            
+-----------------------------------------------------------*/
+    #employee-master [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#employee-master [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#employee-master [id="tbl_koumoku_h"] th.col1 {
+        /*width:30px; yamada*/
+		width:40px;
+	}
+
+	#employee-master [id="tbl_koumoku_h"] th.col2 {
+		width:180px;
+	}
+
+	#employee-master [id="tbl_koumoku_h"] th.col3 {
+		width:240px;
+	}
+
+    #employee-master [id="tbl_koumoku_h"] th.col4 {
+		width:75px;
+	}
+
+	#employee-master [id="tbl_koumoku_h"] th.col5 {
+		width:180px;
+	}
+
+    #employee-master [id="tbl_koumoku_h"] th.col6 {
+		width:240px;
+	}
+
+    #employee-master [id="tbl_koumoku_h"] th.col7 {
+		width:240px;
+	}
+
+    #employee-master [id="tbl_koumoku_h"] th.col8 {
+		width:70px;
+	}
+
+    #employee-master [id="tbl_koumoku_h"] th.col9 {
+		width:240px;
+	}
+
+	#employee-master [id="tbl_koumoku_h"] th.col10 {
+		width:120px;
+	}
+
+    #employee-master [id="tbl_koumoku_h"] th.col11 {
+		width:240px;
+	}
+
+    #employee-master [id="tbl_koumoku_h"] th.col12 {
+		width:120px;
+	}
+
+    #employee-master [id="tbl_koumoku_h"] th.col13 {
+		width:240px;
+	}
+
+	
+    /* 一覧枠ヘッダ(Settingマスタメンテ)            
+-----------------------------------------------------------*/
+    #setting-master [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#setting-master [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#setting-master [id="tbl_koumoku_h"] th.col1 {
+        /*width:30px; yamada*/
+		width:40px;
+	}
+
+	#setting-master [id="tbl_koumoku_h"] th.col2 {
+		width:180px;
+	}
+
+	#setting-master [id="tbl_koumoku_h"] th.col3 {
+		width:180px;
+	}
+
+	#setting-master [id="tbl_koumoku_h"] th.col4 {
+		width:180px;
+	}
+
+    #setting-master [id="tbl_koumoku_h"] th.col5 {
+		width:180px;
+	}
+
+    #setting-master [id="tbl_koumoku_h"] th.col6 {
+		width:240px;
+	}
+
+    #setting-master [id="tbl_koumoku_h"] th.col7 {
+		width:240px;
+	}
+
+	#setting-master [id="tbl_koumoku_h"] th.col8 {
+		width:240px;
+	}
+
+    #setting-master [id="tbl_koumoku_h"] th.col9 {
+		width:240px;
+	}
+
+    #setting-master [id="tbl_koumoku_h"] th.col10 {
+		width:240px;
+	}
+
+    #setting-master [id="tbl_koumoku_h"] th.col11 {
+		width:240px;
+	}
+
+    #setting-master [id="tbl_koumoku_h"] th.col12 {
+		width:240px;
+	}
+
+    #setting-master [id="tbl_koumoku_h"] th.col13 {
+		width:240px;
+	}
+
+    #setting-master [id="tbl_koumoku_h"] th.col14 {
+		width:240px;
+	}
+
+    #setting-master [id="tbl_koumoku_h"] th.col15 {
+		width:240px;
+	}
+
+    #setting-master [id="tbl_koumoku_h"] th.col16 {
+		width:240px;
+	}
+
+    #setting-master [id="tbl_koumoku_h"] th.col17 {
+		width:120px;
+	}
+
+    #setting-master [id="tbl_koumoku_h"] th.col18 {
+		width:240px;
+	}
+
+    #setting-master [id="tbl_koumoku_h"] th.col19 {
+		width:120px;
+	}
+
+    #setting-master [id="tbl_koumoku_h"] th.col20 {
+		width:240px;
+	}
+
+    /* 一覧枠ヘッダ(実棚照会)            
+-----------------------------------------------------------*/
+    #inventory-inquiry [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#inventory-inquiry [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#inventory-inquiry [id="tbl_koumoku_h"] th.col1 {
+	 /*width:30px; yamada*/
+		width:40px;
+	}
+
+	#inventory-inquiry [id="tbl_koumoku_h"] th.col2 {
+		width:160px;
+	}
+
+    #inventory-inquiry [id="tbl_koumoku_h"] th.col3 {
+		width:240px;
+	}
+
+	#inventory-inquiry [id="tbl_koumoku_h"] th.col4 {
+		width:60px;
+	}
+
+	#inventory-inquiry [id="tbl_koumoku_h"] th.col5 {
+		width:140px;
+	}
+
+    #inventory-inquiry [id="tbl_koumoku_h"] th.col6 {
+		width:270px;
+	}
+
+    #inventory-inquiry [id="tbl_koumoku_h"] th.col7 {
+		width:270px;
+	}
+
+    #inventory-inquiry [id="tbl_koumoku_h"] th.col8 {
+		width:270px;
+	}
+
+	#inventory-inquiry [id="tbl_koumoku_h"] th.col9 {
+		width:270px;
+	}
+
+    #inventory-inquiry [id="tbl_koumoku_h"] th.col10 {
+		width:270px;
+	}
+
+    #inventory-inquiry [id="tbl_koumoku_h"] th.col11 {
+		width:270px;
+	}
+
+    #inventory-inquiry [id="tbl_koumoku_h"] th.col12 {
+		width:120px;
+	}
+
+    #inventory-inquiry [id="tbl_koumoku_h"] th.col13 {
+		width:240px;
+	}
+
+    /* 一覧枠ヘッダ(Departmentマスタメンテ)            
+-----------------------------------------------------------*/
+    #department-master [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#department-master [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#department-master [id="tbl_koumoku_h"] th.col1 {
+        /*width:30px; yamada*/
+		width:40px;
+	}
+	#department-master [id="tbl_koumoku_h"] th.col2 {
+		width:100px;
+	}
+	#department-master [id="tbl_koumoku_h"] th.col3 {
+		width:500px;
+	}
+    #department-master [id="tbl_koumoku_h"] th.col4 {
+		width:80px;
+	}
+    #department-master [id="tbl_koumoku_h"] th.col5 {
+		width:80px;
+	}
+    #department-master [id="tbl_koumoku_h"] th.col6 {
+		width:400px;
+	}
+    #department-master [id="tbl_koumoku_h"] th.col7 {
+		width:400px;
+	}
+    #department-master [id="tbl_koumoku_h"] th.col8 {
+		width:100px;
+	}
+    #department-master [id="tbl_koumoku_h"] th.col9 {
+		width:100px;
+	}
+
+/* 一覧枠ヘッダ(LeasePlaceマスタメンテ)
+-----------------------------------------------------------*/
+    #leaseplace-master [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#leaseplace-master [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#leaseplace-master [id="tbl_koumoku_h"] th.col1 {
+        /*width:30px; yamada*/
+		width:40px;
+	}
+
+	#leaseplace-master [id="tbl_koumoku_h"] th.col2 {
+		width:150px;
+	}
+
+	#leaseplace-master [id="tbl_koumoku_h"] th.col3 {
+		width:680px;
+	}
+
+    #leaseplace-master [id="tbl_koumoku_h"] th.col4 {
+		width:180px;
+	}
+
+    #leaseplace-master [id="tbl_koumoku_h"] th.col5 {
+		width:180px;
+	}
+
+    #leaseplace-master [id="tbl_koumoku_h"] th.col6 {
+		width:590px;
+	}
+
+    #leaseplace-master [id="tbl_koumoku_h"] th.col7 {
+		width:100px;
+	}
+
+/* 一覧枠ヘッダ(Locationマスタメンテ)
+-----------------------------------------------------------*/
+    #location-master [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#location-master [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#location-master [id="tbl_koumoku_h"] th.col1 {
+        /*width:30px; yamada*/
+		width:40px;
+	}
+
+	#location-master [id="tbl_koumoku_h"] th.col2 {
+		width:150px;
+	}
+
+	#location-master [id="tbl_koumoku_h"] th.col3 {
+		width:240px;
+	}
+	#location-master [id="tbl_koumoku_h"] th.col4 {
+		width:460px;
+	}
+	#location-master [id="tbl_koumoku_h"] th.col5 {
+		width:100px;
+	}
+	#location-master [id="tbl_koumoku_h"] th.col6 {
+		width:150px;
+	}
+	#location-master [id="tbl_koumoku_h"] th.col7 {
+		width:150px;
+	}
+	#location-master [id="tbl_koumoku_h"] th.col8 {
+		width:150px;
+	}
+    #location-master [id="tbl_koumoku_h"] th.col9 {
+		width:150px;
+	}
+
+/* 一覧枠ヘッダ(Categoryマスタメンテ)
+-----------------------------------------------------------*/
+    #category-master [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#category-master [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#category-master [id="tbl_koumoku_h"] th.col1 {
+		/*width:30px; yamada*/
+        width:40px;
+	}
+
+	#category-master [id="tbl_koumoku_h"] th.col2 {
+		width:100px;
+	}
+
+	#category-master [id="tbl_koumoku_h"] th.col3 {
+		width:100px;
+	}
+
+	#category-master [id="tbl_koumoku_h"] th.col4 {
+		width:240px;
+	}
+
+	#category-master [id="tbl_koumoku_h"] th.col5 {
+		width:150px;
+	}
+
+	#category-master [id="tbl_koumoku_h"] th.col6 {
+		width:150px;
+	}
+
+	#category-master [id="tbl_koumoku_h"] th.col7 {
+		width:150px;
+	}
+
+	#category-master [id="tbl_koumoku_h"] th.col8 {
+		width:150px;
+	}
+
+	#category-master [id="tbl_koumoku_h"] th.col9 {
+		width:150px;
+	}
+
+	#category-master [id="tbl_koumoku_h"] th.col10 {
+		width:150px;
+	}
+
+	#category-master [id="tbl_koumoku_h"] th.col11 {
+		width:100px;
+	}
+
+	#category-master [id="tbl_koumoku_h"] th.col12 {
+		width:150px;
+	}
+
+	#category-master [id="tbl_koumoku_h"] th.col13 {
+		width:260px;
+	}
+
+	#category-master [id="tbl_koumoku_h"] th.col14 {
+		width:150px;
+	}
+
+	#category-master [id="tbl_koumoku_h"] th.col15 {
+		width:240px;
+	}
+
+	#category-master [id="tbl_koumoku_h"] th.col16 {
+		width:240px;
+	}
+
+/* 一覧枠ヘッダ(Calendarマスタメンテ)
+-----------------------------------------------------------*/
+    #calendar-master [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#calendar-master [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#calendar-master [id="tbl_koumoku_h"] th.col1 {
+		width:120px;
+	}
+	#calendar-master [id="tbl_koumoku_h"] th.col2 {
+		width:100px;
+	}
+	#calendar-master [id="tbl_koumoku_h"] th.col3 {
+		width:100px;
+	}
+
+    /* 一覧枠ヘッダ(Goodsマスタメンテ)
+    -----------------------------------------------------------*/
+    #goods-master [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#goods-master [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#goods-master [id="tbl_koumoku_h"] th.col1 {
+		width:120px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col2 {
+		width:240px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col3 {
+		width:70px;
+	}
+    #goods-master [id="tbl_koumoku_h"] th.col4 {
+		width:280px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col5 {
+		width:280px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col6 {
+		width:280px;
+	}	
+    #goods-master [id="tbl_koumoku_h"] th.col7 {
+		width:280px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col8 {
+		width:280px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col9 {
+		width:280px;
+	}	
+    #goods-master [id="tbl_koumoku_h"] th.col10 {
+		width:280px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col11 {
+		width:70px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col12 {
+		width:230px;
+	}	
+    #goods-master [id="tbl_koumoku_h"] th.col13 {
+		width:120px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col14 {
+		width:240px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col15 {
+		width:120px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col16 {
+		width:70px;
+	}	
+    #goods-master [id="tbl_koumoku_h"] th.col17 {
+		width:470px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col18 {
+		width:470px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col19 {
+		width:470px;
+	}
+    #goods-master [id="tbl_koumoku_h"] th.col20 {
+		width:470px;
+	}	
+    #goods-master [id="tbl_koumoku_h"] th.col21 {
+		width:470px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col22 {
+		width:470px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col23 {
+		width:470px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col24 {
+		width:470px;
+	}	
+    #goods-master [id="tbl_koumoku_h"] th.col25 {
+		width:470px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col26 {
+		width: 470px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col27 {
+		width: 470px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col28 {
+		width: 470px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col29 {
+		width: 470px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col30 {
+		width: 470px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col31 {
+		width: 470px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col32 {
+		width: 470px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col33 {
+		width: 470px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col34 {
+		width: 470px;
+	}
+	#goods-master [id="tbl_koumoku_h"] th.col35 {
+		width:230px;
+	}
+
+    /* 一覧枠ヘッダ(データ取込画面)            
+-----------------------------------------------------------*/
+    #modal-csv-content [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+    /* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#modal-csv-content [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+    /* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#modal-csv-content [id="tbl_koumoku_h"] th.col1 {
+		width:80px;
+	}
+
+	#modal-csv-content [id="tbl_koumoku_h"] th.col2 {
+		width:200px;
+	}
+
+	#modal-csv-content [id="tbl_koumoku_h"] th.col3 {
+		width:350px;
+	}
+
+    /* 一覧枠ヘッダ(棚卸概況)            
+-----------------------------------------------------------*/
+    #inventory-summary [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#inventory-summary [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#inventory-summary [id="tbl_koumoku_h"] th.col1 {
+		width:270px;
+	}
+
+	#inventory-summary [id="tbl_koumoku_h"] th.col2 {
+		width:80px;
+	}
+
+	#inventory-summary [id="tbl_koumoku_h"] th.col3 {
+		width:100px;
+	}
+
+	#inventory-summary [id="tbl_koumoku_h"] th.col4 {
+		width:80px;
+	}
+
+    #inventory-summary [id="tbl_koumoku_h"] th.col5 {
+		width:80px;
+	}
+
+    #inventory-summary [id="tbl_koumoku_h"] th.col6 {
+		width:80px;
+	}
+
+    #inventory-summary [id="tbl_koumoku_h"] th.col7 {
+		width:80px;
+	}
+
+	#inventory-summary [id="tbl_koumoku_h"] th.col8 {
+		width:80px;
+	}
+
+    #inventory-summary [id="tbl_koumoku_h"] th.col9 {
+		width:80px;
+	}
+
+    #inventory-summary [id="tbl_koumoku_h"] th.col10 {
+		width:80px;
+	}
+        #inventory-summary [id="tbl_koumoku_h"] th.col11 {
+		width:40px;
+	}
+
+
+/* 一覧枠ヘッダ(棚卸実績一覧)            
+-----------------------------------------------------------*/
+    #inventory-history [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#inventory-history [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	#inventory-history [id="tbl_koumoku_h"] th.col1 {
+	 /*width:30px; yamada*/
+		width:40px;
+	}
+
+	#inventory-history [id="tbl_koumoku_h"] th.col2 {
+		width:150px;
+	}
+
+	#inventory-history [id="tbl_koumoku_h"] th.col3 {
+		width:240px;
+	}
+
+	#inventory-history [id="tbl_koumoku_h"] th.col4 {
+		width:240px;
+	}
+
+    #inventory-history [id="tbl_koumoku_h"] th.col5 {
+		width:150px;
+	}
+
+    #inventory-history [id="tbl_koumoku_h"] th.col6 {
+		width:240px;
+	}
+
+    #inventory-history [id="tbl_koumoku_h"] th.col7 {
+		width:80px;
+	}
+
+	#inventory-history [id="tbl_koumoku_h"] th.col8 {
+		width:80px;
+	}
+
+    #inventory-history [id="tbl_koumoku_h"] th.col9 {
+		width:80px;
+	}
+
+    #inventory-history [id="tbl_koumoku_h"] th.col10 {
+		width:80px;
+	}
+
+        #inventory-history [id="tbl_koumoku_h"] th.col11 {
+		width:270px;
+	}
+
+    /* 一覧枠ヘッダ(棚卸実績照会)            
+-----------------------------------------------------------*/
+    #inventory-asset-history [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#inventory-asset-history [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#inventory-asset-history [id="tbl_koumoku_h"] th.col1 {
+		width:160px;
+	}
+
+	#inventory-asset-history [id="tbl_koumoku_h"] th.col2 {
+		width:60px;
+	}
+
+	#inventory-asset-history [id="tbl_koumoku_h"] th.col3 {
+		width:140px;
+	}
+
+    #inventory-asset-history [id="tbl_koumoku_h"] th.col4 {
+		width:270px;
+	}
+
+    #inventory-asset-history [id="tbl_koumoku_h"] th.col5 {
+		width:270px;
+	}
+
+    #inventory-asset-history [id="tbl_koumoku_h"] th.col6 {
+		width:270px;
+	}
+
+	#inventory-asset-history [id="tbl_koumoku_h"] th.col7 {
+		width:270px;
+	}
+
+    #inventory-asset-history [id="tbl_koumoku_h"] th.col8 {
+		width:270px;
+	}
+
+    #inventory-asset-history [id="tbl_koumoku_h"] th.col9 {
+		width:270px;
+	}
+
+    #inventory-asset-history [id="tbl_koumoku_h"] th.col10 {
+		width:240px;
+	}
+
+    #inventory-asset-history [id="tbl_koumoku_h"] th.col11 {
+		width:120px;
+	}
+
+    #inventory-asset-history [id="tbl_koumoku_h"] th.col12 {
+		width:240px;
+	}
+
+    /* 20231024 ADD Start Shirakawa */
+    /* 一覧枠ヘッダ(棚卸実績一覧)            
+-----------------------------------------------------------*/
+    #inventory-historyloc [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#inventory-historyloc [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	#inventory-historyloc [id="tbl_koumoku_h"] th.col1 {
+		width:120px;
+	}
+
+	#inventory-historyloc [id="tbl_koumoku_h"] th.col2 {
+		width:180px;
+	}
+
+	#inventory-historyloc [id="tbl_koumoku_h"] th.col3 {
+		width:180px;
+	}
+
+	#inventory-historyloc [id="tbl_koumoku_h"] th.col4 {
+		width:120px;
+	}
+
+    #inventory-historyloc [id="tbl_koumoku_h"] th.col5 {
+		width:180px;
+	}
+
+    #inventory-historyloc [id="tbl_koumoku_h"] th.col6 {
+		width:240px;
+	}
+
+    #inventory-historyloc [id="tbl_koumoku_h"] th.col7 {
+		width:100px;
+	}
+
+	#inventory-historyloc [id="tbl_koumoku_h"] th.col8 {
+		width:100px;
+	}
+
+    #inventory-historyloc [id="tbl_koumoku_h"] th.col9 {
+		width:100px;
+	}
+
+    #inventory-historyloc [id="tbl_koumoku_h"] th.col10 {
+		width:100px;
+	}
+
+    #inventory-historyloc [id="tbl_koumoku_h"] th.col11 {
+		width:100px;
+	}
+
+    #inventory-historyloc [id="tbl_koumoku_h"] th.col12 {
+		width:100px;
+	}
+    /* 20231024 ADD Start Shirakawa */
+
+    /* 一覧枠ヘッダ(在庫照会)            
+-----------------------------------------------------------*/
+    #stock-list [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#stock-list [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#stock-list [id="tbl_koumoku_h"] th.col1 {
+		/*width:30px; yamada*/
+		width:40px;
+	}
+
+	#stock-list [id="tbl_koumoku_h"] th.col2 {
+		width:270px;
+	}
+
+	#stock-list [id="tbl_koumoku_h"] th.col3 {
+		width:270px;
+	}
+
+    #stock-list [id="tbl_koumoku_h"] th.col4 {
+		width:270px;
+	}
+
+    #stock-list [id="tbl_koumoku_h"] th.col5 {
+		width:240px;
+	}
+
+    #stock-list [id="tbl_koumoku_h"] th.col6 {
+		width:240px;
+	}
+
+    #stock-list [id="tbl_koumoku_h"] th.col7 {
+		width:240px;
+	}
+
+	#stock-list [id="tbl_koumoku_h"] th.col8 {
+		width:240px;
+	}
+
+    #stock-list [id="tbl_koumoku_h"] th.col9 {
+		width:100px;
+	}
+
+    /* 一覧枠ヘッダ(ログ照会)            
+-----------------------------------------------------------*/
+    #operationlog [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#operationlog [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#operationlog [id="tbl_koumoku_h"] th.col1 {
+		width:150px;
+	}
+
+	#operationlog [id="tbl_koumoku_h"] th.col2 {
+		width:100px;
+	}
+
+	#operationlog [id="tbl_koumoku_h"] th.col3 {
+		width:100px;
+	}
+
+	#operationlog [id="tbl_koumoku_h"] th.col4 {
+		width:240px;
+	}
+
+    #operationlog [id="tbl_koumoku_h"] th.col5 {
+		width:460px;
+	}
+    
+    #operationlog [id="tbl_koumoku_h"] th.col6 {
+		width:270px;
+	}
+
+    #operationlog [id="tbl_koumoku_h"] th.col7 {
+		width:270px;
+	}
+
+    #operationlog [id="tbl_koumoku_h"] th.col8 {
+		width:270px;
+	}
+
+/* 一覧枠ヘッダ(資産一覧)            
+-----------------------------------------------------------*/
+    #asset-list [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#asset-list [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	#asset-list [id="tbl_koumoku_h"] th.col1 {
+        /*width:30px; yamada*/
+		width:40px;
+	}
+	#asset-list [id="tbl_koumoku_h"] th.col2 {
+        /*width:45px; yamada*/
+		width:60px;
+	}
+	#asset-list [id="tbl_koumoku_h"] th.col3 {
+		width:280px;
+	}
+	#asset-list [id="tbl_koumoku_h"] th.col4 {
+		width:240px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col5 {
+		width:70px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col6 {
+		width:280px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col7 {
+		width:50px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col8 {
+		width:50px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col9 {
+		width:60px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col10 {
+		width:150px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col11 {
+		width:280px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col12 {
+		width:140px;
+	}    
+    #asset-list [id="tbl_koumoku_h"] th.col13 {
+		width:280px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col14 {
+		width:280px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col15 {
+		width:280px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col16 {
+		width:280px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col17 {
+		width:280px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col18 {
+		width:280px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col19 {
+		width:280px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col20 {
+		width:70px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col21 {
+		width:230px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col22 {
+		width:120px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col23 {
+		width:120px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col24 {
+		width:240px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col25 {
+		width:120px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col26 {
+		width:70px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col27 {
+		width:470px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col28 {
+		width:470px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col29 {
+		width:470px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col30 {
+		width:470px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col31 {
+		width:470px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col32 {
+		width:470px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col33 {
+		width:470px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col34 {
+		width:470px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col35 {
+		width:470px;
+	}
+	#asset-list [id="tbl_koumoku_h"] th.col36 {
+		width:470px;
+	}
+	#asset-list [id="tbl_koumoku_h"] th.col37 {
+		width:470px;
+	}
+	#asset-list [id="tbl_koumoku_h"] th.col38 {
+		width:470px;
+	}
+	#asset-list [id="tbl_koumoku_h"] th.col39 {
+		width:470px;
+	}
+	#asset-list [id="tbl_koumoku_h"] th.col40 {
+		width:470px;
+	}
+	#asset-list [id="tbl_koumoku_h"] th.col41 {
+		width:470px;
+	}
+	#asset-list [id="tbl_koumoku_h"] th.col42 {
+		width:470px;
+	}
+	#asset-list [id="tbl_koumoku_h"] th.col43 {
+		width:470px;
+	}
+	#asset-list [id="tbl_koumoku_h"] th.col44 {
+		width:470px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col45 {
+		width:280px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col46 {
+		width:50px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col47 {
+		width:100px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col48 {
+		width:100px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col49 {
+		width:240px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col50 {
+		width:100px;
+	}
+    #asset-list [id="tbl_koumoku_h"] th.col51 {
+		width:240px;
+	}
+
+/* 一覧枠ヘッダ(資産履歴照会)            
+-----------------------------------------------------------*/
+    #asset-history [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#asset-history [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	#asset-history [id="tbl_koumoku_h"] th.col1 {
+		width:100px;
+	}
+	#asset-history [id="tbl_koumoku_h"] th.col2 {
+		width:160px;
+	}
+	#asset-history [id="tbl_koumoku_h"] th.col3 {
+		width:130px;
+	}
+	#asset-history [id="tbl_koumoku_h"] th.col4 {
+		width:100px;
+	}
+    #asset-history [id="tbl_koumoku_h"] th.col5 {
+		width:240px;
+	}
+    #asset-history [id="tbl_koumoku_h"] th.col6 {
+		width:140px;
+	}
+    #asset-history [id="tbl_koumoku_h"] th.col7 {
+		width:240px;
+	}
+    #asset-history [id="tbl_koumoku_h"] th.col8 {
+        width:150px;   /* 2020/03/05 nv miyaji upd */
+		/*width:100px;*/
+	}
+	#asset-history [id="tbl_koumoku_h"] th.col9 {
+		width:150px;
+	}
+	#asset-history [id="tbl_koumoku_h"] th.col10 {
+		width:240px;
+	}
+	#asset-history [id="tbl_koumoku_h"] th.col11 {
+		width:150px;
+	}
+	#asset-history [id="tbl_koumoku_h"] th.col12 {
+		width:270px;
+	}
+	#asset-history [id="tbl_koumoku_h"] th.col13 {
+		width:270px;
+	}
+	#asset-history [id="tbl_koumoku_h"] th.col14 {
+		width:270px;
+	}
+    #asset-history [id="tbl_koumoku_h"] th.col15 {
+		width:270px;
+	}
+	#asset-history [id="tbl_koumoku_h"] th.col16 {
+		width:270px;
+	}
+    #asset-history [id="tbl_koumoku_h"] th.col17 {
+		width:270px;
+	}
+    #asset-history [id="tbl_koumoku_h"] th.col18 {
+		width:270px;
+	}
+    #asset-history [id="tbl_koumoku_h"] th.col19 {
+		width:240px;
+	}
+    #asset-history [id="tbl_koumoku_h"] th.col20 {
+		width:120px;
+	}
+    #asset-history [id="tbl_koumoku_h"] th.col21 {
+		width:120px;
+	}
+    #asset-history [id="tbl_koumoku_h"] th.col22 {
+		width:120px;
+	}
+    #asset-history [id="tbl_koumoku_h"] th.col23 {
+		width:480px;
+	}
+    #asset-history [id="tbl_koumoku_h"] th.col24 {
+		width:240px;
+	}
+
+    /* 一覧枠ヘッダ(文言設定マスタメンテ画面)            
+-----------------------------------------------------------*/
+    #word-master [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+    /* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#word-master [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+    /* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#word-master [id="tbl_koumoku_h"] th.col1 {
+		width:100px;
+	}
+
+	#word-master [id="tbl_koumoku_h"] th.col2 {
+		width:500px;
+	}
+
+	#word-master [id="tbl_koumoku_h"] th.col3 {
+		width:500px;
+	}
+
+	#word-master [id="tbl_koumoku_h"] th.col4 {
+		width:500px;
+	}
+
+
+/* 一覧枠ヘッダ(履歴照会(資産))(上部)
+-----------------------------------------------------------*/
+    #asset-detail [id="tbl_koumoku_h_top"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#asset-detail [id="tbl_koumoku_h_top"] tr{
+		background-color:#555;
+	}
+
+	#asset-detail [id="tbl_koumoku_h_top"] th.col1 {
+		width:160px;
+	}
+	#asset-detail [id="tbl_koumoku_h_top"] th.col2 {
+		width:100px;
+	}
+	#asset-detail [id="tbl_koumoku_h_top"] th.col3 {
+		width:100px;
+	}
+	#asset-detail [id="tbl_koumoku_h_top"] th.col4 {
+		width:100px;
+	}
+    #asset-detail [id="tbl_koumoku_h_top"] th.col5 {
+		width:100px;
+	}
+    #asset-detail [id="tbl_koumoku_h_top"] th.col6 {
+		width:240px;
+	}
+    #asset-detail [id="tbl_koumoku_h_top"] th.col7 {
+		width:240px;
+	}
+    #asset-detail [id="tbl_koumoku_h_top"] th.col8 {
+		width:240px;
+	}
+	#asset-detail [id="tbl_koumoku_h_top"] th.col9 {
+		width:240px;
+	}
+    #asset-detail [id="tbl_koumoku_h_top"] th.col10 {
+		width:120px;
+	}
+    #asset-detail [id="tbl_koumoku_h_top"] th.col11 {
+		width:120px;
+	}
+    #asset-detail [id="tbl_koumoku_h_top"] th.col12 {
+		width:120px;
+	}
+    #asset-detail [id="tbl_koumoku_h_top"] th.col13 {
+		width:100px;
+	}
+
+/* 一覧枠ヘッダ(履歴照会(資産))(下部)
+-----------------------------------------------------------*/
+    #asset-detail [id="tbl_koumoku_h_bottom"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#asset-detail [id="tbl_koumoku_h_bottom"] tr{
+		background-color:#555;
+	}
+
+	#asset-detail [id="tbl_koumoku_h_bottom"] th.col1 {
+		width:100px;
+	}
+	#asset-detail [id="tbl_koumoku_h_bottom"] th.col2 {
+		width:130px;
+	}
+	#asset-detail [id="tbl_koumoku_h_bottom"] th.col3 {
+		width:100px;
+	}
+	#asset-detail [id="tbl_koumoku_h_bottom"] th.col4 {
+		width:240px;
+	}
+    #asset-detail [id="tbl_koumoku_h_bottom"] th.col5 {
+		width:140px;
+	}
+    #asset-detail [id="tbl_koumoku_h_bottom"] th.col6 {
+		width:240px;
+	}
+    #asset-detail [id="tbl_koumoku_h_bottom"] th.col7 {
+        width:150px;   /* 2020/03/05 nv miyaji upd */
+		/*width:100px;*/
+	}
+	#asset-detail [id="tbl_koumoku_h_bottom"] th.col8 {
+		width:150px;
+	}
+	#asset-detail [id="tbl_koumoku_h_bottom"] th.col9 {
+		width:240px;
+	}
+	#asset-detail [id="tbl_koumoku_h_bottom"] th.col10 {
+		width:150px;
+	}
+	#asset-detail [id="tbl_koumoku_h_bottom"] th.col11 {
+		width:270px;
+	}
+	#asset-detail [id="tbl_koumoku_h_bottom"] th.col12 {
+		width:270px;
+	}
+	#asset-detail [id="tbl_koumoku_h_bottom"] th.col13 {
+		width:270px;
+	}
+    #asset-detail [id="tbl_koumoku_h_bottom"] th.col14 {
+		width:270px;
+	}
+	#asset-detail [id="tbl_koumoku_h_bottom"] th.col15 {
+		width:270px;
+	}
+    #asset-detail [id="tbl_koumoku_h_bottom"] th.col16 {
+		width:270px;
+	}
+    #asset-detail [id="tbl_koumoku_h_bottom"] th.col17 {
+		width:240px;
+	}
+    #asset-detail [id="tbl_koumoku_h_bottom"] th.col18 {
+		width:480px;
+	}
+    #asset-detail [id="tbl_koumoku_h_bottom"] th.col19 {
+		width:240px;
+	}
+
+/* 一覧枠ヘッダ(CSV取込モーダル画面)
+-----------------------------------------------------------*/
+    #modal-csv-content [id="csv_tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#modal-csv-content [id="csv_tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#modal-csv-content [id="csv_tbl_koumoku_h"] th.col1 {
+		width:80px;
+	}
+
+	#modal-csv-content [id="csv_tbl_koumoku_h"] th.col2 {
+		width:200px;
+	}
+
+	#modal-csv-content [id="csv_tbl_koumoku_h"] th.col3 {
+        width:600px;
+		/*width:350px;*/
+	}
+
+    /* 一覧枠ヘッダ(CsvMappingマスタメンテ)
+-----------------------------------------------------------*/
+    #csvmapping-master [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#csvmapping-master [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#csvmapping-master [id="tbl_koumoku_h"] th.col1 {
+		width:30px;
+	}
+
+	#csvmapping-master [id="tbl_koumoku_h"] th.col2 {
+		width:200px;
+	}
+
+	#csvmapping-master [id="tbl_koumoku_h"] th.col3 {
+		width:80px;
+	}
+
+    #csvmapping-master [id="tbl_koumoku_h"] th.col4 {
+        /*width:250px; yamada*/
+		width:350px;
+	}
+
+    #csvmapping-master [id="tbl_koumoku_h"] th.col5 {
+		width:100px;
+	}
+
+    #csvmapping-master [id="tbl_koumoku_h"] th.col6 {
+		width:200px;
+	}
+
+    /* 一覧枠ヘッダ(貸出先一覧画面)
+-----------------------------------------------------------*/
+    #leaseplace-ichiran [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#leaseplace-ichiran [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#leaseplace-ichiran [id="tbl_koumoku_h"] th.col1 {
+		width:280px;
+	}
+
+	#leaseplace-ichiran [id="tbl_koumoku_h"] th.col2 {
+		width:180px;
+	}
+
+	#leaseplace-ichiran [id="tbl_koumoku_h"] th.col3 {
+		width:180px;
+	}
+
+        /* 一覧枠ヘッダ(貸出先資産照会画面)
+-----------------------------------------------------------*/
+    #leaseplace-detail [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#leaseplace-detail [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#leaseplace-detail [id="tbl_koumoku_h"] th.col1 {
+		width:280px;
+	}
+
+	#leaseplace-detail [id="tbl_koumoku_h"] th.col2 {
+		width:60px;
+	}
+
+	#leaseplace-detail [id="tbl_koumoku_h"] th.col3 {
+		width:150px;
+	}
+    #leaseplace-detail [id="tbl_koumoku_h"] th.col4 {
+		width:140px;
+	}
+    #leaseplace-detail [id="tbl_koumoku_h"] th.col5 {
+		width:280px;
+	}
+    #leaseplace-detail [id="tbl_koumoku_h"] th.col6 {
+		width:280px;
+	}
+    #leaseplace-detail [id="tbl_koumoku_h"] th.col7 {
+		width:240px;
+	}
+    #leaseplace-detail [id="tbl_koumoku_h"] th.col8 {
+		width:230px;
+	}
+    #leaseplace-detail [id="tbl_koumoku_h"] th.col9 {
+		width:120px;
+	}
+    #leaseplace-detail [id="tbl_koumoku_h"] th.col10 {
+		width:120px;
+	}
+
+    /* 一覧枠ヘッダ(ゲートマスタメンテ画面)
+-----------------------------------------------------------*/
+    #gate-master [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#gate-master [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#gate-master [id="tbl_koumoku_h"] th.col1 {
+        /*width:30px; yamada*/
+		width:40px;
+	}
+
+    #gate-master [id="tbl_koumoku_h"] th.col2 {
+		width:100px;
+	}
+
+	#gate-master [id="tbl_koumoku_h"] th.col3 {
+		width:280px;
+	}
+
+	#gate-master [id="tbl_koumoku_h"] th.col4 {
+		width:150px;
+	}
+    
+	#gate-master [id="tbl_koumoku_h"] th.col5 {
+		width:150px;
+	}
+
+	#gate-master [id="tbl_koumoku_h"] th.col6 {
+		width:150px;
+	}
+
+    #gate-master [id="tbl_koumoku_h"] th.col7 {
+		width:150px;
+	}
+
+    #gate-master [id="tbl_koumoku_h"] th.col8 {
+		width:150px;
+	}
+
+    #gate-master [id="tbl_koumoku_h"] th.col9 {
+		width:150px;
+	}
+
+    /* 一覧枠ヘッダ(ゲートマスタメンテ画面(SpeedWay用))
+-----------------------------------------------------------*/
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#gate-master [id="tbl_koumoku_h"] th.colSw5 {
+		width:250px;
+	}
+
+	#gate-master [id="tbl_koumoku_h"] th.colSw6 {
+		width:150px;
+	}
+
+    #gate-master [id="tbl_koumoku_h"] th.colSw7 {
+		width:150px;
+	}
+
+    #gate-master [id="tbl_koumoku_h"] th.colSw8 {
+		width:100px;
+	}
+
+    #gate-master [id="tbl_koumoku_h"] th.colSw9 {
+		width:150px;
+	}
+
+    #gate-master [id="tbl_koumoku_h"] th.colSw10 {
+		width:300px;
+	}
+
+    #gate-master [id="tbl_koumoku_h"] th.colSw2_10 {
+		width:150px;
+	}
+
+    #gate-master [id="tbl_koumoku_h"] th.colSw2_11 {
+		width:150px;
+	}
+
+    /* 一覧枠ヘッダ(ゲート持ち出し履歴画面)
+-----------------------------------------------------------*/
+    #gate-pass-log [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#gate-pass-log [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#gate-pass-log [id="tbl_koumoku_h"] th.col1 {
+		width:240px;
+	}
+
+    #gate-pass-log [id="tbl_koumoku_h"] th.col2 {
+		width:100px;
+	}
+
+	#gate-pass-log [id="tbl_koumoku_h"] th.col3 {
+		width:100px;
+	}
+
+	#gate-pass-log [id="tbl_koumoku_h"] th.col4 {
+		width:160px;
+	}
+    
+	#gate-pass-log [id="tbl_koumoku_h"] th.col5 {
+		width:240px;
+	}
+
+	#gate-pass-log [id="tbl_koumoku_h"] th.col6 {
+		width:120px;
+	}
+
+    #gate-pass-log [id="tbl_koumoku_h"] th.col7 {
+		width:120px;
+	}
+
+    #gate-pass-log [id="tbl_koumoku_h"] th.col8 {
+		width:120px;
+	}
+
+    #gate-pass-log [id="tbl_koumoku_h"] th.col9 {
+		width:480px;
+	}
+
+	#gate-pass-log [id="tbl_koumoku_h"] th.colSw6 {
+		width:480px;
+	}
+
+    /* 一覧枠ヘッダ(予約状況照会画面)
+    -----------------------------------------------------------*/
+    #lending-status [id="tbl_koumoku_h"] {
+		/*width:360px;*/
+		width:1200px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#lending-status [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#lending-status [id="tbl_koumoku_h"] th.col1 {
+        width:40px;
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col2 {
+		width:180px;
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col2_2 {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+    #lending-status [id="tbl_koumoku_h"] th.col3 {
+		width:180px;
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col3_2 {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col4 {
+		width:180px;
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col4_2 {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col5 {
+		width:200px;
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col5_2 {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col6 {
+		width:120px;
+        white-space: normal; 		/* 折り畳み対応 */
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col6_2 {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col7 {
+		width:200px;
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col7_2 {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col8 {
+		width: 200px;
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col8_2 {
+		width: 40px;
+		text-overflow: ellipsis;	/* 折り畳み対応 */
+		white-space: nowrap;		/* 折り畳み対応 */
+		overflow: hidden;			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col9 {
+		width:110px;
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col9_2 {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col10 {
+		width:110px;
+	}
+	#lending-status [id="tbl_koumoku_h"] th.col10_2 {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status [id="tbl_koumoku_h"] th.colmonth {
+		width:40px;
+	}
+	#lending-status [id="tbl_koumoku_h"] th.colday {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 10px;			/* 折り畳み対応 */
+	}
+	#lending-status [id="tbl_koumoku_h"] th.colday_2 {
+		width:10px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 10px;			/* 折り畳み対応 */
+	}
+
+    /* 一覧枠ヘッダ(予約申請登録/更新画面)
+    -----------------------------------------------------------*/
+    #lending-entry [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#lending-entry [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#lending-entry [id="tbl_koumoku_h"] th.col1 {
+        width:40px;
+	}
+	#lending-entry [id="tbl_koumoku_h"] th.col2 {
+		width:200px;
+	}
+	#lending-entry [id="tbl_koumoku_h"] th.col3 {
+		width:200px;
+	}
+	#lending-entry [id="tbl_koumoku_h"] th.col4 {
+		width:200px;
+	}
+	#lending-entry [id="tbl_koumoku_h"] th.col5 {
+		width:180px;
+	}
+	#lending-entry [id="tbl_koumoku_h"] th.col6 {
+		width:250px;
+	}
+	#lending-entry [id="tbl_koumoku_h"] th.col7 {
+		width:200px;
+	}
+	#lending-entry [id="tbl_koumoku_h"] th.col8 {
+		width:200px;
+	}
+
+    /* 一覧枠ヘッダ(予約一覧画面)
+    -----------------------------------------------------------*/
+    #lending-list [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#lending-list [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#lending-list [id="tbl_koumoku_h"] th.col1 {
+        width:40px;
+	}
+	#lending-list [id="tbl_koumoku_h"] th.col2 {
+		width:110px;
+	}
+	#lending-list [id="tbl_koumoku_h"] th.col3 {
+		width:110px;
+	}
+	#lending-list [id="tbl_koumoku_h"] th.col4 {
+		width:180px;
+	}
+	#lending-list [id="tbl_koumoku_h"] th.col5 {
+		width:180px;
+	}
+	#lending-list [id="tbl_koumoku_h"] th.col6 {
+		width:220px;
+	}
+	#lending-list [id="tbl_koumoku_h"] th.col7 {
+		width:220px;
+	}
+	#lending-list [id="tbl_koumoku_h"] th.col8 {
+		width:120px;
+	}
+	#lending-list [id="tbl_koumoku_h"] th.col9 {
+		width:120px;
+	}
+	#lending-list [id="tbl_koumoku_h"] th.col10 {
+		width:120px;
+	}
+
+    /* 一覧枠ヘッダ(予約履歴画面)
+    -----------------------------------------------------------*/
+    #lending-history [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#lending-history [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#lending-history [id="tbl_koumoku_h"] th.col1 {
+        width:120px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col2 {
+		width:110px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col3 {
+		width:110px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col4 {
+		width:180px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col5 {
+		width:90px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col6 {
+		width:90px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col7 {
+		width:90px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col8 {
+		width:90px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col9 {
+		width:180px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col10 {
+		width:180px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col11 {
+		width:180px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col12 {
+		width:180px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col13 {
+		width:180px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col14 {
+		width:180px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col15 {
+		width:180px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col16 {
+		width:120px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col17 {
+		width:180px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col18 {
+		width:180px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col19 {
+		width:90px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col20 {
+		width:90px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col21 {
+		width:90px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col22 {
+		width:90px;
+	}
+	#lending-history [id="tbl_koumoku_h"] th.col23 {
+		width:180px;
+	}
+
+    /* 一覧枠ヘッダ(貸出履歴照会画面)
+    -----------------------------------------------------------*/
+    #asset-lease-hitory [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#asset-lease-hitory [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#asset-lease-hitory [id="tbl_koumoku_h"] th.col1 {
+        width:180px;
+	}
+	#asset-lease-hitory [id="tbl_koumoku_h"] th.col2 {
+		width:180px;
+	}
+	#asset-lease-hitory [id="tbl_koumoku_h"] th.col3 {
+		width:180px;
+	}
+	#asset-lease-hitory [id="tbl_koumoku_h"] th.col4 {
+		width:180px;
+	}
+	#asset-lease-hitory [id="tbl_koumoku_h"] th.col5 {
+		width:120px;
+	}
+	#asset-lease-hitory [id="tbl_koumoku_h"] th.col6 {
+		width:180px;
+	}
+	#asset-lease-hitory [id="tbl_koumoku_h"] th.col7 {
+		width:100px;
+	}
+	#asset-lease-hitory [id="tbl_koumoku_h"] th.col8 {
+		width:100px;
+	}
+	#asset-lease-hitory [id="tbl_koumoku_h"] th.col9 {
+		width:100px;
+	}
+	#asset-lease-hitory [id="tbl_koumoku_h"] th.col10 {
+		width:100px;
+	}
+	#asset-lease-hitory [id="tbl_koumoku_h"] th.col11 {
+		width: 100px;
+	}
+
+	/* 2023/03/22 Kawamoto ADD START */
+	/* 一覧枠ヘッダ(添付ファイル管理モーダル画面)
+	-----------------------------------------------------------*/
+	#modal-attachment-content [id="tbl_koumoku_h"] {
+		width: 500px;
+		border-right: 1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#modal-attachment-content [id="tbl_koumoku_h"] tr {
+		background-color: #555;
+	}
+
+	/* 一覧ヘッダ枠(テーブル)のth要素(項目要素) */
+	#modal-attachment-content [id="tbl_koumoku_h"] th.col1 {
+		width: 40px;
+	}
+
+	#modal-attachment-content [id="tbl_koumoku_h"] th.col2 {
+		width: 330px;
+	}
+
+	#modal-attachment-content [id="tbl_koumoku_h"] th.col3 {
+		width: 80px;
+	}
+
+	#modal-attachment-content [id="tbl_koumoku_h"] th.col4 {
+		width: 150px;
+	}
+	/* 2023/03/22 Kawamoto ADD END */
+
+
+/* 一覧枠ヘッダ(資産一覧)     2023/04/30 Sato v2.4 ADD
+-----------------------------------------------------------*/
+    #specifed-qty-list-output [id="tbl_koumoku_h"] {
+		width:360px;
+		border-right:1px solid #555;
+	}
+	/* 一覧ヘッダ枠(テーブル)のtr要素(行全体) */
+	#specifed-qty-list-output [id="tbl_koumoku_h"] tr{
+		background-color:#555;
+	}
+
+	#specifed-qty-list-output [id="tbl_koumoku_h"] th.col1 {
+		width:40px;
+	}
+	#specifed-qty-list-output [id="tbl_koumoku_h"] th.col2 {
+		width:240px;
+	}
+	#specifed-qty-list-output [id="tbl_koumoku_h"] th.col3 {
+		width:240px;
+	}
+	#specifed-qty-list-output [id="tbl_koumoku_h"] th.col4 {
+		width:240px;
+	}
+    #specifed-qty-list-output [id="tbl_koumoku_h"] th.col5 {
+		width:240px;
+	}
+    #specifed-qty-list-output [id="tbl_koumoku_h"] th.col6 {
+		width:160px;
+	}
+    #specifed-qty-list-output [id="tbl_koumoku_h"] th.col7 {
+		width:160px;
+	}
+
+/* 一覧枠データ (スクロール枠)                               
+-----------------------------------------------------------*/
+	#div_koumoku_d {
+		float:right;
+		width: 100%;
+	}
+	/* forEachの対応する一覧枠データ。 */
+	[id="tbl_koumoku_d"] {
+		width:360px;
+	}
+	[id="tbl_koumoku_d_top"],
+    [id="tbl_koumoku_d_bottom"] {
+		width:360px;
+	}
+	/* 一覧枠データの全てのtd要素(データ項目) */
+	table.ich_table td{
+		/* width:120px; */              /* カラム幅 */
+		cursor:text;             /* カラムカーソル */
+		white-space:nowrap;      /* カラム改行されない */
+		overflow:hidden;
+        text-overflow:inherit;
+		/* スクロールバーを背景色にする(表示させない) */
+		scrollbar-face-color: #111;
+		scrollbar-track-color: #111;
+		scrollbar-arrow-color: #EEE;
+		scrollbar-highlight-color: #111;
+		scrollbar-shadow-color: #111;
+		scrollbar-3dlight-color: #111;
+		scrollbar-darkshadow-color: #EEE;
+		text-overflow: ellipsis;	 /* 3点リーダー */
+	}
+        	
+	/* 一覧枠データの全ての偶数行に */
+	table.ich_table tr:nth-child(even) td{
+		background-color:#FFFFFF;
+		/*color:#000;*/
+	}
+	/* 一覧枠データの全ての奇数行に */
+	table.ich_table tr:nth-child(odd) td{
+		background-color: #DFE7DF;
+		/*color: #000;*/
+	}
+        
+    /* 一覧枠データセルにホバーしたとき表示 */
+	table.ich_table td:hover{
+		cursor:text;
+	}
+
+/* 一覧枠データ(Memberマスタメンテ)            
+-----------------------------------------------------------*/
+	#member-master table.ich_table td.col1 {
+		width:50px;
+        text-align:center;
+	}
+	#member-master table.ich_table td.col2 {
+		width:100px;
+	}
+	#member-master table.ich_table td.col3 {
+		width:200px;
+	}
+	#member-master table.ich_table td.col4 {
+		width:200px;
+	}
+	#member-master table.ich_table td.col5 {
+		width:200px;
+	}
+
+    /* 一覧枠データ(Employeeマスタメンテ)            
+-----------------------------------------------------------*/
+	#employee-master table.ich_table td.col1 {
+        /*width:30px; yamada*/
+		width:40px;
+        text-align:center;
+	}
+	#employee-master table.ich_table td.col2 {
+		width:180px;
+	}
+	#employee-master table.ich_table td.col3 {
+		width:240px;
+	}
+    #employee-master table.ich_table td.col4 {
+		width:75px;
+        text-align:center;
+	}
+	#employee-master table.ich_table td.col5 {
+		width:180px;
+	}
+	#employee-master table.ich_table td.col6 {
+		width:240px;
+	}
+    #employee-master table.ich_table td.col7 {
+		width:240px;
+	}
+    #employee-master table.ich_table td.col8 {
+		width:70px;
+	}
+    #employee-master table.ich_table td.col9 {
+		width:240px;
+	}
+    #employee-master table.ich_table td.col10 {
+		width:120px;
+	}
+    #employee-master table.ich_table td.col11 {
+		width:240px;
+	}
+    #employee-master table.ich_table td.col12 {
+		width:120px;
+	}
+    #employee-master table.ich_table td.col13 {
+		width:240px;
+	}
+
+    /* 一覧枠データ(Settingマスタメンテ)            
+-----------------------------------------------------------*/
+	#setting-master table.ich_table td.col1 {
+        /*width:30px; yamada*/
+		width:40px;
+        text-align:center;
+	}
+	#setting-master table.ich_table td.col2 {
+		width:180px;
+	}
+	#setting-master table.ich_table td.col3 {
+		width:180px;
+	}
+	#setting-master table.ich_table td.col4 {
+		width:180px;
+	}
+	#setting-master table.ich_table td.col5 {
+		width:180px;
+	}
+    #setting-master table.ich_table td.col6 {
+		width:240px;
+	}
+    #setting-master table.ich_table td.col7 {
+		width:240px;
+	}
+    #setting-master table.ich_table td.col8 {
+		width:240px;
+	}
+    #setting-master table.ich_table td.col9 {
+		width:240px;
+	}
+    #setting-master table.ich_table td.col10 {
+		width:240px;
+	}
+    #setting-master table.ich_table td.col11 {
+		width:240px;
+	}
+    #setting-master table.ich_table td.col12 {
+		width:240px;
+	}
+    #setting-master table.ich_table td.col13 {
+		width:240px;
+	}
+    #setting-master table.ich_table td.col14 {
+		width:240px;
+	}
+    #setting-master table.ich_table td.col15 {
+		width:240px;
+	}
+    #setting-master table.ich_table td.col16 {
+		width:240px;
+	}
+    #setting-master table.ich_table td.col17 {
+		width:120px;
+	}
+    #setting-master table.ich_table td.col18 {
+		width:240px;
+	}
+    #setting-master table.ich_table td.col19 {
+		width:120px;
+	}
+    #setting-master table.ich_table td.col20 {
+		width:240px;
+	}
+
+    /* 一覧枠データ(実棚照会)            
+-----------------------------------------------------------*/
+	#inventory-inquiry table.ich_table td.col1 {
+	    /*width:30px; yamada*/
+		width:40px;
+        text-align:center;
+	}
+	#inventory-inquiry table.ich_table td.col2 {
+		width:160px;
+	}
+    #inventory-inquiry table.ich_table td.col3 {
+		width:240px;
+	}
+	#inventory-inquiry table.ich_table td.col4 {
+		width:60px;
+	}
+	#inventory-inquiry table.ich_table td.col5 {
+		width:140px;
+	}
+	#inventory-inquiry table.ich_table td.col6 {
+		width:270px;
+	}
+    #inventory-inquiry table.ich_table td.col7 {
+		width:270px;
+	}
+    #inventory-inquiry table.ich_table td.col8 {
+		width:270px;
+	}
+    #inventory-inquiry table.ich_table td.col9 {
+		width:270px;
+	}
+    #inventory-inquiry table.ich_table td.col10 {
+		width:270px;
+	}
+    #inventory-inquiry table.ich_table td.col11 {
+		width:270px;
+	}
+    #inventory-inquiry table.ich_table td.col12 {
+		width:120px;
+	}
+    #inventory-inquiry table.ich_table td.col13 {
+		width:240px;
+	}
+
+    /* 一覧枠データ(Departmentマスタメンテ)            
+    -----------------------------------------------------------*/
+	#department-master table.ich_table td.col1 {
+        /*width:30px; yamada*/
+		width:40px;
+        text-align:center;
+	}
+	#department-master table.ich_table td.col2 {
+		width:100px;
+	}
+	#department-master table.ich_table td.col3 {
+		width:500px;
+	}
+    #department-master table.ich_table td.col4 {
+		width:80px;
+	}
+    #department-master table.ich_table td.col5 {
+		width:80px;
+	}
+    #department-master table.ich_table td.col6 {
+		width:400px;
+	}
+    #department-master table.ich_table td.col7 {
+		width:400px;
+	}
+    #department-master table.ich_table td.col8 {
+		width:100px;
+	}
+    #department-master table.ich_table td.col9 {
+		width:100px;
+	}
+
+    /* 一覧枠データ(LeasePlaceマスタメンテ)            
+    -----------------------------------------------------------*/
+	#leaseplace-master table.ich_table td.col1 {
+        /*width:30px; yamada*/
+		width:40px;
+        text-align:center;
+	}
+	#leaseplace-master table.ich_table td.col2 {
+		width:150px;
+	}
+	#leaseplace-master table.ich_table td.col3 {
+		width:680px;
+	}
+    #leaseplace-master table.ich_table td.col4 {
+		width:180px;
+	}
+    #leaseplace-master table.ich_table td.col5 {
+		width:180px;
+	}
+	#leaseplace-master table.ich_table td.col6 {
+		width:590px;
+	}
+	#leaseplace-master table.ich_table td.col7 {
+		width:100px;
+        text-align:center;
+	}
+
+    /* 一覧枠データ(Locationマスタメンテ)            
+    -----------------------------------------------------------*/
+	#location-master table.ich_table td.col1 {
+        /*width:30px; yamada*/
+		width:40px;
+        text-align:center;
+	}
+	#location-master table.ich_table td.col2 {
+		width:150px;
+	}
+	#location-master table.ich_table td.col3 {
+		width:240px;
+	}
+	#location-master table.ich_table td.col4 {
+		width:460px;
+	}
+	#location-master table.ich_table td.col5 {
+		width:100px;
+        text-align:center;
+	}
+	#location-master table.ich_table td.col6 {
+		width:150px;
+        text-align:right;
+	}
+	#location-master table.ich_table td.col7 {
+		width:150px;
+        text-align:center;
+	}
+	#location-master table.ich_table td.col8 {
+		width:150px;
+        text-align:center;
+	}
+    #location-master table.ich_table td.col9 {
+		width:150px;
+        text-align:right;
+	}
+
+    /* 一覧枠データ(Categoryマスタメンテ)            
+    -----------------------------------------------------------*/
+	#category-master table.ich_table td.col1 {
+        /*width:30px; yamada*/
+		width:40px;
+        text-align:center;
+	}
+	#category-master table.ich_table td.col2 {
+		width:100px;
+	}
+	#category-master table.ich_table td.col3 {
+		width:100px;
+	}
+	#category-master table.ich_table td.col4 {
+		width:240px;
+	}
+	#category-master table.ich_table td.col5 {
+		width:150px;
+	}
+	#category-master table.ich_table td.col6 {
+		width:150px;
+	}
+	#category-master table.ich_table td.col7 {
+		width:150px;
+	}
+	#category-master table.ich_table td.col8 {
+		width:150px;
+	}
+	#category-master table.ich_table td.col9 {
+		width:150px;
+	}
+	#category-master table.ich_table td.col10 {
+		width:150px;
+	}
+	#category-master table.ich_table td.col11 {
+		width:100px;
+	}
+	#category-master table.ich_table td.col12 {
+		width:150px;
+	}
+	#category-master table.ich_table td.col13 {
+		width:260px;
+	}
+	#category-master table.ich_table td.col14 {
+		width:150px;
+	}
+	#category-master table.ich_table td.col15 {
+		width:240px;
+	}
+	#category-master table.ich_table td.col16 {
+		width:240px;
+	}
+
+    /* 一覧枠データ(Calendarマスタメンテ)            
+    -----------------------------------------------------------*/
+	#calendar-master table.ich_table td.col1 {
+		width:120px;
+        text-align:center;
+	}
+	#calendar-master table.ich_table td.col2 {
+		width:100px;
+        text-align:center;
+	}
+	#calendar-master table.ich_table td.col3 {
+		width:100px;
+        text-align:center;
+	}
+
+    /* 一覧枠データ(Calendarマスタメンテ / CSV取込モーダル)            
+    -----------------------------------------------------------*/
+	#calendar-master table#csv_tbl_koumoku_d td.col1 {
+
+	}
+	#calendar-master table#csv_tbl_koumoku_d td.col2 {
+        text-align:left;
+	}
+	#calendar-master table#csv_tbl_koumoku_d td.col3 {
+        text-align:left;
+	}
+
+    /* 一覧枠データ(Goodsマスタメンテ)
+    -----------------------------------------------------------*/
+	#goods-master table.ich_table td.col1 {
+		width:120px;
+	}
+	#goods-master table.ich_table td.col2 {
+		width:240px;
+	}
+	#goods-master table.ich_table td.col3 {
+		width:70px;
+	}
+    #goods-master table.ich_table td.col4 {
+		width:280px;
+	}
+	#goods-master table.ich_table td.col5 {
+		width:280px;
+	}
+	#goods-master table.ich_table td.col6 {
+		width:280px;
+	}	
+    #goods-master table.ich_table td.col7 {
+		width:280px;
+	}
+	#goods-master table.ich_table td.col8 {
+		width:280px;
+	}
+	#goods-master table.ich_table td.col9 {
+		width:280px;
+	}	
+    #goods-master table.ich_table td.col10 {
+		width:280px;
+	}
+	#goods-master table.ich_table td.col11 {
+		width:70px;
+	}
+	#goods-master table.ich_table td.col12 {
+		width:230px;
+	}	
+    #goods-master table.ich_table td.col13 {
+		width:120px;
+	}
+	#goods-master table.ich_table td.col14 {
+		width:240px;
+	}
+	#goods-master table.ich_table td.col15 {
+		width:120px;
+	}
+	#goods-master table.ich_table td.col16 {
+		width:70px;
+	}	
+    #goods-master table.ich_table td.col17 {
+		width:470px;
+	}
+	#goods-master table.ich_table td.col18 {
+		width:470px;
+	}
+	#goods-master table.ich_table td.col19 {
+		width:470px;
+	}
+    #goods-master table.ich_table td.col20 {
+		width:470px;
+	}	
+    #goods-master table.ich_table td.col21 {
+		width:470px;
+	}
+	#goods-master table.ich_table td.col22 {
+		width:470px;
+	}
+	#goods-master table.ich_table td.col23 {
+		width:470px;
+	}
+	#goods-master table.ich_table td.col24 {
+		width:470px;
+	}	
+    #goods-master table.ich_table td.col25 {
+		width:470px;
+	}
+	#goods-master table.ich_table td.col26 {
+		width: 470px;
+	}
+	#goods-master table.ich_table td.col27 {
+		width: 470px;
+	}
+	#goods-master table.ich_table td.col28 {
+		width: 470px;
+	}
+	#goods-master table.ich_table td.col29 {
+		width: 470px;
+	}
+	#goods-master table.ich_table td.col30 {
+		width: 470px;
+	}
+	#goods-master table.ich_table td.col31 {
+		width: 470px;
+	}
+	#goods-master table.ich_table td.col32 {
+		width: 470px;
+	}
+	#goods-master table.ich_table td.col33 {
+		width: 470px;
+	}
+	#goods-master table.ich_table td.col34 {
+		width: 470px;
+	}
+	#goods-master table.ich_table td.col35 {
+		width:230px;
+	}
+
+    /* 一覧枠データ(棚卸概況)            
+-----------------------------------------------------------*/
+    /*20230929 ADD Start Shirakawa*/
+    #inventory-summary table.ich_table td.col11 {
+		width:40px;
+	}
+    /*20230929 ADD End Shirakawa*/
+	#inventory-summary table.ich_table td.col1 {
+		width:270px;
+	}
+    /*20230929 UPD Start Shirakawa*/
+	#inventory-summary table.ich_table td.col2 {
+		width:80px;
+	}
+	#inventory-summary table.ich_table td.col3 {
+		width:100px;
+	}
+    /*20230929 UPD End Shirakawa*/
+	#inventory-summary table.ich_table td.col4 {
+		width:80px;
+	}
+	#inventory-summary table.ich_table td.col5 {
+		width:80px;
+	}
+    #inventory-summary table.ich_table td.col6 {
+		width:80px;
+	}
+    #inventory-summary table.ich_table td.col7 {
+		width:80px;
+	}
+    #inventory-summary table.ich_table td.col8 {
+		width:80px;
+	}
+    #inventory-summary table.ich_table td.col9 {
+		width:80px;
+	}
+    #inventory-summary table.ich_table td.col10 {
+		width:80px;
+	}
+        #inventory-summary table.ich_table td.col11 {
+             text-align:center;
+		width:40px;
+	}
+
+/* 一覧枠データ(棚卸実績一覧)            
+-----------------------------------------------------------*/
+	#inventory-history table.ich_table td.col1 {
+	    /*width:30px; yamada*/
+		width:40px;
+        text-align:center;
+	}
+	#inventory-history table.ich_table td.col2 {
+		width:150px;
+	}
+	#inventory-history table.ich_table td.col3 {
+		width:240px;
+	}
+	#inventory-history table.ich_table td.col4 {
+		width:240px;
+	}
+	#inventory-history table.ich_table td.col5 {
+		width:150px;
+	}
+    #inventory-history table.ich_table td.col6 {
+		width:240px;
+	}
+    #inventory-history table.ich_table td.col7 {
+		width:80px;
+	}
+    #inventory-history table.ich_table td.col8 {
+		width:80px;
+	}
+    #inventory-history table.ich_table td.col9 {
+		width:80px;
+	}
+    #inventory-history table.ich_table td.col10 {
+		width:80px;
+	}
+        #inventory-history table.ich_table td.col11 {
+		width:270px;
+	}
+
+    /* 一覧枠データ(棚卸実棚照会)            
+-----------------------------------------------------------*/
+	#inventory-asset-history table.ich_table td.col1 {
+		width:160px;
+	}
+	#inventory-asset-history table.ich_table td.col2 {
+		width:60px;
+	}
+	#inventory-asset-history table.ich_table td.col3 {
+		width:140px;
+	}
+	#inventory-asset-history table.ich_table td.col4 {
+		width:270px;
+	}
+    #inventory-asset-history table.ich_table td.col5 {
+		width:270px;
+	}
+    #inventory-asset-history table.ich_table td.col6 {
+		width:270px;
+	}
+    #inventory-asset-history table.ich_table td.col7 {
+		width:270px;
+	}
+    #inventory-asset-history table.ich_table td.col8 {
+		width:270px;
+	}
+    #inventory-asset-history table.ich_table td.col9 {
+		width:270px;
+	}
+    #inventory-asset-history table.ich_table td.col10 {
+		width:240px;
+	}
+    #inventory-asset-history table.ich_table td.col11 {
+		width:120px;
+	}
+    #inventory-asset-history table.ich_table td.col12 {
+		width:240px;
+	}
+
+    /* 20231024 ADD Start Shirakawa */
+    /* 一覧枠ヘッダ(棚卸実績ロケ別一覧)            
+-----------------------------------------------------------*/
+	#inventory-historyloc table.ich_table td.col1 {
+		width:120px;
+	}
+	#inventory-historyloc table.ich_table td.col2 {
+		width:180px;
+	}
+	#inventory-historyloc table.ich_table td.col3 {
+		width:180px;
+	}
+	#inventory-historyloc table.ich_table td.col4 {
+		width:120px;
+	}
+	#inventory-historyloc table.ich_table td.col5 {
+		width:180px;
+	}
+    #inventory-historyloc table.ich_table td.col6 {
+		width:240px;
+	}
+    #inventory-historyloc table.ich_table td.col7 {
+		width:100px;
+	}
+    #inventory-historyloc table.ich_table td.col8 {
+		width:100px;
+	}
+    #inventory-historyloc table.ich_table td.col9 {
+		width:100px;
+	}
+    #inventory-historyloc table.ich_table td.col10 {
+		width:100px;
+	}
+    #inventory-historyloc table.ich_table td.col11 {
+		width:100px;
+	}
+    #inventory-historyloc table.ich_table td.col12 {
+		width:100px;
+	}
+    /* 20231024 ADD Start Shirakawa */
+
+    /* 一覧枠データ(在庫照会)            
+-----------------------------------------------------------*/
+	#stock-list table.ich_table td.col1 {
+        /*width:30px; yamada*/
+		width:40px;
+        text-align:center;
+	}
+	#stock-list table.ich_table td.col2 {
+		width:270px;
+	}
+	#stock-list table.ich_table td.col3 {
+		width:270px;
+	}
+	#stock-list table.ich_table td.col4 {
+		width:270px;
+	}
+	#stock-list table.ich_table td.col5 {
+		width:240px;
+	}
+    #stock-list table.ich_table td.col6 {
+		width:240px;
+	}
+    #stock-list table.ich_table td.col7 {
+		width:240px;
+	}
+    #stock-list table.ich_table td.col8 {
+		width:240px;
+	}
+    #stock-list table.ich_table td.col9 {
+		width:100px;
+	}
+
+    /* 一覧枠データ(ログ照会)            
+-----------------------------------------------------------*/
+	#operationlog table.ich_table td.col1 {
+		width:150px;
+        text-align:center;
+	}
+	#operationlog table.ich_table td.col2 {
+		width:100px;
+	}
+	#operationlog table.ich_table td.col3 {
+		width:100px;
+	}
+    #operationlog table.ich_table td.col4 {
+		width:240px;
+	}
+    #operationlog table.ich_table td.col5 {
+		width:460px;
+	}
+    #operationlog table.ich_table td.col6 {
+		width:270px;
+	}
+    #operationlog table.ich_table td.col7 {
+		width:270px;
+	}
+    #operationlog table.ich_table td.col8 {
+		width:270px;
+	}
+/* 一覧枠データ(資産一覧)            
+-----------------------------------------------------------*/
+	#asset-list table.ich_table td.col1 {
+        /*width:30px; yamada*/
+		width:40px;
+        text-align:center;
+	}
+	#asset-list table.ich_table td.col2 {
+        /*width:45px; yamada*/
+		width:60px;
+	}
+	#asset-list table.ich_table td.col3 {
+		width:280px;
+	}
+	#asset-list table.ich_table td.col4 {
+		width:240px;
+	}
+	#asset-list table.ich_table td.col5 {
+		width:70px;
+	}
+    #asset-list table.ich_table td.col6 {
+		width:280px;
+	}
+    #asset-list table.ich_table td.col7 {
+		width:50px;
+	}
+    #asset-list table.ich_table td.col8 {
+		width:50px;
+	}
+    #asset-list table.ich_table td.col9 {
+		width:60px;
+	}
+    #asset-list table.ich_table td.col10 {
+		width:150px;
+	}
+    #asset-list table.ich_table td.col11 {
+		width:280px;
+	}
+    #asset-list table.ich_table td.col12 {
+		width:140px;
+	}
+    #asset-list table.ich_table td.col13 {
+		width:280px;
+	}
+    #asset-list table.ich_table td.col14 {
+		width:280px;
+	}
+    #asset-list table.ich_table td.col15 {
+		width:280px;
+	}
+    #asset-list table.ich_table td.col16 {
+		width:280px;
+	}
+    #asset-list table.ich_table td.col17 {
+		width:280px;
+	}
+    #asset-list table.ich_table td.col18 {
+		width:280px;
+	}
+    #asset-list table.ich_table td.col19 {
+		width:280px;
+	}
+    #asset-list table.ich_table td.col20 {
+		width:70px;
+	}
+    #asset-list table.ich_table td.col21 {
+		width:230px;
+	}
+    #asset-list table.ich_table td.col22 {
+		width:120px;
+	}
+    #asset-list table.ich_table td.col23 {
+		width:120px;
+	}
+    #asset-list table.ich_table td.col24 {
+		width:240px;
+	}
+    #asset-list table.ich_table td.col25 {
+		width:120px;
+	}
+    #asset-list table.ich_table td.col26 {
+		width:70px;
+	}
+    #asset-list table.ich_table td.col27 {
+		width:470px;
+	}
+    #asset-list table.ich_table td.col28 {
+		width:470px;
+	}
+    #asset-list table.ich_table td.col29 {
+		width:470px;
+	}
+    #asset-list table.ich_table td.col30 {
+		width:470px;
+	}
+    #asset-list table.ich_table td.col31 {
+		width:470px;
+	}
+    #asset-list table.ich_table td.col32 {
+		width:470px;
+	}
+    #asset-list table.ich_table td.col33 {
+		width:470px;
+	}
+    #asset-list table.ich_table td.col34 {
+		width:470px;
+	}
+    #asset-list table.ich_table td.col35 {
+		width:470px;
+	}
+	#asset-list table.ich_table td.col36 {
+		width:470px;
+	}
+	#asset-list table.ich_table td.col37 {
+		width:470px;
+	}
+	#asset-list table.ich_table td.col38 {
+		width:470px;
+	}
+	#asset-list table.ich_table td.col39 {
+		width:470px;
+	}
+	#asset-list table.ich_table td.col40 {
+		width:470px;
+	}
+	#asset-list table.ich_table td.col41 {
+		width:470px;
+	}
+    #asset-list table.ich_table td.col42 {
+		width:470px;
+	}
+	#asset-list table.ich_table td.col43 {
+		width:470px;
+	}
+	#asset-list table.ich_table td.col44 {
+		width:470px;
+	}
+	#asset-list table.ich_table td.col45 {
+		width:280px;
+	}
+    #asset-list table.ich_table td.col46 {
+		width:50px;
+	}
+    #asset-list table.ich_table td.col47 {
+		width:100px;
+	}
+    #asset-list table.ich_table td.col48 {
+		width:100px;
+	}
+    #asset-list table.ich_table td.col49 {
+		width:240px;
+	}
+    #asset-list table.ich_table td.col50 {
+		width:100px;
+	}
+    #asset-list table.ich_table td.col51 {
+		width:240px;
+	}
+    /* 期限切れ行設定 */
+    #asset-list table.ich_table tr.expired td {
+		color: red;
+        background-color: yellow;
+	}
+    /* アラート行設定 */
+    #asset-list table.ich_table tr.alert td {
+        background-color: yellow;
+	}
+
+
+/* 一覧枠データ(資産履歴照会)            
+-----------------------------------------------------------*/
+	#asset-history table.ich_table td.col1 {
+		width:100px;
+	}
+	#asset-history table.ich_table td.col2 {
+		width:160px;
+	}
+	#asset-history table.ich_table td.col3 {
+		width:130px;
+	}
+	#asset-history table.ich_table td.col4 {
+		width:100px;
+	}
+	#asset-history table.ich_table td.col5 {
+		width:240px;
+	}
+    #asset-history table.ich_table td.col6 {
+		width:140px;
+	}
+    #asset-history table.ich_table td.col7 {
+		width:240px;
+	}
+    #asset-history table.ich_table td.col8 {
+        width:150px;    /* 2020/03/05 nv miyaji upd */
+		/*width:100px;*/
+	}
+	#asset-history table.ich_table td.col9 {
+		width:150px;
+	}
+	#asset-history table.ich_table td.col10 {
+		width:240px;
+	}
+	#asset-history table.ich_table td.col11 {
+		width:150px;
+	}
+	#asset-history table.ich_table td.col12 {
+		width:270px;
+	}
+	#asset-history table.ich_table td.col13 {
+		width:270px;
+	}
+	#asset-history table.ich_table td.col14 {
+		width:270px;
+	}
+    #asset-history table.ich_table td.col15 {
+		width:270px;
+	}
+    #asset-history table.ich_table td.col16 {
+		width:270px;
+	}
+    #asset-history table.ich_table td.col17 {
+		width:270px;
+	}
+    #asset-history table.ich_table td.col18 {
+		width:270px;
+	}
+    #asset-history table.ich_table td.col19 {
+		width:240px;
+	}
+    #asset-history table.ich_table td.col20 {
+		width:120px;
+	}
+    #asset-history table.ich_table td.col21 {
+		width:120px;
+	}
+    #asset-history table.ich_table td.col22 {
+		width:120px;
+	}
+    #asset-history table.ich_table td.col23 {
+		width:480px;
+	}
+    #asset-history table.ich_table td.col24 {
+		width:240px;
+	}
+
+    /* 一覧枠データ(文言設定マスタメンテ)            
+-----------------------------------------------------------*/
+	#word-master table.ich_table td.col1 {
+		width:100px;
+        text-align:center;
+	}
+	#word-master table.ich_table td.col2 {
+		width:500px;
+	}
+	#word-master table.ich_table td.col3 {
+		width:500px;
+	}
+	#word-master table.ich_table td.col4 {
+		width:500px;
+	}
+
+/* 一覧枠データ(履歴照会(資産))(上部)
+-----------------------------------------------------------*/
+	#asset-detail [id="tbl_koumoku_d_top"] td.col1 {
+		width:160px;
+	}
+	#asset-detail [id="tbl_koumoku_d_top"] td.col2 {
+		width:100px;
+	}
+	#asset-detail [id="tbl_koumoku_d_top"] td.col3 {
+		width:100px;
+	}
+	#asset-detail [id="tbl_koumoku_d_top"] td.col4 {
+		width:100px;
+	}
+    #asset-detail [id="tbl_koumoku_d_top"] td.col5 {
+		width:100px;
+	}
+	#asset-detail [id="tbl_koumoku_d_top"] td.col6 {
+		width:240px;
+	}
+    #asset-detail [id="tbl_koumoku_d_top"] td.col7 {
+		width:240px;
+	}
+    #asset-detail [id="tbl_koumoku_d_top"] td.col8 {
+		width:240px;
+	}
+    #asset-detail [id="tbl_koumoku_d_top"] td.col9 {
+		width:240px;
+	}
+    #asset-detail [id="tbl_koumoku_d_top"] td.col10 {
+		width:120px;
+	}
+    #asset-detail [id="tbl_koumoku_d_top"] td.col11 {
+		width:120px;
+	}
+    #asset-detail [id="tbl_koumoku_d_top"] td.col12 {
+		width:120px;
+	}
+    #asset-detail [id="tbl_koumoku_d_top"] td.col13 {
+		width:100px;
+	}
+
+
+/* 一覧枠データ(履歴照会(資産))(下部)
+-----------------------------------------------------------*/
+	#asset-detail [id="tbl_koumoku_d_bottom"] td.col1 {
+		width:100px;
+	}
+	#asset-detail [id="tbl_koumoku_d_bottom"] td.col2 {
+		width:130px;
+	}
+	#asset-detail [id="tbl_koumoku_d_bottom"] td.col3 {
+		width:100px;
+	}
+	#asset-detail [id="tbl_koumoku_d_bottom"] td.col4 {
+		width:240px;
+	}
+	#asset-detail [id="tbl_koumoku_d_bottom"] td.col5 {
+		width:140px;
+	}
+    #asset-detail [id="tbl_koumoku_d_bottom"] td.col6 {
+		width:240px;
+	}
+    #asset-detail [id="tbl_koumoku_d_bottom"] td.col7 {
+        width:150px;   /* 2020/03/05 nv miyaji upd */
+		/*width:100px;*/
+	}
+	#asset-detail [id="tbl_koumoku_d_bottom"] td.col8 {
+		width:150px;
+	}
+	#asset-detail [id="tbl_koumoku_d_bottom"] td.col9 {
+		width:240px;
+	}
+	#asset-detail [id="tbl_koumoku_d_bottom"] td.col10 {
+		width:150px;
+	}
+	#asset-detail [id="tbl_koumoku_d_bottom"] td.col11 {
+		width:270px;
+	}
+	#asset-detail [id="tbl_koumoku_d_bottom"] td.col12 {
+		width:270px;
+	}
+	#asset-detail [id="tbl_koumoku_d_bottom"] td.col13 {
+		width:270px;
+	}
+    #asset-detail [id="tbl_koumoku_d_bottom"] td.col14 {
+		width:270px;
+	}
+    #asset-detail [id="tbl_koumoku_d_bottom"] td.col15 {
+		width:270px;
+	}
+    #asset-detail [id="tbl_koumoku_d_bottom"] td.col16 {
+		width:270px;
+	}
+    #asset-detail [id="tbl_koumoku_d_bottom"] td.col17 {
+		width:240px;
+	}
+    #asset-detail [id="tbl_koumoku_d_bottom"] td.col18 {
+		width:480px;
+	}
+    #asset-detail [id="tbl_koumoku_d_bottom"] td.col19 {
+		width:240px;
+	}
+
+/* 一覧枠データ(CSV取込モーダル画面)
+-----------------------------------------------------------*/
+    #modal-csv-content table {
+        width:630px;
+    }
+	#modal-csv-content table.ich_table td.col1 {
+		width:80px;
+        text-align:center;
+	}
+	#modal-csv-content table.ich_table td.col2 {
+		width:200px;
+	}
+	#modal-csv-content table.ich_table td.col3 {
+		/*width:350px;*/
+        width:600px;
+        word-break: break-all;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+	}
+
+    /* 一覧データ(CSVマッピング画面) */
+	#csvmapping-master table.ich_table td.col1 {
+		width:30px;
+	}
+
+	#csvmapping-master table.ich_table td.col2 {
+		width:200px;
+	}
+
+	#csvmapping-master table.ich_table td.col3 {
+		width:80px;
+	}
+
+    #csvmapping-master table.ich_table td.col4 {
+        /*width:250px; yamada*/
+		width:350px;
+	}
+
+    #csvmapping-master table.ich_table td.col5 {
+		width:100px;
+	}
+
+    #csvmapping-master table.ich_table td.col6 {
+		width:200px;
+	}
+
+        /* 一覧データ(貸出先一覧画面) */
+	#leaseplace-ichiran table.ich_table td.col1 {
+		width:280px;
+	}
+
+	#leaseplace-ichiran table.ich_table td.col2 {
+		width:180px;
+	}
+
+	#leaseplace-ichiran table.ich_table td.col3 {
+		width:180px;
+	}
+
+            /* 一覧データ(貸出先資産照会画面) */
+	#leaseplace-detail table.ich_table td.col1 {
+		width:280px;
+	}
+
+	#leaseplace-detail table.ich_table td.col2 {
+		width:60px;
+	}
+
+	#leaseplace-detail table.ich_table td.col3 {
+		width:150px;
+	}
+    #leaseplace-detail table.ich_table td.col4 {
+		width:140px;
+	}
+    #leaseplace-detail table.ich_table td.col5 {
+		width:280px;
+	}
+    #leaseplace-detail table.ich_table td.col6 {
+		width:280px;
+	}
+    #leaseplace-detail table.ich_table td.col7 {
+		width:240px;
+	}
+    #leaseplace-detail table.ich_table td.col8 {
+		width:230px;
+	}
+    #leaseplace-detail table.ich_table td.col9 {
+		width:120px;
+	}
+    #leaseplace-detail table.ich_table td.col10 {
+		width:120px;
+	}
+
+    /* 一覧データ(ゲートマスタメンテ画面) */
+	#gate-master table.ich_table td.col1 {
+        /*width:30px; yamada*/
+		width:40px;
+        text-align:center;
+	}
+
+    #gate-master table.ich_table td.col2 {
+		width:100px;
+	}
+
+	#gate-master table.ich_table td.col3 {
+		width:280px;
+	}
+
+	#gate-master table.ich_table td.col4 {
+		width:150px;
+	}
+    #gate-master table.ich_table td.col5 {
+		width:150px;
+	}
+    #gate-master table.ich_table td.col6 {
+		width:150px;
+	}
+    #gate-master table.ich_table td.col7 {
+		width:150px;
+	}
+    #gate-master table.ich_table td.col8 {
+		width:150px;
+	}
+    #gate-master table.ich_table td.col9 {
+		width:150px;
+	}
+
+	/* 一覧データ(ゲートマスタメンテ画面(SpeedWay用)) */
+	#gate-master table.ich_table td.colSw5 {
+		width:250px;
+	}
+
+	#gate-master table.ich_table td.colSw6 {
+		width:150px;
+	}
+
+	#gate-master table.ich_table td.colSw7 {
+		width:150px;
+	}
+
+    #gate-master table.ich_table td.colSw8 {
+		width:100px;
+	}
+
+    #gate-master table.ich_table td.colSw9 {
+		width:150px;
+	}
+
+	#gate-master table.ich_table td.colSw10 {
+		width:300px;
+	}
+
+	#gate-master table.ich_table td.colSw2_10 {
+		width:150px;
+	}
+
+	#gate-master table.ich_table td.colSw2_11 {
+		width:150px;
+	}
+
+    /* 一覧データ(ゲート持ち出し履歴画面) */
+	#gate-pass-log table.ich_table td.col1 {
+		width:240px;
+	}
+
+    #gate-pass-log table.ich_table td.col2 {
+		width:100px;
+	}
+
+	#gate-pass-log table.ich_table td.col3 {
+		width:100px;
+	}
+
+	#gate-pass-log table.ich_table td.col4 {
+		width:160px;
+	}
+    #gate-pass-log table.ich_table td.col5 {
+		width:240px;
+	}
+    #gate-pass-log table.ich_table td.col6 {
+		width:120px;
+	}
+    #gate-pass-log table.ich_table td.col7 {
+		width:120px;
+	}
+    #gate-pass-log table.ich_table td.col8 {
+		width:120px;
+	}
+    #gate-pass-log table.ich_table td.col9 {
+		width:480px;
+	}
+    #gate-pass-log table.ich_table td.colSw6 {
+		width:480px;
+	}
+    
+    /* 一覧枠データ(予約状況照会画面)            
+    -----------------------------------------------------------*/
+	#lending-status table.ich_table td.col1 {
+        width:40px;
+        text-align:center;
+	}
+	#lending-status table.ich_table td.col2 {
+		width:180px;
+	}
+	#lending-status table.ich_table td.col2_2 {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status table.ich_table td.col3 {
+		width:180px;
+	}
+	#lending-status table.ich_table td.col3_2 {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status table.ich_table td.col4 {
+		width:180px;
+	}
+	#lending-status table.ich_table td.col4_2 {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status table.ich_table td.col5 {
+		width:200px;
+	}
+	#lending-status table.ich_table td.col5_2 {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status table.ich_table td.col6 {
+		width:120px;
+	}
+	#lending-status table.ich_table td.col6_2 {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status table.ich_table td.col7 {
+		width:200px;
+	}
+	#lending-status table.ich_table td.col7_2 {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status table.ich_table td.col8 {
+		width: 200px;
+	}
+	#lending-status table.ich_table td.col8_2 {
+		width: 40px;
+		text-overflow: ellipsis;	/* 折り畳み対応 */
+		white-space: nowrap;		/* 折り畳み対応 */
+		overflow: hidden;			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status table.ich_table td.col9 {
+		width:110px;
+	}
+	#lending-status table.ich_table td.col9_2 {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status table.ich_table td.col10 {
+		width:110px;
+	}
+	#lending-status table.ich_table td.col10_2 {
+		width:40px;
+		text-overflow: ellipsis; 	/* 折り畳み対応 */
+		white-space: nowrap; 		/* 折り畳み対応 */
+		overflow: hidden; 			/* 折り畳み対応 */
+		max-width: 40px;			/* 折り畳み対応 */
+	}
+	#lending-status table.ich_table td.colday {
+		width:40px;
+	}
+    
+    /* 一覧枠データ(予約状況照会画面 / CSV取込画面)   ADD 2022/8/1    
+    -----------------------------------------------------------*/
+	#lending-status table.ich_table td.csv_col1 {
+        width:80px;
+        text-align:center;
+	}
+	#lending-status table.ich_table td.csv_col2 {
+		width:200px;
+	}
+	#lending-status table.ich_table td.csv_col3 {
+		width:600px;
+	}
+
+    /* 一覧枠データ(予約申請登録/更新画面)
+-----------------------------------------------------------*/
+	#lending-entry table.ich_table td.col1 {
+		width:40px;
+        text-align:center;
+	}
+	#lending-entry table.ich_table td.col2 {
+		width:200px;
+	}
+	#lending-entry table.ich_table td.col3 {
+        width:200px;
+	}
+	#lending-entry table.ich_table td.col4 {
+		width:200px;
+	}
+	#lending-entry table.ich_table td.col5 {
+		width:180px;
+	}
+	#lending-entry table.ich_table td.col6 {
+		width:250px;
+	}
+	#lending-entry table.ich_table td.col7 {
+		width:200px;
+	}
+	#lending-entry table.ich_table td.col8 {
+		width:200px;
+	}
+
+    /* 一覧枠データ(予約一覧画面)            
+    -----------------------------------------------------------*/
+	#lending-list table.ich_table td.col1 {
+        width:40px;
+        text-align:center;
+	}
+	#lending-list table.ich_table td.col2 {
+		width:110px;
+	}
+	#lending-list table.ich_table td.col3 {
+		width:110px;
+	}
+	#lending-list table.ich_table td.col4 {
+		width:180px;
+	}
+	#lending-list table.ich_table td.col5 {
+		width:180px;
+	}
+	#lending-list table.ich_table td.col6 {
+		width:220px;
+	}
+	#lending-list table.ich_table td.col7 {
+		width:220px;
+	}
+	#lending-list table.ich_table td.col8 {
+		width:120px;
+	}
+	#lending-list table.ich_table td.col9 {
+		width:120px;
+	}
+	#lending-list table.ich_table td.col10 {
+		width:120px;
+	}
+
+    /* 一覧枠データ(予約履歴画面)            
+    -----------------------------------------------------------*/
+	#lending-history table.ich_table td.col1 {
+        width:120px;
+	}
+	#lending-history table.ich_table td.col2 {
+		width:110px;
+	}
+	#lending-history table.ich_table td.col3 {
+		width:110px;
+	}
+	#lending-history table.ich_table td.col4 {
+		width:180px;
+	}
+	#lending-history table.ich_table td.col5 {
+		width:90px;
+	}
+	#lending-history table.ich_table td.col6 {
+		width:90px;
+	}
+	#lending-history table.ich_table td.col7 {
+		width:90px;
+	}
+	#lending-history table.ich_table td.col8 {
+		width:90px;
+	}
+	#lending-history table.ich_table td.col9 {
+		width:180px;
+	}
+	#lending-history table.ich_table td.col10 {
+		width:180px;
+	}
+	#lending-history table.ich_table td.col11 {
+		width:180px;
+	}
+	#lending-history table.ich_table td.col12 {
+		width:180px;
+	}
+	#lending-history table.ich_table td.col13 {
+		width:180px;
+	}
+	#lending-history table.ich_table td.col14 {
+		width:180px;
+	}
+	#lending-history table.ich_table td.col15 {
+		width:180px;
+	}
+	#lending-history table.ich_table td.col16 {
+		width:120px;
+	}
+	#lending-history table.ich_table td.col17 {
+		width:180px;
+	}
+	#lending-history table.ich_table td.col18 {
+		width:180px;
+	}
+	#lending-history table.ich_table td.col19 {
+		width:90px;
+	}
+	#lending-history table.ich_table td.col20 {
+		width:90px;
+	}
+	#lending-history table.ich_table td.col21 {
+		width:90px;
+	}
+	#lending-history table.ich_table td.col22 {
+		width:90px;
+	}
+	#lending-history table.ich_table td.col23 {
+		width:180px;
+	}
+
+    /* 一覧枠データ(貸出履歴照会画面)            
+    -----------------------------------------------------------*/
+	#asset-lease-hitory table.ich_table td.col1 {
+        width:180px;
+	}
+	#asset-lease-hitory table.ich_table td.col2 {
+		width:180px;
+	}
+	#asset-lease-hitory table.ich_table td.col3 {
+		width:180px;
+	}
+	#asset-lease-hitory table.ich_table td.col4 {
+		width:180px;
+	}
+	#asset-lease-hitory table.ich_table td.col5 {
+		width:120px;
+	}
+	#asset-lease-hitory table.ich_table td.col6 {
+		width:180px;
+	}
+	#asset-lease-hitory table.ich_table td.col7 {
+		width:100px;
+        text-align: right;
+	}
+	#asset-lease-hitory table.ich_table td.col8 {
+		width:100px;
+        text-align: right;
+	}
+	#asset-lease-hitory table.ich_table td.col9 {
+		width:100px;
+        text-align: right;
+	}
+	#asset-lease-hitory table.ich_table td.col10 {
+		width:100px;
+        text-align: right;
+	}
+	#asset-lease-hitory table.ich_table td.col11 {
+		width: 100px;
+		text-align: right;
+	}
+
+	/* 2023/03/22 Kawamoto ADD START */
+	/* 一覧枠データ(添付ファイル管理モーダル)            
+	-----------------------------------------------------------*/
+	#modal-attachment-content table.ich_table td.col1 {
+		width: 40px;
+        text-align: center;
+	}
+
+	#modal-attachment-content table.ich_table td.col2 {
+		width: 300px;
+		text-align: left;
+	}
+
+	#modal-attachment-content table.ich_table td.col3 {
+		width: 30px;
+		text-align: center;
+	}
+
+	#modal-attachment-content table.ich_table td.col4 {
+		width: 80px;
+		text-align: right;
+	}
+
+	#modal-attachment-content table.ich_table td.col5 {
+		width: 150px;
+		text-align: left;
+	}
+
+	/* 2023/03/22 Kawamoto ADD END */
+
+/* 一覧枠データ(管理簿出力)      2023/04/30 Sato v2.4 ADD      
+-----------------------------------------------------------*/
+	#specifed-qty-list-output table.ich_table td.col1 {
+		width:40px;
+        text-align:center;
+	}
+	#specifed-qty-list-output table.ich_table td.col2 {
+		width:240px;
+	}
+	#specifed-qty-list-output table.ich_table td.col3 {
+		width:240px;
+	}
+	#specifed-qty-list-output table.ich_table td.col4 {
+		width:240px;
+	}
+	#specifed-qty-list-output table.ich_table td.col5 {
+		width:240px;
+	}
+    #specifed-qty-list-output table.ich_table td.col6 {
+		width:160px;
+	}
+    #specifed-qty-list-output table.ich_table td.col7 {
+		width:160px;
+	}
+
+/* ソートボタンの色                                          
+-----------------------------------------------------------*/
+	/* ソートリンク     */
+	table.ich_table a:link {
+		color: #0a50ff;
+
+	}
+	/* ソートリンク後   */
+	table.ich_table a:visited {
+		color: #0a50ff;
+	}
+	/* ソートホバー     */
+	table.ich_table a:hover {
+		color: #Df9090;
+	}
+	/* ソート押したとき */
+	table.ich_table a:active {
+		color: #ff0000;
+	}             
+	
+	.tip-i{
+		float:left;
+		margin-right:5px;
+	}
+	.tip-p{
+		width:150px;
+		font-size:80%;
+		line-height:15px;
+	}
+ 
+
+    /* 各数量テーブル(棚卸概況)            
+    -----------------------------------------------------------*/
+    #inventory-summary table.quantity_table td.head-col {
+        background-color: #ffffff;
+	}
+    #inventory-summary table.quantity_table tr.line-bottom {
+		border-bottom: solid 1px #4a7ebb;
+        border-collapse: collapse;
+	}
+    #inventory-summary table.quantity_table td.line-right {
+		border-right: solid 1px #4a7ebb;
+        border-collapse: collapse;
+	}
+
+    /* モーダルのSlickGridレイアウト修正
+    -----------------------------------------------------------*/
+    #TemporaryListGrids .slick-header-left {
+        width : 900px;
+    }
+    #ReserveListGrids .slick-header-left {
+        width : 900px;
+    }
+    #AssetReserveListGrids .slick-header-left {
+        width : 520px;
+    }

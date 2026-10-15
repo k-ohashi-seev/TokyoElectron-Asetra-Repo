@@ -1,0 +1,4 @@
+include ':app', ':DENSOScannerSDK'
+include ':app', ':RFIDAPI3Library'
+include ':app', ':BHTSDK'
+include ':app', ':BarcodeScannerLibrary'

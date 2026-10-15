@@ -1,0 +1,42 @@
+<resources>
+    <!-- メニュー -->
+    <dimen name="menu_button">24sp</dimen>
+    <dimen name="menu_webapi_button">16sp</dimen>
+
+    <!-- ◆貸出先設定 -->
+    <dimen name="lease_edit_dest">50dp</dimen>
+    <dimen name="lease_edit_memo">50dp</dimen>
+    <dimen name="lease_edit_user">50dp</dimen>
+    <dimen name="lease_edit_return_date">50dp</dimen>
+    <dimen name="lease_edit_text_sp">20sp</dimen>
+    <!-- ラベル文字サイズ -->
+    <dimen name="lease_label_dest_sp">22sp</dimen>
+    <dimen name="lease_label_dest_name_sp">22sp</dimen>
+    <dimen name="lease_label_memo_sp">22sp</dimen>
+    <dimen name="lease_label_user_sp">22sp</dimen>
+    <dimen name="lease_label_user_name_sp">22sp</dimen>
+    <dimen name="lease_label_return_date_sp">22sp</dimen>
+    <!-- 余白・高さ等 -->
+    <dimen name="lease_return_date_height">50dp</dimen>
+    <dimen name="lease_bottom_margin">20dp</dimen>
+
+    <!-- ◆探索 QR読取 -->
+    <!-- ラベル文字サイズ -->
+    <dimen name="search_qr_label_count">22sp</dimen>
+
+    <!-- ◆探索 個別 -->
+    <dimen name="search_label_asset_no">22sp</dimen>
+    <dimen name="search_text_asset_no">22sp</dimen>
+    <dimen name="search_label_sub_asset_no">18sp</dimen>
+    <dimen name="search_text_sub_asset_no">18sp</dimen>
+    <dimen name="search_label_sch_rssi">22sp</dimen>
+    <dimen name="search_label_sch_intencity_ttl">22sp</dimen>
+    <dimen name="search_label_sch_intencity_val">28sp</dimen>
+    <!-- 余白・高さ等 -->
+    <dimen name="search_button_top_margin">100sp</dimen>
+
+    <!-- ◆ロケ選択 -->
+    <dimen name="loc_sett_label_loc">22sp</dimen>
+    <dimen name="loc_sett_edit_loc">50dp</dimen>
+    <dimen name="loc_sett_edit_text_sp">20sp</dimen>
+</resources>

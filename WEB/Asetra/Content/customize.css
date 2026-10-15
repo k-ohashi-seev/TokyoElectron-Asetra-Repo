@@ -1,0 +1,10 @@
+﻿
+/* Bootstrap、jQueryなどのベースCSSのカスタマイズ用                                                    
+-----------------------------------------------------------*/
+
+@font-face {
+  font-family: "メイリオ", Meiryo, Tahoma, Verdana, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+}
+html {
+  font-family: "メイリオ", Meiryo, Tahoma, Verdana, "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;
+}

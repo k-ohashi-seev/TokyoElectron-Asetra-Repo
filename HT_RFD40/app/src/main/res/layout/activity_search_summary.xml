@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/BackgroundColor"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/ListViewHeader"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <TextView
+                    android:id="@+id/lblSummaryListTitle"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|left"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="資産番号\nサブ資産番号"
+                    android:textColor="@color/ButtonMenuColor"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/lblSummaryInventoryS"
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center|left"
+                            android:text="遠"
+                            android:textColor="@color/ButtonMenuColor"
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/lblSummaryInventoryL"
+                            android:layout_width="20dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center|right"
+                            android:text="近"
+                            android:textColor="@color/ButtonMenuColor"
+                            android:textSize="20sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/lblMemori1"
+                            android:layout_width="40dp"
+                            android:layout_height="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/search_memori" />
+
+                        <TextView
+                            android:id="@+id/lblMemori2"
+                            android:layout_width="40dp"
+                            android:layout_height="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/search_memori" />
+
+                        <TextView
+                            android:id="@+id/lblMemori3"
+                            android:layout_width="40dp"
+                            android:layout_height="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/search_memori" />
+
+                        <TextView
+                            android:id="@+id/lblMemori4"
+                            android:layout_width="40dp"
+                            android:layout_height="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/search_memori" />
+
+                        <TextView
+                            android:id="@+id/lblMemori5"
+                            android:layout_width="40dp"
+                            android:layout_height="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/search_memori_end" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listview_Summary_Search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/border"
+            android:divider="@color/colorPrimary"
+            android:dividerHeight="2dp"
+            android:scrollbars="vertical">
+
+        </ListView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/execute_button"
+                android:drawableLeft="@drawable/next_32"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="探索"
+                android:textAlignment="center"
+                android:textColor="@color/ButtonMenuColor"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView_time_counter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/BackgroundColor" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

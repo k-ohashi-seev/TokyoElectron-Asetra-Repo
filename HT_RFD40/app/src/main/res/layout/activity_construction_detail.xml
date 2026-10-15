@@ -1,0 +1,1169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BackgroundColor"
+    tools:context="com.rfid.Inventory.InventoryTagIn">
+
+    <LinearLayout
+        android:id="@+id/Aria1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/labSubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/Information"
+            android:drawableLeft="@drawable/information_32"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:paddingLeft="20dp"
+            android:paddingTop="5dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="5dp"
+            android:text="次へタップ"
+            android:textColor="@android:color/primary_text_dark"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@id/btnSettingNext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Aria1">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:id="@+id/lbWorkDay"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center"
+                    android:text="テスト作業日"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtWorkDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="あああ"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view180"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view14"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbEmployee"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="責任者"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view15"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtEmployeeName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view100"
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view16"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbContent"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center"
+                    android:text="作業内容"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view17"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtContents"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbLocation"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="管理拠点"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view18"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view90"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view101"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbWorkLoc"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center"
+                    android:text="作業場所"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view19"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view103"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view104"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbUpAndDown"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="上り/下り"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view20"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view52"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view105"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbLineType"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center"
+                    android:text="線路種"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view21"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view53"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view106"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbStation"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="駅区間(駅)"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view22"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view54"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view40"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbDistance"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center"
+                    android:text="距離区間(km)"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view23"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="txtInfo8"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view55"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view38"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbTempInfo6"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="工場情報6"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view24"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="txtInfo6"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view56"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view41"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbTempInfo7"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center"
+                    android:text="工場情報7"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view25"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo7"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="txtInfo7"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view57"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view110"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbTempInfo8"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="工場情報8"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view26"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo8"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view58"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view91"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbTempInfo9"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center"
+                    android:text="工場情報9"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view27"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo9"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="作業日"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view59"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view42"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbTempInfo10"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="工場情報10"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view109"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo10"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view60"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view43"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbTempInfo11"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center"
+                    android:text="工場情報11"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view28"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo11"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view61"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view44"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbTempInfo12"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="工場情報12"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view29"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo12"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view62"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view45"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbTempInfo13"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center"
+                    android:text="工場情報13"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view30"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo13"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view63"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view46"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbTempInfo14"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="工場情報14"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view31"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo14"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view64"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view47"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbTempInfo15"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center"
+                    android:text="工場情報15"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view32"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo15"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view65"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view48"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbTempInfo16"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="工場情報16"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view33"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo16"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view66"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view67"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbTempInfo17"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center"
+                    android:text="工場情報17"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view34"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo17"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view35"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view70"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbTempInfo18"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="工場情報18"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view71"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo18"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view72"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view50"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbTempInfo19"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center"
+                    android:text="工場情報19"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view37"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo19"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#DFE7DF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view68"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view51"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#20000000" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/lbTempInfo20"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center"
+                    android:text="工場情報20"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view39"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#20000000" />
+
+                <TextView
+                    android:id="@+id/txtInfo20"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#FFFFFF"
+                    android:gravity="center_vertical"
+                    android:minHeight="30dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="TextView"
+                    android:textSize="16sp" />
+
+                <View
+                    android:id="@+id/view69"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="#00000000" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnSettingNext"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/execute_button"
+        android:drawableLeft="@drawable/next_48"
+        android:paddingLeft="30dp"
+        android:paddingTop="10dp"
+        android:paddingRight="30dp"
+        android:paddingBottom="10dp"
+        android:text="@string/button_name_next"
+        android:textAlignment="center"
+        android:textColor="@color/ButtonMenuColor"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

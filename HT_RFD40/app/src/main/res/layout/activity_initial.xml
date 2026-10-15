@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    ​
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        ​
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarInitialize"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/optionbar"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+        ​
+    </com.google.android.material.appbar.AppBarLayout>
+    ​
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
+        ​
+        <TextView
+            android:id="@+id/labIniConect"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="10dp"
+            android:textSize="18sp" />
+        ​
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:scaleType="centerInside"/>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:isScrollContainer="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                ​
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    ​
+                    <TextView
+                        android:id="@+id/txtInitializeNo1"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:text="1"
+                        android:textColor="@color/Blue"
+                        android:textStyle="bold" />
+                    ​
+                    <TextView
+                        android:id="@+id/txtInitializeTitleNo1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="モードボタン"
+                        android:textColor="@color/Blue"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                ​
+
+                <TextView
+                    android:id="@+id/txtInitializeTextNo1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="RFIDモード/バーコードモードを切り替えます。点灯はバーコードモード、消灯はRFIDモードを示します。"
+                    android:textSize="12sp" />
+                ​
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+                    ​
+
+                    ​
+
+                    <TextView
+                        android:id="@+id/txtInitializeNo2"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:text="2"
+                        android:textColor="@color/Blue"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtInitializeTitleNo2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Bluetoothボタン"
+                        android:textColor="@color/Blue"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                ​
+                <TextView
+                    android:id="@+id/txtInitializeTextNo2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="Bluetooth接続のオン/オフを切り替えます。"
+                    android:textSize="12sp" />
+                ​
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+                    ​
+                    <TextView
+                        android:id="@+id/txtInitializeNo3"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:text="3"
+                        android:textColor="@color/Blue"
+                        android:textStyle="bold" />
+                    ​
+                    <TextView
+                        android:id="@+id/txtInitializeTitleNo3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="電源ボタン"
+                        android:textColor="@color/Blue"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                ​
+                <TextView
+                    android:id="@+id/txtInitializeTextNo3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="電源のオン/オフを切り替えます。"
+                    android:textSize="12sp" />
+                ​
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+                    ​
+                    <TextView
+                        android:id="@+id/txtInitializeNo4"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:text="4"
+                        android:textColor="@color/Blue"
+                        android:textStyle="bold" />
+                    ​
+                    <TextView
+                        android:id="@+id/txtInitializeTitleNo4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="スキャントリガー"
+                        android:textColor="@color/Blue"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                ​
+                <TextView
+                    android:id="@+id/txtInitializeTextNo4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="トリガーを引くとタグまたはバーコードを読み取ります。"
+                    android:textSize="12sp" />
+                ​
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+                    ​
+                    <TextView
+                        android:id="@+id/txtInitializeNo5"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:text="5"
+                        android:textColor="@color/Blue"
+                        android:textStyle="bold" />
+                    ​
+                    <TextView
+                        android:id="@+id/txtInitializeTitleNo5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="XXXX"
+                        android:textColor="@color/Blue"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                ​
+                <TextView
+                    android:id="@+id/txtInitializeTextNo5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="XXXX"
+                    android:textSize="12sp" />
+                ​
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+                    ​
+                    <TextView
+                        android:id="@+id/txtInitializeNo6"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:text="6"
+                        android:textColor="@color/Blue"
+                        android:textStyle="bold" />
+                    ​
+                    <TextView
+                        android:id="@+id/txtInitializeTitleNo6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="XXXX"
+                        android:textColor="@color/Blue"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                ​
+                <TextView
+                    android:id="@+id/txtInitializeTextNo6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="XXXX"
+                    android:textSize="12sp" />
+                ​
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+                    ​
+                    <TextView
+                        android:id="@+id/txtInitializeNo7"
+                        android:layout_width="20dp"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="3dp"
+                        android:text="7"
+                        android:textColor="@color/Blue"
+                        android:textStyle="bold" />
+                    ​
+                    <TextView
+                        android:id="@+id/txtInitializeTitleNo7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="7"
+                        android:text="XXXX"
+                        android:textColor="@color/Blue"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                ​
+                <TextView
+                    android:id="@+id/txtInitializeTextNo7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:text="XXXX"
+                    android:textSize="12sp" />
+                ​
+            </LinearLayout>
+        ​</ScrollView>
+    </LinearLayout>
+    ​
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

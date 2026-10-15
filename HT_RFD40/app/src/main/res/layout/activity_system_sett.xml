@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rfid.setting.SystemSett">
+
+	<ScrollView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:textAlignment="textEnd">
+
+			<LinearLayout
+                android:id = "@+id/layoutRFIDReader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
+                android:orientation="horizontal">
+				<TextView
+                    android:id="@+id/labRFIDReader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="RFIDReader"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+				<CheckBox
+                    android:id="@+id/chkRFIDReaderUse"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="使用"
+                    android:textSize="18sp"/>
+			</LinearLayout>
+
+			<View
+                android:id="@+id/viewUnderBar3"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray"
+                android:visibility="gone"/>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:layout_marginBottom="3dp"
+				android:orientation="horizontal"
+                android:visibility="gone">
+
+				<TextView
+					android:id="@+id/labsetCollation"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="1"
+					android:text="照合作業"
+					android:textColor="@color/colorAccent"
+					android:textSize="18sp" />
+
+				<Spinner
+					android:id="@+id/cmbCollation"
+					android:layout_width="150dp"
+					android:layout_height="wrap_content"
+					android:dropDownWidth="wrap_content"
+					android:entries="@array/Collation"
+					android:paddingTop="5dp"
+					android:paddingBottom="5dp"
+					android:spinnerMode="dialog"
+					android:textAlignment="textEnd" />
+			</LinearLayout>
+
+			<View
+                android:id="@+id/viewUnderBar2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray"
+                android:visibility="gone"/>
+
+			<LinearLayout
+				android:id="@+id/layoutEmployeePrevSet"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:layout_marginBottom="3dp"
+				android:orientation="horizontal"
+                android:visibility="gone">
+
+				<TextView
+					android:id="@+id/labEmployeePrevSet"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_weight="1"
+					android:text="ログイン社員継続"
+					android:textColor="@color/colorAccent"
+					android:textSize="18sp" />
+
+				<CheckBox
+					android:id="@+id/chkEmployeePrevSet"
+					android:layout_width="90dp"
+					android:layout_height="wrap_content"
+					android:text="使用"
+					android:textSize="18sp"
+					android:checked="false" />
+			</LinearLayout>
+
+			<View
+                android:id="@+id/viewUnderBar1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray" />
+
+			<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+				<TextView
+                    android:id="@+id/labSearch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="電波強度(探索)"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+				<Spinner
+                    android:id="@+id/cmbSearch"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="wrap_content"
+                    android:gravity="right"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="textEnd" />
+			</LinearLayout>
+
+			<View
+                android:id="@+id/view2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray"
+                />
+
+			<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+				<TextView
+                    android:id="@+id/labLease"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="電波強度(貸出)"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+				<Spinner
+                    android:id="@+id/cmbLease"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="wrap_content"
+                    android:gravity="right"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="textEnd" />
+			</LinearLayout>
+
+			<View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray"
+                android:visibility="gone"/>
+
+			<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+				<TextView
+                    android:id="@+id/labReturn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:text="電波強度(返却)"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+				<Spinner
+                    android:id="@+id/cmbReturn"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="wrap_content"
+                    android:gravity="right"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="textEnd" />
+			</LinearLayout>
+
+			<View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray"
+                android:visibility="gone"/>
+
+			<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+				<TextView
+                    android:id="@+id/labStorage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="電波強度(保管)"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+				<Spinner
+                    android:id="@+id/cmbStorage"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="wrap_content"
+                    android:gravity="right"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="textEnd" />
+			</LinearLayout>
+
+			<View
+                android:id="@+id/view5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray"
+                android:visibility="gone"/>
+
+			<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+				<TextView
+                    android:id="@+id/labDispose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="電波強度(除却)"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+				<Spinner
+                    android:id="@+id/cmbDispose"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="wrap_content"
+                    android:gravity="right"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="textEnd" />
+			</LinearLayout>
+
+			<View
+                android:id="@+id/view6"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray"
+                android:visibility="gone"/>
+
+			<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+				<TextView
+                    android:id="@+id/labTaglink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="電波強度(タグ紐付)"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+				<Spinner
+                    android:id="@+id/cmbTaglink"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="wrap_content"
+                    android:gravity="right"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="textEnd" />
+			</LinearLayout>
+
+			<View
+                android:id="@+id/view10"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray"
+                android:visibility="gone"/>
+
+			<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+				<TextView
+                    android:id="@+id/labMatIn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="電波強度(持込照合)"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+				<Spinner
+                    android:id="@+id/cmbMatIn"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="wrap_content"
+                    android:gravity="right"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="textEnd" />
+			</LinearLayout>
+
+			<View
+                android:id="@+id/view11"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray"
+                android:visibility="gone"/>
+
+			<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+				<TextView
+                    android:id="@+id/labMatOut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="電波強度(持帰照合)"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+				<Spinner
+                    android:id="@+id/cmbMatOut"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="wrap_content"
+                    android:gravity="right"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="textEnd" />
+			</LinearLayout>
+
+			<View
+                android:id="@+id/view12"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray"
+                android:visibility="gone"/>
+
+			<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+				<TextView
+                    android:id="@+id/labMatTemp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="電波強度(仮置登録)"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+				<Spinner
+                    android:id="@+id/cmbMatTemp"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="wrap_content"
+                    android:gravity="right"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="textEnd" />
+			</LinearLayout>
+
+			<View
+                android:id="@+id/view13"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray"
+                android:visibility="gone"/>
+
+			<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="3dp"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+				<TextView
+                    android:id="@+id/labMatRet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="電波強度(照合返却)"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+				<Spinner
+                    android:id="@+id/cmbMatRet"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="wrap_content"
+                    android:gravity="right"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="textEnd" />
+			</LinearLayout>
+
+			<View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray" />
+
+			<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+				<TextView
+                    android:id="@+id/labInventoryL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="電波強度(棚卸)"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+				<LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+					<LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+						<TextView
+                            android:id="@+id/labInventoryKbnL"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="強"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp" />
+						<Spinner
+                            android:id="@+id/cmbInventoryL"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:dropDownWidth="wrap_content"
+                            android:gravity="right"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:spinnerMode="dialog"
+                            android:textAlignment="textEnd" />
+					</LinearLayout>
+					<LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+						<TextView
+                            android:id="@+id/labInventoryKbnM"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="中"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp" />
+						<Spinner
+                            android:id="@+id/cmbInventoryM"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:dropDownWidth="wrap_content"
+                            android:gravity="right"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:spinnerMode="dialog"
+                            android:textAlignment="textEnd" />
+					</LinearLayout>
+					<LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+						<TextView
+                            android:id="@+id/labInventoryKbnS"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="弱"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/colorAccent"
+                            android:textSize="18sp" />
+						<Spinner
+                            android:id="@+id/cmbInventoryS"
+                            android:layout_width="120dp"
+                            android:layout_height="wrap_content"
+                            android:dropDownWidth="wrap_content"
+                            android:gravity="right"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:spinnerMode="dialog"
+                            android:textAlignment="textEnd" />
+					</LinearLayout>
+				</LinearLayout>
+			</LinearLayout>
+
+			<View
+                android:id="@+id/view7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/darker_gray" />
+
+
+			<LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+				<TextView
+                    android:id="@+id/labsetReader"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="QR読取機器"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+
+				<Spinner
+                    android:id="@+id/cmbRFIDReader"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="wrap_content"
+                    android:entries="@array/Reader"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="textEnd" />
+			</LinearLayout>
+
+			<View
+                android:id="@+id/view9"
+				android:layout_width="fill_parent"
+                android:layout_height="2dp"
+				android:layout_marginTop="1dp"
+				android:layout_marginBottom="1dp"
+                android:background="@android:color/darker_gray"
+				android:visibility="gone"/>
+			<View
+				android:layout_width="fill_parent"
+				android:layout_height="1dp"
+				android:layout_marginTop="5dp"
+				android:background="@android:color/darker_gray" />
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="5dp"
+				android:layout_marginBottom="5dp"
+				android:orientation="vertical">
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="5dp"
+					android:layout_marginBottom="5dp"
+					android:orientation="horizontal">
+
+					<TextView
+						android:id="@+id/loginTimeout"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="5dp"
+						android:layout_marginTop="5dp"
+						android:layout_weight="1"
+						android:text="操作タイムアウト(分)"
+						android:textColor="@color/colorAccent"
+						android:textSize="18sp" />
+
+					<Spinner
+						android:id="@+id/cmbLoginTimeout"
+						android:layout_width="120dp"
+						android:layout_height="wrap_content"
+						android:dropDownWidth="wrap_content"
+						android:gravity="right"
+						android:paddingTop="5dp"
+						android:paddingBottom="5dp"
+						android:spinnerMode="dialog"
+						android:textAlignment="textEnd" />
+				</LinearLayout>
+
+				<TextView
+					android:id="@+id/loginTimeoutMessage"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="10dp"
+					android:layout_marginTop="5dp"
+					android:layout_weight="1"
+					android:text="※0を設定した場合はタイムアウトしない"
+					android:textColor="@color/colorAccent"
+					android:textSize="18sp" />
+
+			</LinearLayout>
+
+			<LinearLayout
+                android:id = "@+id/layoutAutoLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+				<TextView
+                    android:id="@+id/labAutoLinkProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="AutoLinkProfile"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="18sp" />
+				<CheckBox
+                    android:id="@+id/chkAutoLinkProfile"
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:text="有効"
+                    android:textSize="18sp"/>
+			</LinearLayout>
+
+			<View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
+
+			<TextView
+                android:id="@+id/btnSettingSub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:drawableRight="@drawable/arrow"
+                android:paddingTop="8dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="8dp"
+                android:text="詳細設定"
+                android:textSize="18sp" />
+
+			<View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+				android:visibility="gone"/>
+
+			<TextView
+                android:id="@+id/btnSettingHub"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:drawableRight="@drawable/arrow"
+                android:paddingTop="8dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="8dp"
+                android:text="拠点設定"
+                android:textSize="18sp"
+                android:visibility="gone"/>
+
+			<View
+                android:id="@+id/view8"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
+
+		</LinearLayout>
+	</ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

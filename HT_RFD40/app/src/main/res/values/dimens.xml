@@ -1,0 +1,51 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="simple_first_line_text">20sp</dimen>
+    <dimen name="simple_second_line_text">18dp</dimen>
+
+    <!-- メニュー -->
+    <dimen name="menu_button">24sp</dimen>
+    <dimen name="menu_webapi_button">12sp</dimen>
+
+    <!-- ◆貸出先設定 -->
+    <!-- 入力項目サイズ -->
+    <dimen name="lease_edit_dest">40dp</dimen>
+    <dimen name="lease_edit_memo">40dp</dimen>
+    <dimen name="lease_edit_user">40dp</dimen>
+    <dimen name="lease_edit_return_date">40dp</dimen>
+    <dimen name="lease_edit_text_sp">18sp</dimen>
+    <!-- ラベル文字サイズ -->
+    <dimen name="lease_label_dest_sp">18sp</dimen>
+    <dimen name="lease_label_dest_name_sp">18sp</dimen>
+    <dimen name="lease_label_memo_sp">18sp</dimen>
+    <dimen name="lease_label_user_sp">18sp</dimen>
+    <dimen name="lease_label_user_name_sp">18sp</dimen>
+    <dimen name="lease_label_return_date_sp">18sp</dimen>
+    <!-- 余白・高さ等 -->
+    <dimen name="lease_return_date_height">45dp</dimen>
+    <dimen name="lease_bottom_margin">10dp</dimen>
+
+    <!-- ◆探索 QR読取 -->
+    <!-- ラベル文字サイズ -->
+    <dimen name="search_qr_label_count">18sp</dimen>
+
+    <!-- ◆探索 個別 -->
+    <dimen name="search_label_asset_no">18sp</dimen>
+    <dimen name="search_text_asset_no">18sp</dimen>
+    <dimen name="search_label_sub_asset_no">14sp</dimen>
+    <dimen name="search_text_sub_asset_no">14sp</dimen>
+    <dimen name="search_label_sch_rssi">18sp</dimen>
+    <dimen name="search_label_sch_intencity_ttl">18sp</dimen>
+    <dimen name="search_label_sch_intencity_val">24sp</dimen>
+    <!-- 余白・高さ等 -->
+    <dimen name="search_button_top_margin">30sp</dimen>
+
+    <!-- ◆ロケ選択 -->
+    <dimen name="loc_sett_label_loc">18sp</dimen>
+    <dimen name="loc_sett_edit_loc">40dp</dimen>
+    <dimen name="loc_sett_edit_text_sp">18sp</dimen>
+
+    <!-- ◆工事選択設定 -->
+    <dimen name="construction_sett_edit_loc">40dp</dimen>
+
+</resources>

@@ -1,0 +1,7 @@
+
+①「管理者として実行」でコマンドプロンプトを開く
+②ocx　が存在するパスに移動。
+③Regsvr32　を実行。
+32bit   Regsvr32 “QrmakerAd.ocx”
+64bit   Regsvr32 “QrmakerAd64.ocx”
+

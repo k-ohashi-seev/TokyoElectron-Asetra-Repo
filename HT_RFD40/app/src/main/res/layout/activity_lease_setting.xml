@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BackgroundColor"
+    tools:context="com.rfid.Inventory.InventoryTagIn">
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/labLeaseSubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/Information"
+            android:drawableLeft="@drawable/information_32"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:paddingLeft="20dp"
+            android:paddingTop="5dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="5dp"
+            android:text="貸出先、返却日入力"
+            android:textColor="@android:color/primary_text_dark"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/labLeaseSettingDestination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="貸出先"
+                    android:textSize="@dimen/lease_label_dest_sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.046"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.104" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/lease_edit_dest"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/txtLeaseSettingDestination"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/shape_rounded_input"
+                            android:ems="10"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPersonName"
+                            android:maxLength="15"
+                            android:nextFocusLeft="@id/btnLeaseSettingDestination"
+                            android:nextFocusDown="@id/btnLeaseSettingDestination"
+                            android:nextFocusForward="@id/btnLeaseSettingDestination"
+                            android:paddingLeft="10dp"
+                            android:textSize="@dimen/lease_edit_text_sp"/>
+
+                        <Button
+                            android:id="@+id/btnLeaseSettingDestination"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/shape_rounded_10dp"
+                            android:text="@string/button_name_select" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/lblLeaseSettingDestinationName"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="center|left"
+                    android:inputType="text"
+                    android:textSize="@dimen/lease_label_dest_name_sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/labBiko"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="備考"
+                        android:textSize="@dimen/lease_label_memo_sp" />
+
+                    <EditText
+                        android:id="@+id/editBiko"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/lease_edit_memo"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/shape_rounded_input"
+                        android:ems="10"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:maxLength="255"
+                        android:paddingLeft="10dp"
+                        android:textSize="@dimen/lease_edit_text_sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/labLeaseSettingResponsible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="貸出担当"
+                    android:textSize="@dimen/lease_label_user_sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.059"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.265" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/lease_edit_user"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/txtLeaseSettingResponsible"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_rounded_input"
+                        android:ems="10"
+                        android:imeOptions="actionDone"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="15"
+                        android:paddingLeft="10dp"
+                        android:textSize="@dimen/lease_edit_text_sp" />
+
+                    <Button
+                        android:id="@+id/btnLeaseSettingResponsible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_rounded_10dp"
+                        android:text="@string/button_name_select" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/labLeaseSettingResponsibleName"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="center|left"
+                    android:inputType="text"
+                    android:textSize="@dimen/lease_label_user_name_sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/labLeaseSettingReturn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="返却予定日"
+                    android:textSize="@dimen/lease_label_return_date_sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/lease_return_date_height"
+                    android:layout_marginBottom="@dimen/lease_bottom_margin"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txtLeaseSettingReturn"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/lease_edit_return_date"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_rounded_input"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        android:textSize="@dimen/lease_edit_text_sp"/>
+
+                    <Button
+                        android:id="@+id/btnLeaseSettingReturn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_rounded_10dp"
+                        android:text="@string/button_name_select" />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnClear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/execute_button_clear"
+                    android:drawableLeft="@drawable/trash_32"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="クリア"
+                    android:textAlignment="center"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/btnLeaseSettingNext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/execute_button"
+                    android:drawableLeft="@drawable/next_32"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/button_name_next"
+                    android:textAlignment="center"
+                    android:textColor="@color/ButtonMenuColor"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

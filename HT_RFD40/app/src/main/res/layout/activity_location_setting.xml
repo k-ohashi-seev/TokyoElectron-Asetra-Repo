@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/BackgroundColor"
+    tools:context="com.rfid.Inventory.InventoryTagIn">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/labSubTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/Information"
+            android:drawableLeft="@drawable/information_32"
+            android:drawablePadding="10dp"
+            android:gravity="center|left"
+            android:paddingLeft="20dp"
+            android:paddingTop="5dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="5dp"
+            android:text="保管先の読取又は選択"
+            android:textColor="@android:color/primary_text_dark"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/labSettingLocL"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ロケ大区分"
+                    android:textSize="@dimen/loc_sett_label_loc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.046"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.104" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/loc_sett_edit_loc"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/txtInvSettingLocL"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_rounded_input"
+                        android:ems="10"
+                        android:imeOptions="actionDone"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="10"
+                        android:paddingLeft="10dp"
+                        android:textSize="@dimen/loc_sett_edit_text_sp"/>
+
+                    <Button
+                        android:id="@+id/btnSettingLocL"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_rounded_10dp"
+                        android:text="@string/button_name_select" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/lblInvSettingLocLName"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:breakStrategy="simple"
+                    android:inputType="text"
+                    android:scrollHorizontally="false"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/labSettingLocM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ロケ中区分"
+                    android:textSize="@dimen/loc_sett_label_loc"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.059"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.265" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/loc_sett_edit_loc"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/txtInvSettingLocM"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_rounded_input"
+                        android:ems="10"
+                        android:imeOptions="actionDone"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="10"
+                        android:paddingLeft="10dp"
+                        android:textSize="@dimen/loc_sett_edit_text_sp"/>
+
+                    <Button
+                        android:id="@+id/btnSettingLocM"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_rounded_10dp"
+                        android:text="@string/button_name_select" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/lblInvSettingLocMName"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:breakStrategy="simple"
+                    android:inputType="text"
+                    android:scrollHorizontally="false"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/labSettingLocS"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ロケ小区分"
+                    android:textSize="@dimen/loc_sett_label_loc" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/loc_sett_edit_loc"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/txtInvSettingLocS"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_rounded_input"
+                        android:ems="10"
+                        android:imeOptions="actionDone"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="10"
+                        android:paddingLeft="10dp"
+                        android:textSize="@dimen/loc_sett_edit_text_sp"/>
+
+                    <Button
+                        android:id="@+id/btnSettingLocS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_rounded_10dp"
+                        android:text="@string/button_name_select" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/lblInvSettingLocSName"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:breakStrategy="simple"
+                    android:inputType="text"
+                    android:scrollHorizontally="false"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSettingNext"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/execute_button"
+                android:drawableLeft="@drawable/next_48"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:paddingRight="30dp"
+                android:paddingBottom="10dp"
+                android:text="@string/button_name_next"
+                android:textAlignment="center"
+                android:textColor="@color/ButtonMenuColor"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.924"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.788" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

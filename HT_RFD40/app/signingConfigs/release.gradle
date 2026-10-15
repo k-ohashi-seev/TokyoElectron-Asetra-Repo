@@ -1,0 +1,8 @@
+signingConfigs {
+    release {
+        keyAlias 'key0'
+        keyPassword 'RFIDInventoryHT'
+        storeFile file('../../signature.jks')
+        storePassword 'RFIDInventoryHT'
+    }
+}
