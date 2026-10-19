@@ -1444,7 +1444,11 @@ Namespace Controllers
             If isSort Then
                 '[CC431] UPD Start 20261015
                 ' 仕様変更2：検索条件の並び順で並べる（第3キーは資産番号昇順）
-                sbSQL.Append(" ORDER BY " & GetOrderBy(_ViewModel.SearchSortOrder))
+                '[CC431] UPD Start 20261019
+                ' バグ修正：SELECT DISTINCT の ORDER BY には SELECT 句の列しか書けないため、DISTINCT のクエリをサブクエリにして外側で並べる
+                sbSQL.Insert(0, "SELECT * FROM (")
+                sbSQL.Append(" ) X ORDER BY " & GetOrderBy(_ViewModel.SearchSortOrder))
+                '[CC431] UPD End 20261019
                 '[CC431] UPD End 20261015
             End If
 
@@ -1457,39 +1461,40 @@ Namespace Controllers
         ''' </summary>
         ''' <param name="sortOrder">検索条件 並び順(AssetHistorySort)</param>
         ''' <returns>ORDER BY に続けて指定する文字列（想定外の値は処理日付降順）</returns>
-        ''' <remarks>備考は空白（NULL・空文字）を後ろにする。原価センタ・場所はコード順。末尾は処理日付降順、資産番号昇順。</remarks>
+        ''' <remarks>備考は空白（NULL・空文字）を後ろにする。原価センタ・場所はコード順。末尾は処理日付降順、資産番号昇順。
+        ''' 　[CC431] 20261019 キーは DISTINCT のクエリを包んだ外側（別名 X）の列。原価センタ・場所・資産クラスは SELECT 句の IsNull 済みの別名で並べる。</remarks>
         Private Function GetOrderBy(ByVal sortOrder As Integer) As String
             Select Case sortOrder
                 Case AssetHistorySort.CatLAsc
-                    Return "PROLOG.CAT_L_CD,PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                    Return "X.CAT_L_CD,X.PROCESS_DT DESC,X.PROCESS_TM DESC,X.ASSET_NO"
                 Case AssetHistorySort.AssetNoAsc
-                    Return "PROLOG.ASSET_NO,PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC"
+                    Return "X.ASSET_NO,X.PROCESS_DT DESC,X.PROCESS_TM DESC"
                 Case AssetHistorySort.LocMAsc
-                    Return "PROLOG.LOC_M_CD,PROLOG.LOC_S_CD,PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                    Return "X.LOC_M_CD,X.LOC_S_CD,X.PROCESS_DT DESC,X.PROCESS_TM DESC,X.ASSET_NO"
                 Case AssetHistorySort.LocSAsc
-                    Return "PROLOG.LOC_S_CD,PROLOG.LOC_M_CD,PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                    Return "X.LOC_S_CD,X.LOC_M_CD,X.PROCESS_DT DESC,X.PROCESS_TM DESC,X.ASSET_NO"
                 Case AssetHistorySort.Remark1Asc
-                    Return GetBlankLastOrder("PROLOG.REMARK1") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                    Return GetBlankLastOrder("X.REMARK1") & ",X.PROCESS_DT DESC,X.PROCESS_TM DESC,X.ASSET_NO"
                 Case AssetHistorySort.Remark2Asc
-                    Return GetBlankLastOrder("PROLOG.REMARK2") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                    Return GetBlankLastOrder("X.REMARK2") & ",X.PROCESS_DT DESC,X.PROCESS_TM DESC,X.ASSET_NO"
                 Case AssetHistorySort.Remark3Asc
-                    Return GetBlankLastOrder("PROLOG.REMARK3") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                    Return GetBlankLastOrder("X.REMARK3") & ",X.PROCESS_DT DESC,X.PROCESS_TM DESC,X.ASSET_NO"
                 Case AssetHistorySort.Remark4Asc
-                    Return GetBlankLastOrder("PROLOG.REMARK4") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                    Return GetBlankLastOrder("X.REMARK4") & ",X.PROCESS_DT DESC,X.PROCESS_TM DESC,X.ASSET_NO"
                 Case AssetHistorySort.Remark5Asc
-                    Return GetBlankLastOrder("PROLOG.REMARK5") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                    Return GetBlankLastOrder("X.REMARK5") & ",X.PROCESS_DT DESC,X.PROCESS_TM DESC,X.ASSET_NO"
                 Case AssetHistorySort.Remark6Asc
-                    Return GetBlankLastOrder("PROLOG.REMARK6") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                    Return GetBlankLastOrder("X.REMARK6") & ",X.PROCESS_DT DESC,X.PROCESS_TM DESC,X.ASSET_NO"
                 Case AssetHistorySort.Remark7Asc
-                    Return GetBlankLastOrder("PROLOG.REMARK7") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                    Return GetBlankLastOrder("X.REMARK7") & ",X.PROCESS_DT DESC,X.PROCESS_TM DESC,X.ASSET_NO"
                 Case AssetHistorySort.Remark8Asc
-                    Return GetBlankLastOrder("PROLOG.REMARK8") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                    Return GetBlankLastOrder("X.REMARK8") & ",X.PROCESS_DT DESC,X.PROCESS_TM DESC,X.ASSET_NO"
                 Case AssetHistorySort.Remark9Asc
-                    Return GetBlankLastOrder("PROLOG.REMARK9") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                    Return GetBlankLastOrder("X.REMARK9") & ",X.PROCESS_DT DESC,X.PROCESS_TM DESC,X.ASSET_NO"
                 Case AssetHistorySort.Remark10Asc
-                    Return GetBlankLastOrder("PROLOG.REMARK10") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                    Return GetBlankLastOrder("X.REMARK10") & ",X.PROCESS_DT DESC,X.PROCESS_TM DESC,X.ASSET_NO"
                 Case Else
-                    Return "PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                    Return "X.PROCESS_DT DESC,X.PROCESS_TM DESC,X.ASSET_NO"
             End Select
         End Function
 
