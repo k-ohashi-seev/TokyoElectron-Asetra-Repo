@@ -2077,7 +2077,11 @@ Namespace Controllers
             sbSQL.AppendLine("AND ms.LOC_S_CD = TIR.LOC_S_CD")
 
             sbSQL.AppendLine(" LEFT JOIN M_LOCATION CLM ON CLM.LOC_DIV = 'M' AND CLM.LOC_L_CD = TIR.LOC_L_CD AND CLM.LOC_M_CD = TIR.CHANGE_LOC_M_CD ")
-            sbSQL.AppendLine(" LEFT JOIN M_LOCATION CLS ON CLS.LOC_DIV = 'S' AND CLS.LOC_L_CD = TIR.LOC_L_CD AND CLS.LOC_M_CD = TIR.CHANGE_LOC_M_CD AND CLS.LOC_S_CD = TIR.CHANGE_LOC_S_CD")
+            '[CC431] UPD Start 20261019
+            'sbSQL.AppendLine(" LEFT JOIN M_LOCATION CLS ON CLS.LOC_DIV = 'S' AND CLS.LOC_L_CD = TIR.LOC_L_CD AND CLS.LOC_M_CD = TIR.CHANGE_LOC_M_CD AND CLS.LOC_S_CD = TIR.CHANGE_LOC_S_CD")
+            ' 変更後課コードが空の場合はロケ中区分で結び付ける
+            sbSQL.AppendLine(" LEFT JOIN M_LOCATION CLS ON CLS.LOC_DIV = 'S' AND CLS.LOC_L_CD = TIR.LOC_L_CD AND CLS.LOC_M_CD = COALESCE(NULLIF(TIR.CHANGE_LOC_M_CD, ''), TIR.LOC_M_CD) AND CLS.LOC_S_CD = TIR.CHANGE_LOC_S_CD")
+            '[CC431] UPD End 20261019
             sbSQL.AppendLine(" LEFT JOIN M_EMPLOYEE CE ON CE.EMPLOYEE_CD = TIR.CHANGE_EMPLOYEE ")
             sbSQL.AppendLine(" LEFT JOIN M_EMPLOYEE EM ON EM.EMPLOYEE_CD = TIR.FREE_ITEM6 ")
             '[CC431] ADD Start 20261009
@@ -2336,14 +2340,14 @@ Namespace Controllers
             'フリー項目20From SearchFreeItem20From 貸与回数
             If (Not IsNothing(_ViewModel.SearchFreeItem20From)) AndAlso
                     (IsNumeric(_ViewModel.SearchFreeItem20From.Trim)) Then
-                sbCond.AppendLine("  AND TRY_CAST(" & tblAlias & ".FREE_ITEM20 AS INT) >= " & "@SearchFreeItem20From")
+                sbCond.AppendLine("  AND TRY_CAST(" & tblAlias & ".FREE_ITEM20 AS decimal(21, 0)) >= " & "@SearchFreeItem20From")
                 addSqlParam("SearchFreeItem20From", $"{CInt(_ViewModel.SearchFreeItem20From.Trim)}")
             End If
 
             'フリー項目20To SearchFreeItem20To 貸与回数
             If (Not IsNothing(_ViewModel.SearchFreeItem20To)) AndAlso
                     (IsNumeric(_ViewModel.SearchFreeItem20To.Trim)) Then
-                sbCond.AppendLine("  AND TRY_CAST(" & tblAlias & ".FREE_ITEM20 AS INT) <= " & "@SearchFreeItem20To")
+                sbCond.AppendLine("  AND TRY_CAST(" & tblAlias & ".FREE_ITEM20 AS decimal(21, 0)) <= " & "@SearchFreeItem20To")
                 addSqlParam("SearchFreeItem20To", $"{CInt(_ViewModel.SearchFreeItem20To.Trim)}")
             End If
 
