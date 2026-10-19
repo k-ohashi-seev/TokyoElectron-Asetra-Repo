@@ -2273,6 +2273,12 @@ End Code
             var dateFrom = document.getElementById(chk.from).value;
             var dateTo = document.getElementById(chk.to).value;
             if (dateFrom != "" && dateTo != "" && dateFrom > dateTo) {
+                //[CC431] ADD Start 20261019
+                // 詳細検索欄の項目（開始日(貸与)・終了日(貸与)）のエラーのときは、詳細検索欄を閉じていれば開いてからメッセージを表示する（仕様変更6）
+                if ($("#" + chk.from).closest(".detail-accordion").length > 0 && $("#item-conditions-detail").css("display") == "none") {
+                    DetailAccordion_onclick();
+                }
+                //[CC431] ADD End 20261019
                 showErrMessage("@Message.getMessage(CommonLabel.MSG_ERR_DATE_ORDER_ITEM)".format(chk.label), "#" + chk.from);
                 return false;
             }
@@ -3444,18 +3450,7 @@ End Code
                                     @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchChangeEmployee, New With {.class = "cond-control", .maxlength = 15, .oninput = "{editHanEi(this)}"})
                                 </div>
                             </div>
-                            @* 貸与資産状態区分 *@
-                            <div class="col-sm-2" style="display: block">
-                                <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM10)</div>
-                                <div class="grid-condition-col-multi">
-                                    @* 絞り込みなしの通常のプルダウン。×で選択解除（選択解除用に空の選択肢を追加） *@
-                                    @* ※選択肢の「-」は貸与資産状態区分が空のデータを検索する値のため、選択解除（空）とは別 *@
-                                    <span class="clearable">
-                                        @Html.DropDownListFor(Function(model) model.FirstOrDefault.SearchFreeItem10, DirectCast(ViewBag.FreeItem10List, IEnumerable(Of SelectListItem)), "", New With {.class = "cond-control"})
-                                        <span class="clearable-clear" title="@Message.getMessage(CommonLabel.LABEL_TOOLTIP_CLEAR)">×</span>
-                                    </span>
-                                </div>
-                            </div>
+                            @*[CC431] DEL 20261019 詳細検索欄へ移動（1 項目。詳細検索欄の先頭に追加）*@
                             @* 資本化日付 *@
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM2)</div>
@@ -3495,13 +3490,7 @@ End Code
                                     @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem7, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
-                            @* WBS番号 *@
-                            <div class="col-sm-2" style="display: block">
-                                <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM8)</div>
-                                <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem8, New With {.class = "cond-control", .maxlength = 255})
-                                </div>
-                            </div>
+                            @*[CC431] DEL 20261019 詳細検索欄へ移動（1 項目。詳細検索欄の先頭に追加）*@
                             @* 備考 *@
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM9)</div>
@@ -3539,6 +3528,102 @@ End Code
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM15)</div>
                                 <div class="grid-condition-col">
                                     @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem15, New With {.class = "cond-control", .maxlength = 255})
+                                </div>
+                            </div>
+                            @*[CC431] DEL 20261019 詳細検索欄へ移動（9 項目。詳細検索欄の先頭に追加）*@
+                            @* タグ紐付状態 *@
+                            <div class="col-sm-2" style="display: block">
+                                <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_TAG_LINK_STATUS)</div>
+                                <div class="grid-condition-col-multi">
+                                    @* 絞り込みなしの通常のプルダウン。×で選択解除 *@
+                                    @* 選択肢の「全て」の値が空のため、選択解除用の空の選択肢は追加しない（×で「全て」に戻る。「全て」選択中は×を表示しない） *@
+                                    <span class="clearable">
+                                        @Html.DropDownListFor(Function(model) model.FirstOrDefault.SearchTagLinkStatus, DirectCast(ViewBag.TagLinkStatusList, IEnumerable(Of SelectListItem)), New With {.class = "cond-control"})
+                                        <span class="clearable-clear" title="@Message.getMessage(CommonLabel.LABEL_TOOLTIP_CLEAR)">×</span>
+                                    </span>
+                                </div>
+                            </div>
+                            @*[CC431] ADD Start 20261002*@
+                            @* 棚卸ノート（部分一致） *@
+                            <div class="col-sm-2" style="display: block">
+                                <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM27)</div>
+                                <div class="grid-condition-col">
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem27, New With {.class = "cond-control", .maxlength = 255})
+                                </div>
+                            </div>
+                            @* 入力作業者（前方一致） *@
+                            <div class="col-sm-2" style="display: block">
+                                <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_INPUT_EMPLOYEE_CD)</div>
+                                <div class="grid-condition-col">
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchEntEmployee, New With {.class = "cond-control", .maxlength = 15, .oninput = "editHanEi(this)"})
+                                </div>
+                            </div>
+                            @*[CC431] ADD End 20261002*@
+                        </div>
+                    </div>
+                    @*[CC431] ADD Start 20261002*@
+                    @* 並び順（ラジオボタン17種。「項目の文言＋昇順の文言」で表示する。選択値は SearchSortOrder、Controller の GetSortColumn で ORDER BY に変換） *@
+                    <div class="row" id="item-sort">
+                        <div class="col-md-12">
+                            <div class="grid-head-col sort-head-col">@Message.getMessage(CommonLabel.LABEL_SORT_ORDER)</div>
+                            <div id="search-sort" class="grid-condition-col sort-condition-col" style="margin-left: 15px; margin-right: 15px; width: calc(100% - 30px);">
+                                @Code
+                                    Dim sSortAsc As String = Message.getMessage(CommonLabel.LABEL_SORT_ASC)
+                                    Dim lstSort As New List(Of KeyValuePair(Of Integer, String)) From {
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.CatLAsc, Message.getMessage(CommonLabel.LABEL_CAT_L)),
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.AssetNoAsc, Message.getMessage(CommonLabel.LABEL_ASSET_NO)),
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.LocMAsc, Message.getMessage(CommonLabel.LABEL_LOC_M_DEP_CODE)),
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.LocSAsc, Message.getMessage(CommonLabel.LABEL_LOC_S_PLA_CODE)),
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.FreeItem2Asc, Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM2)),
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.FreeItem6Asc, Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM6_CD)),
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.PhyinvEmployeeAsc, Message.getMessage(CommonLabel.LABEL_PHYINV_EMPLOYEE_CD)),
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark1Asc, Message.getMessage(CommonLabel.LABEL_REMARK1)),
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark2Asc, Message.getMessage(CommonLabel.LABEL_REMARK2)),
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark3Asc, Message.getMessage(CommonLabel.LABEL_REMARK3)),
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark4Asc, Message.getMessage(CommonLabel.LABEL_REMARK4)),
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark5Asc, Message.getMessage(CommonLabel.LABEL_REMARK5)),
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark6Asc, Message.getMessage(CommonLabel.LABEL_REMARK6)),
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark7Asc, Message.getMessage(CommonLabel.LABEL_REMARK7)),
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark8Asc, Message.getMessage(CommonLabel.LABEL_REMARK8)),
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark9Asc, Message.getMessage(CommonLabel.LABEL_REMARK9)),
+                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark10Asc, Message.getMessage(CommonLabel.LABEL_REMARK10))
+                                    }
+                                End Code
+                                @For Each kvSort As KeyValuePair(Of Integer, String) In lstSort
+                                    @<div class="input-select-item">
+                                        @Html.RadioButtonFor(Function(model) model.FirstOrDefault.SearchSortOrder, kvSort.Key)@(kvSort.Value & sSortAsc)
+                                    </div>
+                                Next
+                            </div>
+                        </div>
+                    </div>
+                    @* 詳細検索エリア（備考1～備考10。複数テキスト入力「|」区切り、部分一致）。クリックで表示／非表示を切り替え、初期は非表示 *@
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="#" id="DetailAccordion" onclick="DetailAccordion_onclick();return false;">@Message.getMessage(CommonLabel.LABEL_ASSET_DETAIL_OPEN)</a>
+                        </div>
+                    </div>
+                    <div class="row detail-accordion" id="item-conditions-detail" style="display:none;">
+                        <div class="col-md-12 condition-flex">
+                            @*[CC431] ADD Start 20261019*@
+                            @* 検索条件欄から移動した項目（仕様変更6。★検索条件一覧.xlsx の詳細検索「〇」） *@
+                            @* 貸与資産状態区分 *@
+                            <div class="col-sm-2" style="display: block">
+                                <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM10)</div>
+                                <div class="grid-condition-col-multi">
+                                    @* 絞り込みなしの通常のプルダウン。×で選択解除（選択解除用に空の選択肢を追加） *@
+                                    @* ※選択肢の「-」は貸与資産状態区分が空のデータを検索する値のため、選択解除（空）とは別 *@
+                                    <span class="clearable">
+                                        @Html.DropDownListFor(Function(model) model.FirstOrDefault.SearchFreeItem10, DirectCast(ViewBag.FreeItem10List, IEnumerable(Of SelectListItem)), "", New With {.class = "cond-control"})
+                                        <span class="clearable-clear" title="@Message.getMessage(CommonLabel.LABEL_TOOLTIP_CLEAR)">×</span>
+                                    </span>
+                                </div>
+                            </div>
+                            @* WBS番号 *@
+                            <div class="col-sm-2" style="display: block">
+                                <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM8)</div>
+                                <div class="grid-condition-col">
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem8, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
                             @* 貸与先 *@
@@ -3614,80 +3699,11 @@ End Code
                                     @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem37, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
-                            @* タグ紐付状態 *@
-                            <div class="col-sm-2" style="display: block">
-                                <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_TAG_LINK_STATUS)</div>
-                                <div class="grid-condition-col-multi">
-                                    @* 絞り込みなしの通常のプルダウン。×で選択解除 *@
-                                    @* 選択肢の「全て」の値が空のため、選択解除用の空の選択肢は追加しない（×で「全て」に戻る。「全て」選択中は×を表示しない） *@
-                                    <span class="clearable">
-                                        @Html.DropDownListFor(Function(model) model.FirstOrDefault.SearchTagLinkStatus, DirectCast(ViewBag.TagLinkStatusList, IEnumerable(Of SelectListItem)), New With {.class = "cond-control"})
-                                        <span class="clearable-clear" title="@Message.getMessage(CommonLabel.LABEL_TOOLTIP_CLEAR)">×</span>
-                                    </span>
-                                </div>
-                            </div>
-                            @*[CC431] ADD Start 20261002*@
-                            @* 棚卸ノート（部分一致） *@
-                            <div class="col-sm-2" style="display: block">
-                                <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM27)</div>
-                                <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem27, New With {.class = "cond-control", .maxlength = 255})
-                                </div>
-                            </div>
-                            @* 入力作業者（前方一致） *@
-                            <div class="col-sm-2" style="display: block">
-                                <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_INPUT_EMPLOYEE_CD)</div>
-                                <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchEntEmployee, New With {.class = "cond-control", .maxlength = 15, .oninput = "editHanEi(this)"})
-                                </div>
-                            </div>
-                            @*[CC431] ADD End 20261002*@
-                        </div>
-                    </div>
-                    @*[CC431] ADD Start 20261002*@
-                    @* 並び順（ラジオボタン17種。「項目の文言＋昇順の文言」で表示する。選択値は SearchSortOrder、Controller の GetSortColumn で ORDER BY に変換） *@
-                    <div class="row" id="item-sort">
-                        <div class="col-md-12">
-                            <div class="grid-head-col sort-head-col">@Message.getMessage(CommonLabel.LABEL_SORT_ORDER)</div>
-                            <div id="search-sort" class="grid-condition-col sort-condition-col" style="margin-left: 15px; margin-right: 15px; width: calc(100% - 30px);">
-                                @Code
-                                    Dim sSortAsc As String = Message.getMessage(CommonLabel.LABEL_SORT_ASC)
-                                    Dim lstSort As New List(Of KeyValuePair(Of Integer, String)) From {
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.CatLAsc, Message.getMessage(CommonLabel.LABEL_CAT_L)),
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.AssetNoAsc, Message.getMessage(CommonLabel.LABEL_ASSET_NO)),
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.LocMAsc, Message.getMessage(CommonLabel.LABEL_LOC_M_DEP_CODE)),
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.LocSAsc, Message.getMessage(CommonLabel.LABEL_LOC_S_PLA_CODE)),
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.FreeItem2Asc, Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM2)),
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.FreeItem6Asc, Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM6_CD)),
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.PhyinvEmployeeAsc, Message.getMessage(CommonLabel.LABEL_PHYINV_EMPLOYEE_CD)),
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark1Asc, Message.getMessage(CommonLabel.LABEL_REMARK1)),
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark2Asc, Message.getMessage(CommonLabel.LABEL_REMARK2)),
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark3Asc, Message.getMessage(CommonLabel.LABEL_REMARK3)),
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark4Asc, Message.getMessage(CommonLabel.LABEL_REMARK4)),
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark5Asc, Message.getMessage(CommonLabel.LABEL_REMARK5)),
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark6Asc, Message.getMessage(CommonLabel.LABEL_REMARK6)),
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark7Asc, Message.getMessage(CommonLabel.LABEL_REMARK7)),
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark8Asc, Message.getMessage(CommonLabel.LABEL_REMARK8)),
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark9Asc, Message.getMessage(CommonLabel.LABEL_REMARK9)),
-                                        New KeyValuePair(Of Integer, String)(InventoryInquirySort.Remark10Asc, Message.getMessage(CommonLabel.LABEL_REMARK10))
-                                    }
-                                End Code
-                                @For Each kvSort As KeyValuePair(Of Integer, String) In lstSort
-                                    @<div class="input-select-item">
-                                        @Html.RadioButtonFor(Function(model) model.FirstOrDefault.SearchSortOrder, kvSort.Key)@(kvSort.Value & sSortAsc)
-                                    </div>
-                                Next
-                            </div>
-                        </div>
-                    </div>
-                    @* 詳細検索エリア（備考1～備考10。複数テキスト入力「|」区切り、部分一致）。クリックで表示／非表示を切り替え、初期は非表示 *@
-                    <div class="row">
-                        <div class="col-md-12">
-                            <a href="#" id="DetailAccordion" onclick="DetailAccordion_onclick();return false;">@Message.getMessage(CommonLabel.LABEL_ASSET_DETAIL_OPEN)</a>
-                        </div>
-                    </div>
-                    <div class="row detail-accordion" id="item-conditions-detail" style="display:none;">
-                        <div class="col-md-12 condition-flex">
+                            @*[CC431] ADD End 20261019*@
+                            @*[CC431] ADD Start 20261019*@
+                            @* 備考1～備考10を別の行にする（flex の折り返し。幅 100% の高さ 0 の要素） *@
+                            <div style="flex-basis:100%; height:0;"></div>
+                            @*[CC431] ADD End 20261019*@
                             @Code
                                 Dim lstRemark As New List(Of KeyValuePair(Of String, String)) From {
                                     New KeyValuePair(Of String, String)("SearchRemark1", Message.getMessage(CommonLabel.LABEL_REMARK1)),
