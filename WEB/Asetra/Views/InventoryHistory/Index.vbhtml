@@ -414,6 +414,17 @@ End Code
     return true;
     }
 
+    //[CC431] ADD Start 20261015
+    //検索条件リンククリック時処理（他の画面に合わせ、リンクの文言を入れ替える）
+    function SearchCondition_onclick() {
+        if (document.getElementById("SearchCondition").innerHTML == "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)") {
+            document.getElementById("SearchCondition").innerHTML = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_OPEN)"
+        } else {
+            document.getElementById("SearchCondition").innerHTML = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)"
+        }
+    }
+    //[CC431] ADD End 20261015
+
     //ページ番号クリック処理
     function btnPage_onclick(element) {
         document.getElementById("PageNum").value = element.name;    //2020/02/20 nv miyaji
@@ -472,7 +483,9 @@ End Code
         @* 検索条件 *@
         @<div Class="search-wrap">
             <a id="SearchCondition" data-toggle="collapse" href="#cond" aria-expanded="true" onclick="SearchCondition_onclick()">
-                @Message.getMessage(CommonLabel.TITLE_SEARCH)
+                @*[CC431] UPD Start 20261015 他の画面に合わせ、開閉で入れ替わる文言（▼検索条件／▲検索条件）にする*@
+                @Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_OPEN)
+                @*[CC431] UPD End 20261015*@
             </a>
             <div class="search-border">
                 <div id="cond" class="container collapse in">

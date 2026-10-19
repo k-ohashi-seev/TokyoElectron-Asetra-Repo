@@ -5800,6 +5800,11 @@ Namespace Misc
         ''' 実棚者コード
         ''' </summary>
         Public Const LABEL_PHYINV_EMPLOYEE_CD As String = "WI990717"
+
+        ''' <summary>
+        ''' 実棚者/名
+        ''' </summary>
+        Public Const LABEL_INV_EMPLOYEE_CD_NAME As String = "WI990718"
         '[CC431] ADD End 20261002
 
     End Class
@@ -7166,7 +7171,7 @@ Namespace Misc
         Public Const LABEL_OWN_INV_FLG As String = "WI720001"
 
         ''' <summary>
-        ''' 管理資産のみ
+        ''' 運用
         ''' </summary>
         Public Const LABEL_OWN_INV_ONLY As String = "WI720002"
 

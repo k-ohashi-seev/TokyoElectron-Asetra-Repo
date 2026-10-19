@@ -65,10 +65,10 @@ Namespace Controllers
             logger.Info("●●● Productkey=[" & sKey & "]")
 
             'ライセンスチェック          ■■■　一時的にコメントアウト  ver2.0
-            Dim iRet As Integer = AsetraLibRegist.LibRegist.CheckLicense(sKey)
+            'Dim iRet As Integer = AsetraLibRegist.LibRegist.CheckLicense(sKey)
 
             '■■■　開発用に、全てOKにする  ver2.0
-            'Dim iRet As Integer = licenseCheckResult.OK
+            Dim iRet As Integer = licenseCheckResult.OK
 
             '●●●　テスト用
             'dtMkDbDate = Now.Date.AddDays(-1)

@@ -244,10 +244,14 @@ Namespace Controllers
 
             '[CC431] ADD Start 20261009
             ' 棚卸実施端末（実棚処理ツール区分。C:CS は使用しない）
+            '[CC431] UPD Start 20261015
+            ' 仕様変更3：棚卸実施端末の選択肢に「-」（未設定）を追加（空の選択肢、-、HT、Web の順）
             Dim phyinvToolDivList As New List(Of DropdownModel) From {
+                New DropdownModel With {.Cd = ProcessToolDiv.NoValue, .Name = "-"},
                 New DropdownModel With {.Cd = ProcessToolDiv.HT, .Name = _Message.getMessage(CommonLabel.LABEL_PROCESS_TOOL_HT)},
                 New DropdownModel With {.Cd = ProcessToolDiv.Web, .Name = _Message.getMessage(CommonLabel.LABEL_PROCESS_TOOL_WEB)}
             }
+            '[CC431] UPD End 20261015
             ViewBag.PhyinvToolDivList = New SelectList(phyinvToolDivList, "Cd", "Name")
             '[CC431] ADD End 20261009
 
@@ -2095,11 +2099,10 @@ Namespace Controllers
                 '[CC431] UPD Start 20261009
                 ' 検索条件で選択された並び順で並べる。第2キーは資産番号昇順（一覧・データ出力の両方で使用）
                 ' 並び順が資産番号のときは、第2キーを付けない（同じ列を ORDER BY に2回指定するとエラーになるため）
-                Dim sortColumn As String = GetSortColumn(_ViewModel.SearchSortOrder)
-                sbSQL.AppendLine(sortColumn)
-                If sortColumn <> "TIR.ASSET_NO" Then
-                    sbSQL.AppendLine(",TIR.ASSET_NO")
-                End If
+                '[CC431] UPD Start 20261015
+                ' 仕様変更2：並び順ごとのキーの並び（原価センタ・場所は2キー、空白は後ろ）をそのまま指定する
+                sbSQL.AppendLine(GetOrderBy(_ViewModel.SearchSortOrder))
+                '[CC431] UPD End 20261015
                 '[CC431] UPD End 20261009
             End If
 
@@ -2400,8 +2403,15 @@ Namespace Controllers
 
             '棚卸実施端末（実棚処理ツール区分）
             If Not String.IsNullOrEmpty(_ViewModel.SearchPhyinvToolDiv) Then
-                sbCond.AppendLine("  AND " & tblAlias & ".PHYINV_TOOL_DIV = " & "@SearchPhyinvToolDiv")
-                addSqlParam("SearchPhyinvToolDiv", _ViewModel.SearchPhyinvToolDiv)
+                '[CC431] UPD Start 20261015
+                ' 「-」は棚卸実施端末が未設定（NULL・空文字）のデータを抽出する
+                If _ViewModel.SearchPhyinvToolDiv = ProcessToolDiv.NoValue Then
+                    sbCond.AppendLine("  AND (" & tblAlias & ".PHYINV_TOOL_DIV IS NULL OR " & tblAlias & ".PHYINV_TOOL_DIV = '')")
+                Else
+                    sbCond.AppendLine("  AND " & tblAlias & ".PHYINV_TOOL_DIV = " & "@SearchPhyinvToolDiv")
+                    addSqlParam("SearchPhyinvToolDiv", _ViewModel.SearchPhyinvToolDiv)
+                End If
+                '[CC431] UPD End 20261015
             End If
 
             'フリー項目27 SearchFreeItem27 棚卸ノート（部分一致）
@@ -2438,52 +2448,65 @@ Namespace Controllers
             Return sbCond
         End Function
 
+        '[CC431] DEL 20261015 GetSortColumn（1列だけ返す）を削除し、GetOrderBy（キーの並び全体を返す）に置き換え
+        '[CC431] ADD Start 20261015
         ''' <summary>
-        ''' 並び順に対応するソートカラムを取得する
+        ''' 並び順に対応する ORDER BY の中身（キーの並び）を取得する
         ''' </summary>
         ''' <param name="sortOrder">検索条件 並び順(InventoryInquirySort)</param>
-        ''' <returns>ORDER BY に指定するカラム名（想定外の値は資産クラス）</returns>
-        ''' <remarks>原価センタ・場所はコード順。第2ソートキーの資産番号は呼び出し元で付与する</remarks>
-        Private Function GetSortColumn(ByVal sortOrder As Integer) As String
+        ''' <returns>ORDER BY に続けて指定する文字列（想定外の値は資産クラス）</returns>
+        ''' <remarks>
+        ''' 原価センタ・場所はコード順（仕様変更2）。第2キー以降は並び順ごとに定義し、資産番号を最後に付ける。
+        ''' 資本化日付・管理者社員番号・実棚者コード・備考は、空白（NULL・空文字）を後ろにする。
+        ''' </remarks>
+        Private Function GetOrderBy(ByVal sortOrder As Integer) As String
             Select Case sortOrder
                 Case InventoryInquirySort.CatLAsc
-                    Return "TIR.CAT_L_CD"
+                    Return "TIR.CAT_L_CD,TIR.ASSET_NO"
                 Case InventoryInquirySort.AssetNoAsc
                     Return "TIR.ASSET_NO"
                 Case InventoryInquirySort.LocMAsc
-                    Return "TIR.LOC_M_CD"
+                    Return "TIR.LOC_M_CD,TIR.LOC_S_CD,TIR.ASSET_NO"
                 Case InventoryInquirySort.LocSAsc
-                    Return "TIR.LOC_S_CD"
+                    Return "TIR.LOC_S_CD,TIR.LOC_M_CD,TIR.ASSET_NO"
                 Case InventoryInquirySort.FreeItem2Asc
-                    Return "TIR.FREE_ITEM2"
+                    Return GetBlankLastOrder("TIR.FREE_ITEM2") & ",TIR.ASSET_NO"
                 Case InventoryInquirySort.FreeItem6Asc
-                    Return "TIR.FREE_ITEM6"
+                    Return GetBlankLastOrder("TIR.FREE_ITEM6") & ",TIR.ASSET_NO"
                 Case InventoryInquirySort.PhyinvEmployeeAsc
-                    Return "TIR.PHYINV_EMPLOYEE_CD"
+                    Return GetBlankLastOrder("TIR.PHYINV_EMPLOYEE_CD") & ",TIR.ASSET_NO"
                 Case InventoryInquirySort.Remark1Asc
-                    Return "TIR.REMARK1"
+                    Return GetBlankLastOrder("TIR.REMARK1") & ",TIR.ASSET_NO"
                 Case InventoryInquirySort.Remark2Asc
-                    Return "TIR.REMARK2"
+                    Return GetBlankLastOrder("TIR.REMARK2") & ",TIR.ASSET_NO"
                 Case InventoryInquirySort.Remark3Asc
-                    Return "TIR.REMARK3"
+                    Return GetBlankLastOrder("TIR.REMARK3") & ",TIR.ASSET_NO"
                 Case InventoryInquirySort.Remark4Asc
-                    Return "TIR.REMARK4"
+                    Return GetBlankLastOrder("TIR.REMARK4") & ",TIR.ASSET_NO"
                 Case InventoryInquirySort.Remark5Asc
-                    Return "TIR.REMARK5"
+                    Return GetBlankLastOrder("TIR.REMARK5") & ",TIR.ASSET_NO"
                 Case InventoryInquirySort.Remark6Asc
-                    Return "TIR.REMARK6"
+                    Return GetBlankLastOrder("TIR.REMARK6") & ",TIR.ASSET_NO"
                 Case InventoryInquirySort.Remark7Asc
-                    Return "TIR.REMARK7"
+                    Return GetBlankLastOrder("TIR.REMARK7") & ",TIR.ASSET_NO"
                 Case InventoryInquirySort.Remark8Asc
-                    Return "TIR.REMARK8"
+                    Return GetBlankLastOrder("TIR.REMARK8") & ",TIR.ASSET_NO"
                 Case InventoryInquirySort.Remark9Asc
-                    Return "TIR.REMARK9"
+                    Return GetBlankLastOrder("TIR.REMARK9") & ",TIR.ASSET_NO"
                 Case InventoryInquirySort.Remark10Asc
-                    Return "TIR.REMARK10"
+                    Return GetBlankLastOrder("TIR.REMARK10") & ",TIR.ASSET_NO"
                 Case Else
-                    Return "TIR.CAT_L_CD"
+                    Return "TIR.CAT_L_CD,TIR.ASSET_NO"
             End Select
         End Function
+
+        ''' <summary>
+        ''' 空白（NULL・空文字）を後ろにする並びを返す。スペースのみは値ありの扱い
+        ''' </summary>
+        Private Function GetBlankLastOrder(ByVal col As String) As String
+            Return "CASE WHEN " & col & " IS NULL OR " & col & " = '' THEN 1 ELSE 0 END," & col
+        End Function
+        '[CC431] ADD End 20261015
         '[CC431] ADD End 20261009
 
         ''' <summary>
@@ -2567,6 +2590,9 @@ Namespace Controllers
             _viewResult.ElementAt(0).SearchRemark10 = _ViewModel.SearchRemark10
             _viewResult.ElementAt(0).DetailOpenFlg = _ViewModel.DetailOpenFlg
             '[CC431] ADD End 20261009
+            '[CC431] ADD Start 20261015
+            _viewResult.ElementAt(0).OpenFlg = _ViewModel.OpenFlg
+            '[CC431] ADD End 20261015
 
             If String.IsNullOrEmpty(_ViewModel.SearchPhyinvStatusSelect) Then
                 _viewResult.ElementAt(0).SearchPhyinvStatusSelect = "ALL"

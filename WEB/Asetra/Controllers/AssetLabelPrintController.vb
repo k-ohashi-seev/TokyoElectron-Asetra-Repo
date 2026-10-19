@@ -551,34 +551,43 @@ Namespace Controllers
 #End Region
 
 #Region "並び順のソートカラム取得"
+        '[CC431] DEL 20261015 GetSortColumn（1列だけ返す）を削除し、GetOrderBy（キーの並び全体を返す）に置き換え
+        '[CC431] ADD Start 20261015
         ''' <summary>
-        ''' 並び順に対応するソートカラムを取得する。
+        ''' 並び順に対応する ORDER BY の中身（キーの並び）を取得する
         ''' </summary>
         ''' <param name="sortOrder">検索条件 並び順(AssetLabelPrintSort)</param>
-        ''' <returns>ORDER BY に指定するカラム名</returns>
+        ''' <returns>ORDER BY に続けて指定する文字列（想定外の値は資産クラス）</returns>
         ''' <remarks>
-        ''' 検索条件の並び順ラジオ(6種)で選ばれた値を、ORDER BY のカラム名に変換する。
-        ''' 第2ソートキーの資産番号(INA.ASSET_NO)は呼び出し元で付与する。
-        ''' 想定外の値が渡された場合は、既定の並び順である資産クラス(CAT_L_CD)を返す。
+        ''' 原価センタ・場所はコード順（仕様変更2）。第2キー以降は並び順ごとに定義し、資産番号を最後に付ける。
+        ''' 資本化日付・管理者社員番号・実棚者コード・備考は、空白（NULL・空文字）を後ろにする。
         ''' </remarks>
-        Private Function GetSortColumn(ByVal sortOrder As Integer) As String
+        Private Function GetOrderBy(ByVal sortOrder As Integer) As String
             Select Case sortOrder
                 Case AssetLabelPrintSort.CatLAsc
-                    Return "INA.CAT_L_CD"
+                    Return "INA.CAT_L_CD,INA.ASSET_NO"
                 Case AssetLabelPrintSort.AssetNoAsc
                     Return "INA.ASSET_NO"
                 Case AssetLabelPrintSort.LocMAsc
-                    Return "INA.LOC_M_CD"
+                    Return "INA.LOC_M_CD,INA.LOC_S_CD,INA.ASSET_NO"
                 Case AssetLabelPrintSort.LocSAsc
-                    Return "INA.LOC_S_CD"
+                    Return "INA.LOC_S_CD,INA.LOC_M_CD,INA.ASSET_NO"
                 Case AssetLabelPrintSort.FreeItem2Asc
-                    Return "INA.FREE_ITEM2"
+                    Return GetBlankLastOrder("INA.FREE_ITEM2") & ",INA.ASSET_NO"
                 Case AssetLabelPrintSort.FreeItem6Asc
-                    Return "INA.FREE_ITEM6"
+                    Return GetBlankLastOrder("INA.FREE_ITEM6") & ",INA.ASSET_NO"
                 Case Else
-                    Return "INA.CAT_L_CD"
+                    Return "INA.CAT_L_CD,INA.ASSET_NO"
             End Select
         End Function
+
+        ''' <summary>
+        ''' 空白（NULL・空文字）を後ろにする並びを返す。スペースのみは値ありの扱い
+        ''' </summary>
+        Private Function GetBlankLastOrder(ByVal col As String) As String
+            Return "CASE WHEN " & col & " IS NULL OR " & col & " = '' THEN 1 ELSE 0 END," & col
+        End Function
+        '[CC431] ADD End 20261015
 #End Region
 
 #Region "CSV出力処理"
@@ -2155,12 +2164,9 @@ Namespace Controllers
 
             'ORDER句の設定
             If isSort Then
-                If _ViewModel.SearchSortOrder = AssetLabelPrintSort.AssetNoAsc Then
-                    sbSQL.AppendLine(" ORDER BY INA.ASSET_NO")
-                Else
-                    sbSQL.AppendLine(" ORDER BY " & GetSortColumn(_ViewModel.SearchSortOrder) & ",")
-                    sbSQL.AppendLine("          INA.ASSET_NO")
-                End If
+                '[CC431] UPD Start 20261015
+                sbSQL.AppendLine(" ORDER BY " & GetOrderBy(_ViewModel.SearchSortOrder))
+                '[CC431] UPD End 20261015
             End If
 
             'クエリを返却

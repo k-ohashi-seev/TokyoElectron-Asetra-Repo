@@ -500,6 +500,11 @@ Namespace Models
         <NotMapped>
         Public Property DetailOpenFlg As String = String.Empty
         '[CC431] ADD End 20261009
+        '[CC431] ADD Start 20261015
+        ''' <summary>検索条件エリア（#cond）の開閉状態。リンクの表示文言（LABEL_SEARCH_CONDITION_OPEN／_CLOSE）をそのまま保持する</summary>
+        <NotMapped>
+        Public Property OpenFlg As String = String.Empty
+        '[CC431] ADD End 20261015
 
         '''' <summary>
         '''' 検索条件 メーカ

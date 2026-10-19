@@ -241,6 +241,15 @@ Namespace Models
         <NotMapped>
         Public Property SearchDispSelectCategory As String = ""
 
+        '[CC431] ADD Start 20261015
+        ''' <summary>
+        ''' 検索条件 並び順（StockListSort）
+        ''' </summary>
+        ''' <returns>検索条件 並び順</returns>
+        <NotMapped>
+        Public Property SearchSortOrder As Integer = StockListSort.LocMAsc
+        '[CC431] ADD End 20261015
+
         ''' <summary>
         '''  (ロケーション)大区分ドロップダウンリストデータ
         ''' </summary>

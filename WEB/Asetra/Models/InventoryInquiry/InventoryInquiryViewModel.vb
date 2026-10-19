@@ -287,13 +287,24 @@ Namespace Models
         Public Property SearchOpeStatus As String = String.Empty
 
 
+        '[CC431] DEL 20261015 除却時期を年月の単一入力から年月の範囲に変更（SearchRemoveDate を SearchRemoveDateFrom／To に置き換え）
+        '[CC431] ADD Start 20261015
         ''' <summary>
-        ''' 検索条件 除去時期
+        ''' 検索条件 除却時期From
         ''' </summary>
-        ''' <returns>検索条件 除去時期</returns>
+        ''' <returns>検索条件 除却時期From</returns>
         <NotMapped>
         <DisplayFormat(DataFormatString:="{0:yyyy-MM}")>
-        Public Property SearchRemoveDate As String = String.Empty
+        Public Property SearchRemoveDateFrom As String = String.Empty
+
+        ''' <summary>
+        ''' 検索条件 除却時期To
+        ''' </summary>
+        ''' <returns>検索条件 除却時期To</returns>
+        <NotMapped>
+        <DisplayFormat(DataFormatString:="{0:yyyy-MM}")>
+        Public Property SearchRemoveDateTo As String = String.Empty
+        '[CC431] ADD End 20261015
 
         ''' <summary>
         ''' 検索条件 除去理由

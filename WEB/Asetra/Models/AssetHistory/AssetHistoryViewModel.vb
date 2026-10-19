@@ -443,6 +443,11 @@ Namespace Models
         ''' </remarks>
         <NotMapped>
         Public Property DetailOpenFlg As String = String.Empty
+        '[CC431] ADD Start 20261015
+        ''' <summary>検索条件エリア（#cond）の開閉状態。リンクの表示文言（LABEL_SEARCH_CONDITION_OPEN／_CLOSE）をそのまま保持する</summary>
+        <NotMapped>
+        Public Property OpenFlg As String = String.Empty
+        '[CC431] ADD End 20261015
 
         ''' <summary>
         ''' 検索条件 備考1
@@ -513,6 +518,15 @@ Namespace Models
         ''' <returns>検索条件 備考10</returns>
         <NotMapped>
         Public Property SearchRemark10 As String = String.Empty
+
+        '[CC431] ADD Start 20261015
+        ''' <summary>
+        ''' 検索条件 並び順（AssetHistorySort）
+        ''' </summary>
+        ''' <returns>検索条件 並び順</returns>
+        <NotMapped>
+        Public Property SearchSortOrder As Integer = AssetHistorySort.ProcessDtDesc
+        '[CC431] ADD End 20261015
 
 
         ''' <summary>

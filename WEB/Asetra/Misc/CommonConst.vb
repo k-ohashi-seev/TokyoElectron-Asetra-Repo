@@ -929,6 +929,10 @@ Namespace Misc
         Public Shared Web As String = "W"
         Public Shared CS As String = "C"
         Public Shared HT As String = "H"
+        '[CC431] ADD Start 20261015
+        ''' <summary>検索条件専用：棚卸実施端末が未設定（NULL・空文字）。DB には保存しない値</summary>
+        Public Shared NoValue As String = "-"
+        '[CC431] ADD End 20261015
     End Class
 
     ''' <summary>
@@ -1656,6 +1660,58 @@ Namespace Misc
         Public Shared Locked As String = "1"
     End Class
     '[CC431] ADD End 20261002
+
+    '[CC431] ADD Start 20261015
+    ''' <summary>
+    ''' 資産履歴照会画面　並び順定義クラス（仕様変更2）
+    ''' </summary>
+    ''' <remarks>各並び順の ORDER BY は AssetHistoryController.GetOrderBy で組み立てる。第2キー以降は処理日付降順、最後に資産番号昇順。</remarks>
+    Public Class AssetHistorySort
+        ''' <summary>処理日時降順</summary>
+        Public Shared ProcessDtDesc As Integer = 0
+        ''' <summary>資産クラス昇順</summary>
+        Public Shared CatLAsc As Integer = 1
+        ''' <summary>資産番号昇順</summary>
+        Public Shared AssetNoAsc As Integer = 2
+        ''' <summary>原価センタ昇順</summary>
+        Public Shared LocMAsc As Integer = 3
+        ''' <summary>場所昇順</summary>
+        Public Shared LocSAsc As Integer = 4
+        ''' <summary>備考1昇順</summary>
+        Public Shared Remark1Asc As Integer = 5
+        ''' <summary>備考2昇順</summary>
+        Public Shared Remark2Asc As Integer = 6
+        ''' <summary>備考3昇順</summary>
+        Public Shared Remark3Asc As Integer = 7
+        ''' <summary>備考4昇順</summary>
+        Public Shared Remark4Asc As Integer = 8
+        ''' <summary>備考5昇順</summary>
+        Public Shared Remark5Asc As Integer = 9
+        ''' <summary>備考6昇順</summary>
+        Public Shared Remark6Asc As Integer = 10
+        ''' <summary>備考7昇順</summary>
+        Public Shared Remark7Asc As Integer = 11
+        ''' <summary>備考8昇順</summary>
+        Public Shared Remark8Asc As Integer = 12
+        ''' <summary>備考9昇順</summary>
+        Public Shared Remark9Asc As Integer = 13
+        ''' <summary>備考10昇順</summary>
+        Public Shared Remark10Asc As Integer = 14
+    End Class
+
+    ''' <summary>
+    ''' 資産在庫照会画面　並び順定義クラス（仕様変更2）
+    ''' </summary>
+    ''' <remarks>一覧は集約表示（ロケーション・分類）ごとの集計のため、資産番号・備考などは持たない。会社（ロケ大）は並び順に含めない。</remarks>
+    Public Class StockListSort
+        ''' <summary>原価センタ昇順（原価センタ、場所、資産クラス）。初期値</summary>
+        Public Shared LocMAsc As Integer = 0
+        ''' <summary>場所昇順（場所、原価センタ、資産クラス）</summary>
+        Public Shared LocSAsc As Integer = 1
+        ''' <summary>資産クラス昇順（資産クラス、原価センタ、場所）</summary>
+        Public Shared CatLAsc As Integer = 2
+    End Class
+    '[CC431] ADD End 20261015
 
     Public Class AssetDispSelect
         Public Shared Loca As Integer = 0

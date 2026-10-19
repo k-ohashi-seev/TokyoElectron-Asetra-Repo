@@ -1442,11 +1442,64 @@ Namespace Controllers
             '2020/03/15 UPDATE Inoue
             'sbSQL.Append(" ORDER BY PROCESS_DT DESC, PROCESS_TM DESC")
             If isSort Then
-                sbSQL.Append(" ORDER BY PROLOG.PROCESS_DT DESC, PROLOG.PROCESS_TM DESC, PROLOG.ASSET_NO DESC")
+                '[CC431] UPD Start 20261015
+                ' 仕様変更2：検索条件の並び順で並べる（第3キーは資産番号昇順）
+                sbSQL.Append(" ORDER BY " & GetOrderBy(_ViewModel.SearchSortOrder))
+                '[CC431] UPD End 20261015
             End If
 
             Return sbSQL.ToString()
         End Function
+
+        '[CC431] ADD Start 20261015
+        ''' <summary>
+        ''' 並び順に対応する ORDER BY の中身（キーの並び）を取得する
+        ''' </summary>
+        ''' <param name="sortOrder">検索条件 並び順(AssetHistorySort)</param>
+        ''' <returns>ORDER BY に続けて指定する文字列（想定外の値は処理日付降順）</returns>
+        ''' <remarks>備考は空白（NULL・空文字）を後ろにする。原価センタ・場所はコード順。末尾は処理日付降順、資産番号昇順。</remarks>
+        Private Function GetOrderBy(ByVal sortOrder As Integer) As String
+            Select Case sortOrder
+                Case AssetHistorySort.CatLAsc
+                    Return "PROLOG.CAT_L_CD,PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                Case AssetHistorySort.AssetNoAsc
+                    Return "PROLOG.ASSET_NO,PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC"
+                Case AssetHistorySort.LocMAsc
+                    Return "PROLOG.LOC_M_CD,PROLOG.LOC_S_CD,PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                Case AssetHistorySort.LocSAsc
+                    Return "PROLOG.LOC_S_CD,PROLOG.LOC_M_CD,PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                Case AssetHistorySort.Remark1Asc
+                    Return GetBlankLastOrder("PROLOG.REMARK1") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                Case AssetHistorySort.Remark2Asc
+                    Return GetBlankLastOrder("PROLOG.REMARK2") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                Case AssetHistorySort.Remark3Asc
+                    Return GetBlankLastOrder("PROLOG.REMARK3") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                Case AssetHistorySort.Remark4Asc
+                    Return GetBlankLastOrder("PROLOG.REMARK4") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                Case AssetHistorySort.Remark5Asc
+                    Return GetBlankLastOrder("PROLOG.REMARK5") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                Case AssetHistorySort.Remark6Asc
+                    Return GetBlankLastOrder("PROLOG.REMARK6") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                Case AssetHistorySort.Remark7Asc
+                    Return GetBlankLastOrder("PROLOG.REMARK7") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                Case AssetHistorySort.Remark8Asc
+                    Return GetBlankLastOrder("PROLOG.REMARK8") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                Case AssetHistorySort.Remark9Asc
+                    Return GetBlankLastOrder("PROLOG.REMARK9") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                Case AssetHistorySort.Remark10Asc
+                    Return GetBlankLastOrder("PROLOG.REMARK10") & ",PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+                Case Else
+                    Return "PROLOG.PROCESS_DT DESC,PROLOG.PROCESS_TM DESC,PROLOG.ASSET_NO"
+            End Select
+        End Function
+
+        ''' <summary>
+        ''' 空白（NULL・空文字）を後ろにする並びを返す。スペースのみは値ありの扱い
+        ''' </summary>
+        Private Function GetBlankLastOrder(ByVal col As String) As String
+            Return "CASE WHEN " & col & " IS NULL OR " & col & " = '' THEN 1 ELSE 0 END," & col
+        End Function
+        '[CC431] ADD End 20261015
 #End Region
 
 #Region "全選択ボタン押下時処理"
@@ -1583,6 +1636,9 @@ Namespace Controllers
             _viewResult.ElementAt(0).SearchModelNo = _ViewModel.SearchModelNo
             _viewResult.ElementAt(0).SearchEmployeeNm = _ViewModel.SearchEmployeeNm
             _viewResult.ElementAt(0).DetailOpenFlg = _ViewModel.DetailOpenFlg
+            '[CC431] ADD Start 20261015
+            _viewResult.ElementAt(0).OpenFlg = _ViewModel.OpenFlg
+            '[CC431] ADD End 20261015
             _viewResult.ElementAt(0).SearchRemark1 = _ViewModel.SearchRemark1
             _viewResult.ElementAt(0).SearchRemark2 = _ViewModel.SearchRemark2
             _viewResult.ElementAt(0).SearchRemark3 = _ViewModel.SearchRemark3
@@ -1593,6 +1649,9 @@ Namespace Controllers
             _viewResult.ElementAt(0).SearchRemark8 = _ViewModel.SearchRemark8
             _viewResult.ElementAt(0).SearchRemark9 = _ViewModel.SearchRemark9
             _viewResult.ElementAt(0).SearchRemark10 = _ViewModel.SearchRemark10
+            '[CC431] ADD Start 20261015
+            _viewResult.ElementAt(0).SearchSortOrder = _ViewModel.SearchSortOrder
+            '[CC431] ADD End 20261015
             _viewResult.ElementAt(0).ErrCode = _ViewModel.ErrCode
             _viewResult.ElementAt(0).ErrTarget = _ViewModel.ErrTarget
             _viewResult.ElementAt(0).PageNum = _ViewModel.PageNum

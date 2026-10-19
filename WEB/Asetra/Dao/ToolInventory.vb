@@ -422,15 +422,20 @@ Namespace Dao
 
 #Region "棚卸中か取得する"
         ''' <summary>
-        ''' 
+        '''
         ''' </summary>
-        ''' <param name="sAssetNo"></param>
+        ''' <param name="invId">棚卸ID</param>
         ''' <returns>True: 棚卸中、False:棚卸中ではない</returns>
-        Public Shared Function IsIventory(invId As Long, invLocLCd As String, AssetNoList As List(Of String)) As Boolean
+        '''<remarks>
+        '''[CC431] UPD 20261016 棚卸管理Tに棚卸確定者が入っていなければ棚卸中(True)とする。
+        '''棚卸確定すると棚卸管理Tに確定者が入る（同時に棚卸資産Tは削除される）。棚卸管理Tに該当の棚卸IDがない場合は、棚卸中ではない(False)
+        '''</remarks>
+        Public Shared Function IsIventory(invId As Long) As Boolean
             Dim tbl As New DataTable
 
             Dim sbSQL As StringBuilder = New StringBuilder
             Dim params As List(Of SqlParameter) = New List(Of SqlParameter)
+
             Dim clsDB As clsSV_DB = New clsSV_DB
             If clsDB.SVFncOpenConnection(Misc.CommonConst.KEY_DB_CONNECTION) = False Then
                 '接続失敗
@@ -438,26 +443,16 @@ Namespace Dao
             End If
             Try
 
-                sbSQL.AppendLine("SELECT ")
-                sbSQL.AppendLine(" t.INV_CONFIRM_EMPLOYEE_CD ")
-                sbSQL.AppendLine(" FROM T_INV_ASSET a ")
-                sbSQL.AppendLine(" LEFT JOIN T_INVENTORY t ON a.INV_ID = t.INV_ID ")
-                sbSQL.AppendLine($"WHERE a.ASSET_NO IN ('{String.Join("','", AssetNoList)}')")
-                sbSQL.AppendLine($" AND a.INV_ID = {invId} ")
-                sbSQL.AppendLine($" AND a.INV_LOC_L_CD = '{invLocLCd}' ")
-                sbSQL.AppendLine("GROUP BY INV_CONFIRM_EMPLOYEE_CD")
+                '[CC431] UPD Start 20261016 棚卸管理Tで、棚卸確定者が入っていない（棚卸確定前）かを確認する
+                sbSQL.AppendLine("SELECT TOP 1 1 AS CNT")
+                sbSQL.AppendLine(" FROM T_INVENTORY ")
+                sbSQL.AppendLine("WHERE INV_ID = @INV_ID ")
+                sbSQL.AppendLine(" AND INV_CONFIRM_EMPLOYEE_CD IS NULL ")
+                params.Add(New SqlParameter("@INV_ID", invId))
 
                 tbl = clsDB.SVFncSelectDataTable(sbSQL.ToString, params)
-
-                For Each r As DataRow In tbl.Rows
-                    Dim comfirmEmployeeCd = r.Field(Of String)("INV_CONFIRM_EMPLOYEE_CD")
-                    If Not String.IsNullOrWhiteSpace(comfirmEmployeeCd) Then
-                        Return True
-                    End If
-
-                Next
-
-                Return False
+                Return tbl.Rows.Count > 0
+                '[CC431] UPD End 20261016
 
             Catch ex As Exception
                 logger.Error(ex.Message)

@@ -248,6 +248,28 @@ End Code
         return showConfirmFileDownload("@Message.getMessage(CommonInfoMsg.CSVEXPORT_CONFIRM)", "@Url.Content("~/StockList")/CsvExport");
     }
 
+    //[CC431] ADD Start 20261015
+    // 並び順の選択肢を集約表示（ロケーション）に合わせて有効／無効にする（仕様変更2）。
+    // 会社：原価センタ昇順・場所昇順を無効、原価センタ：場所昇順を無効。選択中の選択肢が無効になったら有効なものに切り替える
+    function updateSortEnable() {
+        var loc = $("input[name=SearchDispSelectLocation]:checked").val();
+        var disableM = (loc == "@LOC_DIV.LocationL");
+        var disableS = (loc != "@LOC_DIV.LocationS");
+        $("#SORT_LOC_M").prop("disabled", disableM);
+        $("#SORT_LOC_S").prop("disabled", disableS);
+        if ($("#SORT_LOC_M").prop("checked") && disableM) {
+            $("#SORT_CAT_L").prop("checked", true);
+        }
+        if ($("#SORT_LOC_S").prop("checked") && disableS) {
+            $((disableM ? "#SORT_CAT_L" : "#SORT_LOC_M")).prop("checked", true);
+        }
+    }
+    $(function () {
+        updateSortEnable();
+        $("input[name=SearchDispSelectLocation]").on("change", updateSortEnable);
+    });
+    //[CC431] ADD End 20261015
+
     //検索ボタンクリック処理
     function btnSearch_onclick() {
         // ロケーション(会社)必須チェック
@@ -528,6 +550,16 @@ End Code
             document.getElementById("SearchCondition").innerHTML = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)"
         }
     }*@
+    //[CC431] ADD Start 20261015
+    //検索条件リンククリック時処理（他の画面に合わせ、リンクの文言を入れ替える）
+    function SearchCondition_onclick() {
+        if (document.getElementById("SearchCondition").innerHTML == "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)") {
+            document.getElementById("SearchCondition").innerHTML = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_OPEN)"
+        } else {
+            document.getElementById("SearchCondition").innerHTML = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)"
+        }
+    }
+    //[CC431] ADD End 20261015
 
 </script>
 
@@ -547,7 +579,9 @@ End Code
         @* 検索条件 *@
         @<div Class="search-wrap">
             <a id="SearchCondition" data-toggle="collapse" href="#cond" aria-expanded="true" onclick="SearchCondition_onclick()">
-                @Message.getMessage(CommonLabel.TITLE_SEARCH)
+                @*[CC431] UPD Start 20261015 他の画面に合わせ、開閉で入れ替わる文言（▼検索条件／▲検索条件）にする*@
+                @Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_OPEN)
+                @*[CC431] UPD End 20261015*@
             </a>
             <div class="search-border">
                 <div id="cond" class="container collapse in">
@@ -655,12 +689,26 @@ End Code
                                 <div class="input-select-item">@Html.RadioButtonFor(Function(model) model.FirstOrDefault.SearchDispSelectCategory, CAT_DIV.CategoryS, New With {.id = "CAT_DIV_S"}) @Message.getMessage(CommonLabel.VALUE_CAT_S)</div>
                             </div>
                         </div>
+                        @*[CC431] ADD Start 20261015*@
+                        @* 並び順（集約表示の列に合わせて、使えない選択肢は無効にする。選択値は SearchSortOrder、Controller の GetOrderBy で ORDER BY に変換） *@
+                        @* 集約表示と同じ行のまま、幅を 2 つ分（col-sm-4）にする *@
+                        <div class="col-sm-4" id="item-sort">
+                            <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_SORT_ORDER)</div>
+                            <div class="grid-condition-col" style="display: flex; flex-wrap: wrap;">
+                                <div class="input-select-item" style="margin-right: 15px; white-space: nowrap;">@Html.RadioButtonFor(Function(model) model.FirstOrDefault.SearchSortOrder, StockListSort.LocMAsc, New With {.id = "SORT_LOC_M"}) @(Message.getMessage(CommonLabel.LABEL_LOC_M_DEP_CODE) & Message.getMessage(CommonLabel.LABEL_SORT_ASC))</div>
+                                <div class="input-select-item" style="margin-right: 15px; white-space: nowrap;">@Html.RadioButtonFor(Function(model) model.FirstOrDefault.SearchSortOrder, StockListSort.LocSAsc, New With {.id = "SORT_LOC_S"}) @(Message.getMessage(CommonLabel.LABEL_LOC_S_PLA_CODE) & Message.getMessage(CommonLabel.LABEL_SORT_ASC))</div>
+                                <div class="input-select-item" style="margin-right: 15px; white-space: nowrap;">@Html.RadioButtonFor(Function(model) model.FirstOrDefault.SearchSortOrder, StockListSort.CatLAsc, New With {.id = "SORT_CAT_L"}) @(Message.getMessage(CommonLabel.LABEL_CAT_L) & Message.getMessage(CommonLabel.LABEL_SORT_ASC))</div>
+                            </div>
+                        </div>
+                        @*[CC431] ADD End 20261015*@
                     @*[CC431] ADD Start 20261013 col-md-12 condition-flex の閉じタグ*@
                     </div>
                     @*[CC431] ADD End 20261013*@
                     </div>
                     <div>
-                        <input Class="float-right defButton submit-button" style="margin-top: -25px;" id="Search_Button" name="actionname" type="submit" value="@Message.getMessage(CommonLabel.BUTTON_SEARCH)" onclick="return btnSearch_onclick()" />
+                        @*[CC431] UPD Start 20261015 col-md-12 condition-flex（position: relative）が検索ボタンの上に重なりクリックできないため、ボタンも position: relative にして前面に出す*@
+                        <input Class="float-right defButton submit-button" style="margin-top: -25px; position: relative;" id="Search_Button" name="actionname" type="submit" value="@Message.getMessage(CommonLabel.BUTTON_SEARCH)" onclick="return btnSearch_onclick()" />
+                        @*[CC431] UPD End 20261015*@
                     </div>
                 </div>
             </div>

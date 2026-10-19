@@ -4907,11 +4907,10 @@ Namespace Controllers
                     Case AssetDispSelect.Rate
                         sbSQL.AppendLine(" ORDER BY FREE_ITEM17")
                         ' 2023/02/06 Kawamoto ADD END
-                    Case AssetDispSelect.AssetNoAsc
-                        sbSQL.AppendLine(" ORDER BY ASSET_NO")
+                    '[CC431] UPD Start 20261015
                     Case Else
-                        sbSQL.AppendLine(" ORDER BY " & GetSortColumn(_ViewModel.SearchDispSelect) & ",")
-                        sbSQL.AppendLine("          ASSET_NO")
+                        sbSQL.AppendLine(" ORDER BY " & GetOrderBy(_ViewModel.SearchDispSelect))
+                    '[CC431] UPD End 20261015
                 End Select
             End If
 
@@ -5988,55 +5987,63 @@ Namespace Controllers
         '[CC431] ADD End 20261007
 
 #Region "並び順のソートカラム取得"
+        '[CC431] DEL 20261015 GetSortColumn（1列だけ返す）を削除し、GetOrderBy（キーの並び全体を返す）に置き換え
+        '[CC431] ADD Start 20261015
         ''' <summary>
-        ''' 並び順(表示順)に対応するソートカラムを取得する。
+        ''' 並び順に対応する ORDER BY の中身（キーの並び）を取得する
         ''' </summary>
-        ''' <param name="dispSelect">検索条件 表示順(AssetDispSelect)</param>
-        ''' <returns>ORDER BY に指定するカラム名</returns>
+        ''' <param name="sortOrder">検索条件 並び順(AssetDispSelect)</param>
+        ''' <returns>ORDER BY に続けて指定する文字列（想定外の値は資産クラス）</returns>
         ''' <remarks>
-        ''' 検索条件の並び順ラジオ(16種)で選ばれた値を、ORDER BY のカラム名に変換する。
-        ''' 一覧表示用SQLとCSV出力用SQLの双方から呼び出し、並び順のロジックを1箇所に集約している。
-        ''' 第2ソートキーの資産番号(ASSET_NO)は呼び出し元で付与する。
-        ''' 想定外の値が渡された場合は、既定の並び順である資産クラス(CAT_L_CD)を返す。
+        ''' 原価センタ・場所はコード順（仕様変更2）。第2キー以降は並び順ごとに定義し、資産番号を最後に付ける。
+        ''' 資本化日付・管理者社員番号・実棚者コード・備考は、空白（NULL・空文字）を後ろにする。
         ''' </remarks>
-        Private Function GetSortColumn(ByVal dispSelect As Integer) As String
-            Select Case dispSelect
+        Private Function GetOrderBy(ByVal sortOrder As Integer) As String
+            Select Case sortOrder
                 Case AssetDispSelect.CatLAsc
-                    Return "ASSET.CAT_L_CD"
+                    Return "ASSET.CAT_L_CD,ASSET.ASSET_NO"
                 Case AssetDispSelect.AssetNoAsc
                     Return "ASSET.ASSET_NO"
                 Case AssetDispSelect.LocMAsc
-                    Return "ASSET.LOC_M_CD"
+                    Return "ASSET.LOC_M_CD,ASSET.LOC_S_CD,ASSET.ASSET_NO"
                 Case AssetDispSelect.LocSAsc
-                    Return "ASSET.LOC_S_CD"
+                    Return "ASSET.LOC_S_CD,ASSET.LOC_M_CD,ASSET.ASSET_NO"
                 Case AssetDispSelect.FreeItem2Asc
-                    Return "ASSET.FREE_ITEM2"
+                    Return GetBlankLastOrder("ASSET.FREE_ITEM2") & ",ASSET.ASSET_NO"
                 Case AssetDispSelect.FreeItem6Asc
-                    Return "ASSET.FREE_ITEM6"
+                    Return GetBlankLastOrder("ASSET.FREE_ITEM6") & ",ASSET.ASSET_NO"
                 Case AssetDispSelect.Remark1Asc
-                    Return "ASSET.REMARK1"
+                    Return GetBlankLastOrder("ASSET.REMARK1") & ",ASSET.ASSET_NO"
                 Case AssetDispSelect.Remark2Asc
-                    Return "ASSET.REMARK2"
+                    Return GetBlankLastOrder("ASSET.REMARK2") & ",ASSET.ASSET_NO"
                 Case AssetDispSelect.Remark3Asc
-                    Return "ASSET.REMARK3"
+                    Return GetBlankLastOrder("ASSET.REMARK3") & ",ASSET.ASSET_NO"
                 Case AssetDispSelect.Remark4Asc
-                    Return "ASSET.REMARK4"
+                    Return GetBlankLastOrder("ASSET.REMARK4") & ",ASSET.ASSET_NO"
                 Case AssetDispSelect.Remark5Asc
-                    Return "ASSET.REMARK5"
+                    Return GetBlankLastOrder("ASSET.REMARK5") & ",ASSET.ASSET_NO"
                 Case AssetDispSelect.Remark6Asc
-                    Return "ASSET.REMARK6"
+                    Return GetBlankLastOrder("ASSET.REMARK6") & ",ASSET.ASSET_NO"
                 Case AssetDispSelect.Remark7Asc
-                    Return "ASSET.REMARK7"
+                    Return GetBlankLastOrder("ASSET.REMARK7") & ",ASSET.ASSET_NO"
                 Case AssetDispSelect.Remark8Asc
-                    Return "ASSET.REMARK8"
+                    Return GetBlankLastOrder("ASSET.REMARK8") & ",ASSET.ASSET_NO"
                 Case AssetDispSelect.Remark9Asc
-                    Return "ASSET.REMARK9"
+                    Return GetBlankLastOrder("ASSET.REMARK9") & ",ASSET.ASSET_NO"
                 Case AssetDispSelect.Remark10Asc
-                    Return "ASSET.REMARK10"
+                    Return GetBlankLastOrder("ASSET.REMARK10") & ",ASSET.ASSET_NO"
                 Case Else
-                    Return "ASSET.CAT_L_CD"
+                    Return "ASSET.CAT_L_CD,ASSET.ASSET_NO"
             End Select
         End Function
+
+        ''' <summary>
+        ''' 空白（NULL・空文字）を後ろにする並びを返す。スペースのみは値ありの扱い
+        ''' </summary>
+        Private Function GetBlankLastOrder(ByVal col As String) As String
+            Return "CASE WHEN " & col & " IS NULL OR " & col & " = '' THEN 1 ELSE 0 END," & col
+        End Function
+        '[CC431] ADD End 20261015
 #End Region
 
 #Region "大区分ドロップダウンリストデータ取得"
@@ -11704,11 +11711,10 @@ Namespace Controllers
                             Case AssetDispSelect.Rate
                                 sbSQL.AppendLine(" ORDER BY FREE_ITEM17")
                                 ' 2023/02/06 Kawamoto ADD END
-                            Case AssetDispSelect.AssetNoAsc
-                                sbSQL.AppendLine(" ORDER BY ASSET_NO")
+                            '[CC431] UPD Start 20261015
                             Case Else
-                                sbSQL.AppendLine(" ORDER BY " & GetSortColumn(_ViewModel.SearchDispSelect) & ",")
-                                sbSQL.AppendLine("          ASSET_NO")
+                                sbSQL.AppendLine(" ORDER BY " & GetOrderBy(_ViewModel.SearchDispSelect))
+                            '[CC431] UPD End 20261015
                         End Select
                     End If
                 Else

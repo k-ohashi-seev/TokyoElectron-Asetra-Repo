@@ -71,6 +71,25 @@ End Code
             document.getElementById("DetailAccordion").innerHTML = "@Model.FirstOrDefault.DetailOpenFlg";
         }
         //[CC431] ADD End 20261009
+        //[CC431] ADD Start 20261015
+        // 検索条件の開閉状態の復元（OpenFlg が「閉」の文言のときだけ閉じた状態にする。既定は開）
+        if ("@Model.FirstOrDefault.OpenFlg" == "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)") {
+            $("#cond").removeClass("in");
+            $("#cond").addClass("collapse");
+            document.getElementById("SearchCondition").innerHTML = "@Model.FirstOrDefault.OpenFlg";
+        }
+        // 検索の再表示で、エラーなし・1 件以上のときは検索条件を折りたたむ（仕様変更1）。
+        // エラー・0 件のときは追加しない（検索前の状態＝OpenFlg のまま）。ページ変更は検索ボタンの値を送らないため対象外
+        // 画面起動時（GET で actionname なし）にコントローラーが検索した場合も同様に折りたたむ。モーダル戻り（actionname あり）・ページ変更（POST）は対象外
+        if (("@Request.Form("actionname")" == "@Message.getMessage(CommonLabel.BUTTON_SEARCH)"
+                || ("@Request.HttpMethod" == "GET" && "@Request.QueryString("actionname")" == ""))
+            && "@Model.FirstOrDefault.ErrCode" == "" && Number("@Model.FirstOrDefault.TotalCount") > 0) {
+            $("#cond").removeClass("in");
+            $("#cond").addClass("collapse");
+            document.getElementById("SearchCondition").innerHTML = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)";
+            document.getElementById("OpenFlg").value = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)";
+        }
+        //[CC431] ADD End 20261015
 
         ////大区分コンボボックス非活性
         //$("#SearchLocL").addClass("dropdown-disabled");
@@ -91,7 +110,7 @@ End Code
             { id: "@ColKey.InventoryAssetHistory.IS_TANGIBLE", name: '@Message.getMessage(CommonLabel.LABEL_IS_TANGIBLE)', field: "IS_TANGIBLE", width: getColumnWidth("@DispId.INVENTORY_ASSET_HISTORY", "@ColKey.InventoryAssetHistory.IS_TANGIBLE", 200), sortOrder: "@Model.FirstOrDefault.GridInfo("IS_TANGIBLE").DispOrder", visible: "@Model.FirstOrDefault.GridInfo("IS_TANGIBLE").DispFlag", formatter: IsTangibleFormatter },
             { id: "@ColKey.InventoryAssetHistory.ASSET_NAME", name: '@Message.getMessage(CommonLabel.LABEL_ASSET_NAME)', field: "ASSET_NAME", width: getColumnWidth("@DispId.INVENTORY_ASSET_HISTORY", "@ColKey.InventoryAssetHistory.ASSET_NAME", 200), sortOrder: "@Model.FirstOrDefault.GridInfo("ASSET_NAME").DispOrder", visible: "@Model.FirstOrDefault.GridInfo("ASSET_NAME").DispFlag" },
             { id: "@ColKey.InventoryAssetHistory.PHYINV_DATE", name: '@Message.getMessage(CommonLabelInventoryAssetHistory.LABEL_PHYINV_DATE)', field: "PHYINV_DATE", width: getColumnWidth("@DispId.INVENTORY_ASSET_HISTORY", "@ColKey.InventoryAssetHistory.PHYINV_DATE", 200), sortOrder: "@Model.FirstOrDefault.GridInfo("PHYINV_DATE").DispOrder", visible: "@Model.FirstOrDefault.GridInfo("PHYINV_DATE").DispFlag", formatter: PhyinvDateFormatter },
-            { id: "@ColKey.InventoryAssetHistory.PHYINV_PERSON_NAME", name: '@Message.getMessage(CommonLabelInventoryAssetHistory.LABEL_PHYINV_PERSON_NAME)', field: "PHYINV_EMPLOYEE_NAME", width: getColumnWidth("@DispId.INVENTORY_ASSET_HISTORY", "@ColKey.InventoryAssetHistory.PHYINV_PERSON_NAME", 200), sortOrder: "@Model.FirstOrDefault.GridInfo("PHYINV_PERSON_NAME").DispOrder", visible: "@Model.FirstOrDefault.GridInfo("PHYINV_PERSON_NAME").DispFlag" },
+            { id: "@ColKey.InventoryAssetHistory.PHYINV_PERSON_NAME", name: '@Message.getMessage(CommonLabel.LABEL_INV_EMPLOYEE_CD_NAME)'/*[CC431] UPD 20261016 タイトルを実棚者/名に変更、コード 名称で表示(formatter追加)*/, field: "PHYINV_EMPLOYEE_NAME", formatter: PhyinvEmployeeFormatter, width: getColumnWidth("@DispId.INVENTORY_ASSET_HISTORY", "@ColKey.InventoryAssetHistory.PHYINV_PERSON_NAME", 200), sortOrder: "@Model.FirstOrDefault.GridInfo("PHYINV_PERSON_NAME").DispOrder", visible: "@Model.FirstOrDefault.GridInfo("PHYINV_PERSON_NAME").DispFlag" },
             { id: "@ColKey.InventoryAssetHistory.FREE_ITEM1", name: '@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM1)', field: "FREE_ITEM1", width: getColumnWidth("@DispId.INVENTORY_ASSET_HISTORY", "@ColKey.InventoryAssetHistory.FREE_ITEM1", 200), sortOrder: "@Model.FirstOrDefault.GridInfo("FREE_ITEM1").DispOrder", visible: "@Model.FirstOrDefault.GridInfo("FREE_ITEM1").DispFlag" },
             { id: "@ColKey.InventoryAssetHistory.FREE_ITEM2", name: '@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM2)', field: "FREE_ITEM2", width: getColumnWidth("@DispId.INVENTORY_ASSET_HISTORY", "@ColKey.InventoryAssetHistory.FREE_ITEM2", 200), sortOrder: "@Model.FirstOrDefault.GridInfo("FREE_ITEM2").DispOrder", visible: "@Model.FirstOrDefault.GridInfo("FREE_ITEM2").DispFlag" },
             { id: "@ColKey.InventoryAssetHistory.FREE_ITEM3", name: '@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM3)', field: "FREE_ITEM3", width: getColumnWidth("@DispId.INVENTORY_ASSET_HISTORY", "@ColKey.InventoryAssetHistory.FREE_ITEM3", 200), sortOrder: "@Model.FirstOrDefault.GridInfo("FREE_ITEM3").DispOrder", visible: "@Model.FirstOrDefault.GridInfo("FREE_ITEM3").DispFlag" },
@@ -222,6 +241,22 @@ End Code
 
         }
     }
+
+    //[CC431] ADD Start 20261016
+    // 実棚者コード/名用formatter。実棚時点に保存した名称を「コード 名称」で表示する（名称なしはコードのみ）
+    function PhyinvEmployeeFormatter(row, cell, value, columnDef, dataContext) {
+        var cd = dataContext.PHYINV_EMPLOYEE_CD;
+        if (cd == null || cd === "") {
+            return "";
+        }
+        var str = String(cd).trim();
+        var name = dataContext.PHYINV_EMPLOYEE_NAME;
+        if (name != null && String(name).trim() !== "") {
+            str += " " + String(name).trim();
+        }
+        return "<div>" + $("<div>").text(str).html() + "</div>";
+    }
+    //[CC431] ADD End 20261016
 
     //帳簿ロケーション大区分コード/名用formatter BOOK_LOCATION_L_CODE_NAME
     function BookLocationLCodeNameFormatter(row, cell, value, columnDef, dataContext) {
@@ -693,6 +728,10 @@ End Code
         } else {
             document.getElementById("SearchCondition").innerHTML = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)"
         }
+        //[CC431] ADD Start 20261015
+        // 検索条件の開閉状態を hidden に退避し、検索時に検索前の状態を判定できるようにする
+        document.getElementById("OpenFlg").value = $.trim(document.getElementById("SearchCondition").innerText);
+        //[CC431] ADD End 20261015
     }
 
 </script>
@@ -791,7 +830,7 @@ End Code
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_PHYINV_EMPLOYEE_CD)</div>
                                 <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchPhyinvEmployee, New With {.class = "cond-control", .maxlength = 15})
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchPhyinvEmployee, New With {.class = "cond-control", .maxlength = 15, .oninput = "editHanEi(this)"})
                                 </div>
                             </div>
                             @* 棚卸実施端末 *@
@@ -861,42 +900,42 @@ End Code
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM4)</div>
                                 <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem4, New With {.class = "cond-control", .maxlength = 20})
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem4, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
                             @* 型式 *@
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM5)</div>
                                 <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem5, New With {.class = "cond-control", .maxlength = 20})
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem5, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
                             @* 管理社員番号 *@
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM6_CD)</div>
                                 <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem6, New With {.class = "cond-control", .maxlength = 20})
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem6, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
                             @* シリアルNo *@
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM7)</div>
                                 <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem7, New With {.class = "cond-control", .maxlength = 20})
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem7, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
                             @* WBS番号 *@
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM8)</div>
                                 <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem8, New With {.class = "cond-control", .maxlength = 20})
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem8, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
                             @* 備考 *@
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM9)</div>
                                 <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem9, New With {.class = "cond-control", .maxlength = 20})
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem9, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
                             @* 取得金額 *@
@@ -921,28 +960,28 @@ End Code
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM14)</div>
                                 <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem14, New With {.class = "cond-control", .maxlength = 20})
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem14, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
                             @* 資産グループコード *@
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM15)</div>
                                 <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem15, New With {.class = "cond-control", .maxlength = 20})
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem15, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
                             @* 貸与先 *@
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM16)</div>
                                 <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem16, New With {.class = "cond-control", .maxlength = 20})
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem16, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
                             @* 貸与先名 *@
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM17)</div>
                                 <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem17, New With {.class = "cond-control", .maxlength = 20})
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem17, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
                             @* 開始日(貸与) *@
@@ -980,28 +1019,28 @@ End Code
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM21)</div>
                                 <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem21, New With {.class = "cond-control", .maxlength = 20})
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem21, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
                             @* 市区町村コード名称 *@
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM39)</div>
                                 <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem39, New With {.class = "cond-control", .maxlength = 20})
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem39, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
                             @* CAPS番号 *@
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM42)</div>
                                 <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem42, New With {.class = "cond-control", .maxlength = 20})
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem42, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
                             @* 資産リース区分 *@
                             <div class="col-sm-2" style="display: block">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM37)</div>
                                 <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem37, New With {.class = "cond-control", .maxlength = 20})
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchFreeItem37, New With {.class = "cond-control", .maxlength = 255})
                                 </div>
                             </div>
                             @* タグ紐付状態 *@
@@ -1163,6 +1202,9 @@ End Code
     @*[CC431] ADD Start 20261009*@
     @Html.HiddenFor(Function(model) model.FirstOrDefault.DetailOpenFlg)
     @*[CC431] ADD End 20261009*@
+    @*[CC431] ADD Start 20261015*@
+    @Html.HiddenFor(Function(model) model.FirstOrDefault.OpenFlg)
+    @*[CC431] ADD End 20261015*@
 
     End Using
 </div>

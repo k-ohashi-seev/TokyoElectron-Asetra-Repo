@@ -506,6 +506,19 @@ End Code
             document.getElementById("SearchCondition").innerHTML = "@Model.FirstOrDefault.OpenFlg";
         }
         //[CC431] ADD End 20261005
+        //[CC431] ADD Start 20261015
+        // 検索の再表示で、エラーなし・1 件以上のときは検索条件を折りたたむ（仕様変更1）。
+        // エラー・0 件のときは追加しない（検索前の状態＝OpenFlg のまま）。ページ変更・モーダル戻りは検索ボタンの値を送らないため対象外
+        // 画面起動時（GET で actionname なし）にコントローラーが検索した場合も同様に折りたたむ。モーダル戻り（actionname あり）・ページ変更（POST）は対象外
+        if (("@Request.Form("actionname")" == "@Message.getMessage(CommonLabel.BUTTON_SEARCH)"
+                || ("@Request.HttpMethod" == "GET" && "@Request.QueryString("actionname")" == ""))
+            && "@Model.FirstOrDefault.ErrCode" == "" && Number("@Model.FirstOrDefault.TotalCount") > 0) {
+            $("#cond").removeClass("in");
+            $("#cond").addClass("collapse");
+            document.getElementById("SearchCondition").innerHTML = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)";
+            document.getElementById("OpenFlg").value = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)";
+        }
+        //[CC431] ADD End 20261015
 
         //--2019/10/15 nv miyaji add start
         //正常終了時にメッセージを表示する
@@ -586,7 +599,7 @@ End Code
             { id: "@ColKey.InventoryInquiry.SUB_ASSET_NO", name: '@Message.getMessage(CommonLabel.LABEL_SUB_ASSET_NO)', field: "SUB_ASSET_NO", width: getColumnWidth("@DispId.INVENTORY_INQUIRY", "@ColKey.InventoryInquiry.SUB_ASSET_NO", 110), sortOrder: "@Model.FirstOrDefault.GridInfo("SUB_ASSET_NO").DispOrder", visible: "@Model.FirstOrDefault.GridInfo("SUB_ASSET_NO").DispFlag" },
             { id: "@ColKey.InventoryInquiry.ASSET_NAME", name: '@Message.getMessage(CommonLabel.LABEL_ASSET_NAME)', field: "ASSET_NAME", width: getColumnWidth("@DispId.INVENTORY_INQUIRY", "@ColKey.InventoryInquiry.ASSET_NAME", 135), sortOrder: "@Model.FirstOrDefault.GridInfo("ASSET_NAME").DispOrder", visible: "@Model.FirstOrDefault.GridInfo("ASSET_NAME").DispFlag" },
             { id: "@ColKey.InventoryInquiry.PHYINV_TS", name: '@Message.getMessage(CommonLabelInventoryInquiry.LABEL_PHYINV_DATE)', field: "PHYINV_TS", formatter: PhyinvTsFormatter, width: getColumnWidth("@DispId.INVENTORY_INQUIRY", "@ColKey.InventoryInquiry.PHYINV_TS", 135), sortOrder: "@Model.FirstOrDefault.GridInfo("PHYINV_DATE").DispOrder", visible: "@Model.FirstOrDefault.GridInfo("PHYINV_DATE").DispFlag" },
-            { id: "@ColKey.InventoryInquiry.PHYINV_EMPLOYEE_CD", name: '@Message.getMessage(CommonLabelInventoryInquiry.LABEL_PHYINV_PERSON_NAME)', field: "PHYINV_EMPLOYEE_CD", width: getColumnWidth("@DispId.INVENTORY_INQUIRY", "@ColKey.InventoryInquiry.PHYINV_EMPLOYEE_CD", 100), sortOrder: "@Model.FirstOrDefault.GridInfo("PHYINV_PERSON_NAME").DispOrder", visible: "@Model.FirstOrDefault.GridInfo("PHYINV_PERSON_NAME").DispFlag" },
+            { id: "@ColKey.InventoryInquiry.PHYINV_EMPLOYEE_CD", name: '@Message.getMessage(CommonLabel.LABEL_INV_EMPLOYEE_CD_NAME)'/*[CC431] UPD 20261016 タイトルを実棚者/名に変更、コード 名称で表示(formatter追加)、既定幅100→180*/, field: "PHYINV_EMPLOYEE_CD", formatter: PhyinvEmployeeFormatter, width: getColumnWidth("@DispId.INVENTORY_INQUIRY", "@ColKey.InventoryInquiry.PHYINV_EMPLOYEE_CD", 180), sortOrder: "@Model.FirstOrDefault.GridInfo("PHYINV_PERSON_NAME").DispOrder", visible: "@Model.FirstOrDefault.GridInfo("PHYINV_PERSON_NAME").DispFlag" },
             //[CC431] ADD Start 20261002
             { id: "@ColKey.InventoryInquiry.PHYINV_TOOL_DIV", name: '@Message.getMessage(CommonLabel.LABEL_INV_TOOL_DIV)', field: "PHYINV_TOOL_DIV", formatter: PhyinvToolDivFormatter, width: getColumnWidth("@DispId.INVENTORY_INQUIRY", "@ColKey.InventoryInquiry.PHYINV_TOOL_DIV", 100), sortOrder: "@Model.FirstOrDefault.GridInfo("PHYINV_TOOL_DIV").DispOrder", visible: "@Model.FirstOrDefault.GridInfo("PHYINV_TOOL_DIV").DispFlag" },
             //[CC431] ADD End 20261002
@@ -941,6 +954,22 @@ End Code
 
         }
     }
+
+    //[CC431] ADD Start 20261016
+    // 実棚者コード/名用formatter。実棚時点に保存した名称を「コード 名称」で表示する（名称なしはコードのみ）
+    function PhyinvEmployeeFormatter(row, cell, value, columnDef, dataContext) {
+        var cd = dataContext.PHYINV_EMPLOYEE_CD;
+        if (cd == null || cd === "") {
+            return "";
+        }
+        var str = String(cd).trim();
+        var name = dataContext.PHYINV_EMPLOYEE_NAME;
+        if (name != null && String(name).trim() !== "") {
+            str += " " + String(name).trim();
+        }
+        return "<div>" + $("<div>").text(str).html() + "</div>";
+    }
+    //[CC431] ADD End 20261016
 
     //[CC431] ADD Start 20261002
     // 棚卸実施端末（H:HT、W:Web）。想定外の値はそのまま表示する
@@ -2233,7 +2262,11 @@ End Code
             { from: "SearchPhyinvDateFrom", to: "SearchPhyinvDateTo", label: "@Message.getMessage(CommonLabel.LABEL_PHYINV_DATE_SEARCH)" },
             { from: "SearchFreeItem2From", to: "SearchFreeItem2To", label: "@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM2)" },
             { from: "SearchFreeItem18From", to: "SearchFreeItem18To", label: "@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM18)" },
-            { from: "SearchFreeItem19From", to: "SearchFreeItem19To", label: "@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM19)" }
+            { from: "SearchFreeItem19From", to: "SearchFreeItem19To", label: "@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM19)" },
+            //[CC431] ADD Start 20261015
+            // 除却時期(予定)（type="month" の値は yyyy-MM 固定のため、文字列比較で前後を判定できる）
+            { from: "SearchRemoveDateFrom", to: "SearchRemoveDateTo", label: "@Message.getMessage(CommonLabel.LABEL_REMOVE_DATE)" }
+            //[CC431] ADD End 20261015
         ];
         for (var i = 0; i < dateRangeChecks.length; i++) {
             var chk = dateRangeChecks[i];
@@ -2929,8 +2962,11 @@ End Code
                     $("#FREE_ITEM8").val(data.FREE_ITEM8);
                     $("#FREE_ITEM9").val(data.FREE_ITEM9);
                     $("#FREE_ITEM10").val(data.FREE_ITEM10);
-                    $("#FREE_ITEM11").val(data.FREE_ITEM11);
-                    $("#FREE_ITEM12").val(data.FREE_ITEM12);
+                    //[CC431] UPD Start 20261016
+                    // 取得金額・当月末簿価はカンマ区切りで表示する（左寄せのまま。数値でない値はそのまま表示）
+                    $("#FREE_ITEM11").val(CommaFormatter(null, null, data.FREE_ITEM11, null, null));
+                    $("#FREE_ITEM12").val(CommaFormatter(null, null, data.FREE_ITEM12, null, null));
+                    //[CC431] UPD End 20261016
                     $("#FREE_ITEM13").val(data.FREE_ITEM13);
                     $("#FREE_ITEM14").val(data.FREE_ITEM14);
                     $("#FREE_ITEM15").val(data.FREE_ITEM15);
@@ -3348,9 +3384,13 @@ End Code
                             @* 除却時期 *@
                             <div class="col-sm-2" style="display:@(If(Model.FirstOrDefault.GridInfo("REMOVE_DATE").DispFlag = "1", "display", "None"))">
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_REMOVE_DATE)</div>
-                                <div class="grid-condition-col">
-                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchRemoveDate, New With {.class = "cond-control", .type = "month"})
+                                @*[CC431] UPD Start 20261015*@
+                                <div class="grid-condition-col-asset">
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchRemoveDateFrom, New With {.class = "cond-control", .type = "month"})
+                                    ～
+                                    @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchRemoveDateTo, New With {.class = "cond-control", .type = "month"})
                                 </div>
+                                @*[CC431] UPD End 20261015*@
                             </div>
                             @* 除却理由 *@
                             <div class="col-sm-2" style="display: block">
@@ -3786,7 +3826,7 @@ End Code
                     <td Class="head-col">@Message.getMessage(CommonLabelInventoryInquiry.LABEL_PHYINV_DATE)</td>
                     <td Class="value-col">@Html.EditorFor(Function(model) model.Last.PHYINV_TS, New With {.htmlAttributes = New With {.class = "inventory-disable-input", .readOnly = True, .type = "text"}})</td>
 
-                    <td class="head-col">@Message.getMessage(CommonLabelInventoryInquiry.LABEL_PHYINV_PERSON_NAME)</td>
+                    <td class="head-col">@Message.getMessage(CommonLabel.LABEL_INV_EMPLOYEE_CD_NAME)</td>
                     <td Class="value-col">@Html.EditorFor(Function(model) model.Last.PHYINV_EMPLOYEE_CD, New With {.htmlAttributes = New With {.class = "inventory-disable-input", .readOnly = True}})</td>
                     <td class="head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_FREE_ITEM6)</td>
                     <td Class="value-col">@Html.EditorFor(Function(model) model.Last.FREE_ITEM6, New With {.htmlAttributes = New With {.class = "inventory-disable-input", .readOnly = True}})</td>

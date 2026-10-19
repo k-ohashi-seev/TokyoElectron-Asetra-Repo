@@ -992,21 +992,10 @@ Namespace Controllers
                 sbSQL.AppendLine("SELECT TOP 1")
             End If
             sbSQL.AppendLine("ROW_NUMBER() OVER(ORDER BY")
-            sbSQL.AppendLine("ma.LOC_L_CD")
-            If _ViewModel.SearchDispSelectLocation = LOC_DIV.LocationM Or _ViewModel.SearchDispSelectLocation = LOC_DIV.LocationS Then
-                sbSQL.AppendLine(",ma.LOC_M_CD")
-                If _ViewModel.SearchDispSelectLocation = LOC_DIV.LocationS Then
-                    sbSQL.AppendLine(",ma.LOC_S_CD")
-                End If
-            End If
-            sbSQL.AppendLine(",ma.CAT_L_CD")
-            If _ViewModel.SearchDispSelectCategory = CAT_DIV.CategoryM Or _ViewModel.SearchDispSelectCategory = CAT_DIV.CategoryS Then
-                sbSQL.AppendLine(",ma.CAT_M_CD")
-                If _ViewModel.SearchDispSelectCategory = CAT_DIV.CategoryS Then
-                    sbSQL.AppendLine(",ma.CAT_S_CD")
-                End If
-            End If
-
+            '[CC431] UPD Start 20261015
+            ' 仕様変更2：検索条件の並び順で並べる（会社は並び順に含めない。集約表示に出る列だけを使う）
+            sbSQL.AppendLine(GetOrderBy())
+            '[CC431] UPD End 20261015
             sbSQL.AppendLine("ASC) SEQNO")
             sbSQL.AppendLine(", '' KEY_VALUE")
             sbSQL.AppendLine(",ma.MNG_LOC_L_CD") '2021/010/06 nv miyaji add
@@ -1228,27 +1217,56 @@ Namespace Controllers
 
             If isSort Then
                 sbSQL.AppendLine("ORDER BY")
-
-                sbSQL.AppendLine("ma.LOC_L_CD")
-                If _ViewModel.SearchDispSelectLocation = LOC_DIV.LocationM Or _ViewModel.SearchDispSelectLocation = LOC_DIV.LocationS Then
-                    sbSQL.AppendLine(",ma.LOC_M_CD")
-                    If _ViewModel.SearchDispSelectLocation = LOC_DIV.LocationS Then
-                        sbSQL.AppendLine(",ma.LOC_S_CD")
-                    End If
-                End If
-
-                sbSQL.AppendLine(",ma.CAT_L_CD")
-                If _ViewModel.SearchDispSelectCategory = CAT_DIV.CategoryM Or _ViewModel.SearchDispSelectCategory = CAT_DIV.CategoryS Then
-                    sbSQL.AppendLine(",ma.CAT_M_CD")
-                    If _ViewModel.SearchDispSelectCategory = CAT_DIV.CategoryS Then
-                        sbSQL.AppendLine(",ma.CAT_S_CD")
-                    End If
-                End If
+                '[CC431] UPD Start 20261015
+                sbSQL.AppendLine(GetOrderBy())
+                '[CC431] UPD End 20261015
             End If
 
             Return sbSQL.ToString()
 
         End Function
+
+        '[CC431] ADD Start 20261015
+        ''' <summary>
+        ''' 並び順に対応する ORDER BY の中身（キーの並び）を取得する
+        ''' </summary>
+        ''' <returns>ORDER BY に続けて指定する文字列</returns>
+        ''' <remarks>
+        ''' 一覧は集約表示（ロケーション・分類）ごとの集計のため、集約表示で一覧に出る列だけを使う。会社（ロケ大）は並び順に含めない。
+        ''' 　原価センタ昇順：原価センタ、場所、資産クラス（大・中・小）
+        ''' 　場所昇順　　　：場所、原価センタ、資産クラス（大・中・小）
+        ''' 　資産クラス昇順：資産クラス（大・中・小）、原価センタ、場所
+        ''' 集約表示に出ない列は使わない（場所が出ない場合の場所昇順は原価センタ昇順と同じになる）。
+        ''' </remarks>
+        Private Function GetOrderBy() As String
+            Dim hasLocM As Boolean = (_ViewModel.SearchDispSelectLocation = LOC_DIV.LocationM Or _ViewModel.SearchDispSelectLocation = LOC_DIV.LocationS)
+            Dim hasLocS As Boolean = (_ViewModel.SearchDispSelectLocation = LOC_DIV.LocationS)
+            Dim lstLoc As New List(Of String)
+            If _ViewModel.SearchSortOrder = StockListSort.LocSAsc Then
+                If hasLocS Then lstLoc.Add("ma.LOC_S_CD")
+                If hasLocM Then lstLoc.Add("ma.LOC_M_CD")
+            Else
+                If hasLocM Then lstLoc.Add("ma.LOC_M_CD")
+                If hasLocS Then lstLoc.Add("ma.LOC_S_CD")
+            End If
+            Dim lstCat As New List(Of String) From {"ma.CAT_L_CD"}
+            If _ViewModel.SearchDispSelectCategory = CAT_DIV.CategoryM Or _ViewModel.SearchDispSelectCategory = CAT_DIV.CategoryS Then
+                lstCat.Add("ma.CAT_M_CD")
+                If _ViewModel.SearchDispSelectCategory = CAT_DIV.CategoryS Then
+                    lstCat.Add("ma.CAT_S_CD")
+                End If
+            End If
+            Dim lstKey As New List(Of String)
+            If _ViewModel.SearchSortOrder = StockListSort.CatLAsc Then
+                lstKey.AddRange(lstCat)
+                lstKey.AddRange(lstLoc)
+            Else
+                lstKey.AddRange(lstLoc)
+                lstKey.AddRange(lstCat)
+            End If
+            Return String.Join(",", lstKey)
+        End Function
+        '[CC431] ADD End 20261015
 
         ''' <summary>
         ''' ページ情報のモデルをコピーします
@@ -1280,6 +1298,9 @@ Namespace Controllers
             _viewResult.ElementAt(0).SearchModelNo = _ViewModel.SearchModelNo
             _viewResult.ElementAt(0).SearchDispSelectLocation = _ViewModel.SearchDispSelectLocation
             _viewResult.ElementAt(0).SearchDispSelectCategory = _ViewModel.SearchDispSelectCategory
+            '[CC431] ADD Start 20261015
+            _viewResult.ElementAt(0).SearchSortOrder = _ViewModel.SearchSortOrder
+            '[CC431] ADD End 20261015
             _viewResult.ElementAt(0).ErrCode = _ViewModel.ErrCode
             _viewResult.ElementAt(0).ErrTarget = _ViewModel.ErrTarget
             _viewResult.ElementAt(0).PageNum = _ViewModel.PageNum

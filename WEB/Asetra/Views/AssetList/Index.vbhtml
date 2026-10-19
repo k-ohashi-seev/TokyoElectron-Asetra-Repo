@@ -36,6 +36,17 @@ End Code
             $("#cond").addClass("collapse");
             document.getElementById("SearchCondition").innerHTML = "@Model.FirstOrDefault.OpenFlg";
         }
+        //[CC431] ADD Start 20261015
+        // 検索の再表示で、エラーなし・1 件以上のときは検索条件を折りたたむ（仕様変更1）。
+        // エラー・0 件のときは追加しない（検索前の状態＝OpenFlg のまま）。ページ変更・モーダル戻りは検索ボタンの値を送らないため対象外
+        if ("@Request.Form("actionname")" == "@Message.getMessage(CommonLabel.BUTTON_SEARCH)"
+            && "@Model.FirstOrDefault.ErrCode" == "" && Number("@Model.FirstOrDefault.TotalCount") > 0) {
+            $("#cond").removeClass("in");
+            $("#cond").addClass("collapse");
+            document.getElementById("SearchCondition").innerHTML = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)";
+            document.getElementById("OpenFlg").value = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)";
+        }
+        //[CC431] ADD End 20261015
 
 
         //20230904 ADD Start Shirakawa
@@ -1186,6 +1197,10 @@ processData: false,
         } else {
             document.getElementById("SearchCondition").innerHTML = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)"
         }
+        //[CC431] ADD Start 20261015
+        // 検索条件の開閉状態を hidden に退避し、検索時に検索前の状態を判定できるようにする
+        document.getElementById("OpenFlg").value = $.trim(document.getElementById("SearchCondition").innerText);
+        //[CC431] ADD End 20261015
     }
 
 

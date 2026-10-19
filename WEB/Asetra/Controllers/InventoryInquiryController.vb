@@ -371,10 +371,14 @@ Namespace Controllers
 
             '[CC431] ADD Start 20261002
             ' 棚卸実施端末（実棚処理ツール区分。C:CS は使用しない）
+            '[CC431] UPD Start 20261015
+            ' 仕様変更3：棚卸実施端末の選択肢に「-」（未設定）を追加（空の選択肢、-、HT、Web の順）
             Dim phyinvToolDivList As New List(Of DropdownModel) From {
+                New DropdownModel With {.Cd = ProcessToolDiv.NoValue, .Name = "-"},
                 New DropdownModel With {.Cd = ProcessToolDiv.HT, .Name = _Message.getMessage(CommonLabel.LABEL_PROCESS_TOOL_HT)},
                 New DropdownModel With {.Cd = ProcessToolDiv.Web, .Name = _Message.getMessage(CommonLabel.LABEL_PROCESS_TOOL_WEB)}
             }
+            '[CC431] UPD End 20261015
             ViewBag.PhyinvToolDivList = New SelectList(phyinvToolDivList, "Cd", "Name")
 
             ' ロック資産ステータス（未：ロック担当者なし、済：ロック担当者あり）
@@ -1078,6 +1082,15 @@ Namespace Controllers
                 Try
                     Dim assetList = New List(Of String)
                     assetList.Add(editedContain.ASSET_NO)
+
+                    '[CC431] ADD Start 20261015
+                    '棚卸が完了されていないか確認（棚卸確定すると棚卸資産Tは削除される）
+                    If Not ToolInventory.IsIventory(invId) Then
+                        ret.err = Me._Message.getMessage(CommonLabelInventoryInquiry.MSG_NOT_INVENTORY_NOW)
+                        Return Json(ret)
+                    End If
+                    '[CC431] ADD End 20261015
+
                     Dim lockUsers = ToolInvAsset.GetLockUsers(invId, invLocL, assetList)
                     If lockUsers.Count > 0 AndAlso lockUsers(0) <> _LoginInfo.EmployeeCd Then
                         'ログイン担当者以外がロックしている場合はエラー
@@ -1098,6 +1111,15 @@ Namespace Controllers
 
                     '先にＬＯＧ用のレコードを取得する
                     Dim tblAsset As DataTable = ToolInvAsset.GetInvAsset(invId, invLocL, editedContain.ASSET_NO)
+
+                    '[CC431] ADD Start 20261016
+                    '棚卸中なのに棚卸資産Tに資産がない場合は異常。更新せずにシステムエラーを返す
+                    If tblAsset.Rows.Count = 0 Then
+                        logger.Error($"棚卸資産Tに資産がありません。棚卸ID={invId} ロケ大区分={invLocL} 資産番号={editedContain.ASSET_NO}")
+                        ret.err = Me._Message.getMessage(CommonLabel.MSG_ERR_SYSTEM)
+                        Return Json(ret)
+                    End If
+                    '[CC431] ADD End 20261016
 
                     '[CC431] UPD Start 20261009 棚卸資産Tの更新を共通関数にまとめた（WHERE に棚卸ID・棚卸ロケ大区分コードが加わる）
                     '棚卸資産T更新処理実行
@@ -1373,6 +1395,16 @@ Namespace Controllers
 
             '[CC431] DEL 20261005 権限情報の取得（権限のチェックを削除したため）
 
+            '[CC431] ADD Start 20261015
+            '棚卸が完了されていないか確認（棚卸確定すると棚卸資産Tは削除される）。画面には資産を特定せず、メッセージだけを返す
+            If Not ToolInventory.IsIventory(invId) Then
+                Return Json(New ChangeAssetResponse() With {
+                    .ok = False,
+                    .errMsg = Me._Message.getMessage(CommonLabelInventoryInquiry.MSG_NOT_INVENTORY_NOW)
+                })
+            End If
+            '[CC431] ADD End 20261015
+
             For Each editedContain In editedContains
                 Dim response = New ChangeAssetResponse() With {
                     .ok = False,
@@ -1406,6 +1438,13 @@ Namespace Controllers
 
                     For Each editedContain In editedContains
                         Dim tblAsset As DataTable = ToolInvAsset.GetInvAsset(invId, invLocL, editedContain.ASSET_NO)
+
+                        '[CC431] ADD Start 20261016
+                        '棚卸中なのに棚卸資産Tに資産がない場合は異常。原因をログに残すため、明示的な例外にする（Catch でシステムエラーを返す）
+                        If tblAsset.Rows.Count = 0 Then
+                            Throw New Exception($"棚卸資産Tに資産がありません。棚卸ID={invId} ロケ大区分={invLocL} 資産番号={editedContain.ASSET_NO}")
+                        End If
+                        '[CC431] ADD End 20261016
 
                         editedContain.ASSET_NAME = If(IsDBNull(tblAsset.Rows(0)("ASSET_NAME")), Nothing, tblAsset.Rows(0)("ASSET_NAME"))
                         editedContain.LOC_L_CD = If(IsDBNull(tblAsset.Rows(0)("LOC_L_CD")), Nothing, tblAsset.Rows(0)("LOC_L_CD"))
@@ -3889,8 +3928,12 @@ Namespace Controllers
             Long.TryParse(keys(0), invId)
             Dim invLocL = keys(1)
 
-            Dim isInventory = ToolInventory.IsIventory(invId, invLocL, lstSelectKeys)
-            If (isInventory) Then
+            '[CC431] UPD Start 20261016 棚卸確定済みかを、棚卸管理Tで確認する
+            Dim isInventory = ToolInventory.IsIventory(invId)
+            '[CC431] UPD End 20261016
+            '[CC431] UPD Start 20261015 棚卸中でない（棚卸確定済み）場合がエラー
+            If Not (isInventory) Then
+                '[CC431] UPD End 20261015
                 ret.err = Me._Message.getMessage(CommonLabelInventoryInquiry.MSG_NOT_INVENTORY_NOW)
                 Return Json(ret)
             End If
@@ -4000,8 +4043,12 @@ Namespace Controllers
                 End If
             End If
 
-            Dim isInventory = ToolInventory.IsIventory(invId, invLocL, lstSelectKeys)
-            If (isInventory) Then
+            '[CC431] UPD Start 20261016 棚卸確定済みかを、棚卸管理Tで確認する
+            Dim isInventory = ToolInventory.IsIventory(invId)
+            '[CC431] UPD End 20261016
+            '[CC431] UPD Start 20261015 棚卸中でない（棚卸確定済み）場合がエラー
+            If Not (isInventory) Then
+                '[CC431] UPD End 20261015
                 ret.err = Me._Message.getMessage(CommonLabelInventoryInquiry.MSG_NOT_INVENTORY_NOW)
                 Return Json(ret)
             End If
@@ -4046,6 +4093,15 @@ Namespace Controllers
 
                     For Each assetNo In sAssetNoList
                         Dim tblAsset As DataTable = ToolInvAsset.GetInvAsset(invId, invLocL, assetNo)
+
+                        '[CC431] ADD Start 20261016
+                        '棚卸中なのに棚卸資産Tに資産がない場合は異常。更新せずにFalseを返す（呼び出し元がシステムエラーを返す）
+                        If tblAsset.Rows.Count = 0 Then
+                            logger.Error($"棚卸資産Tに資産がありません。棚卸ID={invId} ロケ大区分={invLocL} 資産番号={assetNo}")
+                            Return False
+                        End If
+                        '[CC431] ADD End 20261016
+
                         Dim data As New EditedContainModel()
                         data.ASSET_NO = assetNo
                         data.ASSET_NAME = tblAsset.Rows(0)("ASSET_NAME").ToString
@@ -4607,11 +4663,10 @@ Namespace Controllers
             ' 検索条件で選択された並び順で並べる。第2キーは資産番号昇順（一覧・データ出力の両方で使用）
             '[CC431] UPD Start 20261005
             ' 並び順が資産番号のときは、第2キーを付けない（同じ列を ORDER BY に2回指定するとエラーになるため）
-            Dim sortColumn As String = GetSortColumn(_ViewModel.SearchSortOrder)
-            sbSQL.AppendLine(sortColumn)
-            If sortColumn <> "ia.ASSET_NO" Then
-                sbSQL.AppendLine(",ia.ASSET_NO")
-            End If
+            '[CC431] UPD Start 20261015
+            ' 仕様変更2：並び順ごとのキーの並び（原価センタ・場所は2キー、空白は後ろ）をそのまま指定する
+            sbSQL.AppendLine(GetOrderBy(_ViewModel.SearchSortOrder))
+            '[CC431] UPD End 20261015
             '[CC431] UPD End 20261005
             '[CC431] UPD End 20261002
 
@@ -4620,52 +4675,65 @@ Namespace Controllers
         End Function
 
         '[CC431] ADD Start 20261002
+        '[CC431] DEL 20261015 GetSortColumn（1列だけ返す）を削除し、GetOrderBy（キーの並び全体を返す）に置き換え
+        '[CC431] ADD Start 20261015
         ''' <summary>
-        ''' 並び順に対応するソートカラムを取得する
+        ''' 並び順に対応する ORDER BY の中身（キーの並び）を取得する
         ''' </summary>
         ''' <param name="sortOrder">検索条件 並び順(InventoryInquirySort)</param>
-        ''' <returns>ORDER BY に指定するカラム名（想定外の値は資産クラス）</returns>
-        ''' <remarks>原価センタ・場所はコード順。第2ソートキーの資産番号は呼び出し元で付与する</remarks>
-        Private Function GetSortColumn(ByVal sortOrder As Integer) As String
+        ''' <returns>ORDER BY に続けて指定する文字列（想定外の値は資産クラス）</returns>
+        ''' <remarks>
+        ''' 原価センタ・場所はコード順（仕様変更2）。第2キー以降は並び順ごとに定義し、資産番号を最後に付ける。
+        ''' 資本化日付・管理者社員番号・実棚者コード・備考は、空白（NULL・空文字）を後ろにする。
+        ''' </remarks>
+        Private Function GetOrderBy(ByVal sortOrder As Integer) As String
             Select Case sortOrder
                 Case InventoryInquirySort.CatLAsc
-                    Return "ia.CAT_L_CD"
+                    Return "ia.CAT_L_CD,ia.ASSET_NO"
                 Case InventoryInquirySort.AssetNoAsc
                     Return "ia.ASSET_NO"
                 Case InventoryInquirySort.LocMAsc
-                    Return "ia.LOC_M_CD"
+                    Return "ia.LOC_M_CD,ia.LOC_S_CD,ia.ASSET_NO"
                 Case InventoryInquirySort.LocSAsc
-                    Return "ia.LOC_S_CD"
+                    Return "ia.LOC_S_CD,ia.LOC_M_CD,ia.ASSET_NO"
                 Case InventoryInquirySort.FreeItem2Asc
-                    Return "ia.FREE_ITEM2"
+                    Return GetBlankLastOrder("ia.FREE_ITEM2") & ",ia.ASSET_NO"
                 Case InventoryInquirySort.FreeItem6Asc
-                    Return "ia.FREE_ITEM6"
+                    Return GetBlankLastOrder("ia.FREE_ITEM6") & ",ia.ASSET_NO"
                 Case InventoryInquirySort.PhyinvEmployeeAsc
-                    Return "ia.PHYINV_EMPLOYEE_CD"
+                    Return GetBlankLastOrder("ia.PHYINV_EMPLOYEE_CD") & ",ia.ASSET_NO"
                 Case InventoryInquirySort.Remark1Asc
-                    Return "ia.REMARK1"
+                    Return GetBlankLastOrder("ia.REMARK1") & ",ia.ASSET_NO"
                 Case InventoryInquirySort.Remark2Asc
-                    Return "ia.REMARK2"
+                    Return GetBlankLastOrder("ia.REMARK2") & ",ia.ASSET_NO"
                 Case InventoryInquirySort.Remark3Asc
-                    Return "ia.REMARK3"
+                    Return GetBlankLastOrder("ia.REMARK3") & ",ia.ASSET_NO"
                 Case InventoryInquirySort.Remark4Asc
-                    Return "ia.REMARK4"
+                    Return GetBlankLastOrder("ia.REMARK4") & ",ia.ASSET_NO"
                 Case InventoryInquirySort.Remark5Asc
-                    Return "ia.REMARK5"
+                    Return GetBlankLastOrder("ia.REMARK5") & ",ia.ASSET_NO"
                 Case InventoryInquirySort.Remark6Asc
-                    Return "ia.REMARK6"
+                    Return GetBlankLastOrder("ia.REMARK6") & ",ia.ASSET_NO"
                 Case InventoryInquirySort.Remark7Asc
-                    Return "ia.REMARK7"
+                    Return GetBlankLastOrder("ia.REMARK7") & ",ia.ASSET_NO"
                 Case InventoryInquirySort.Remark8Asc
-                    Return "ia.REMARK8"
+                    Return GetBlankLastOrder("ia.REMARK8") & ",ia.ASSET_NO"
                 Case InventoryInquirySort.Remark9Asc
-                    Return "ia.REMARK9"
+                    Return GetBlankLastOrder("ia.REMARK9") & ",ia.ASSET_NO"
                 Case InventoryInquirySort.Remark10Asc
-                    Return "ia.REMARK10"
+                    Return GetBlankLastOrder("ia.REMARK10") & ",ia.ASSET_NO"
                 Case Else
-                    Return "ia.CAT_L_CD"
+                    Return "ia.CAT_L_CD,ia.ASSET_NO"
             End Select
         End Function
+
+        ''' <summary>
+        ''' 空白（NULL・空文字）を後ろにする並びを返す。スペースのみは値ありの扱い
+        ''' </summary>
+        Private Function GetBlankLastOrder(ByVal col As String) As String
+            Return "CASE WHEN " & col & " IS NULL OR " & col & " = '' THEN 1 ELSE 0 END," & col
+        End Function
+        '[CC431] ADD End 20261015
         '[CC431] ADD End 20261002
 
         Private Sub MyAddSqlParam(ByVal strKey As String, ByVal strValue As String, ByRef params As List(Of SqlParameter))
@@ -4764,12 +4832,27 @@ Namespace Controllers
             End If
 
             '除却時期
-            If (Not IsNothing(_ViewModel.SearchRemoveDate)) AndAlso
-                    (Not String.IsNullOrEmpty(_ViewModel.SearchRemoveDate.Trim)) Then
-                Dim sDate As String = CDate(_ViewModel.SearchRemoveDate & "-01").ToString("yyyy/MM")
-                sbWhr.AppendLine("  AND ia.REMOVE_DATE like " & "@SearchRemoveDate")
-                MyAddSqlParam("SearchRemoveDate", $"{sDate & "%"}", params)
+            '[CC431] DEL 20261015 除却時期の年月の前方一致の条件を削除し、年月の範囲に変更
+            '[CC431] ADD Start 20261015
+            '除却時期(予定)の範囲検索は "yyyy/MM" の文字列の大小比較で行うため、書式外の値（空を含む）は検索対象にしない（ヒットさせない）
+            Const sRemoveFormatCond As String = " LIKE '[0-9][0-9][0-9][0-9]/[0-9][0-9]'"
+
+            '除却時期From SearchRemoveDateFrom
+            If Not String.IsNullOrEmpty(_ViewModel.SearchRemoveDateFrom) Then
+                Dim sDate As String = CDate(_ViewModel.SearchRemoveDateFrom & "-01").ToString("yyyy/MM")
+                sbWhr.AppendLine("  AND LEFT(ia.REMOVE_DATE, 7)" & sRemoveFormatCond)
+                sbWhr.AppendLine("  AND LEFT(ia.REMOVE_DATE, 7) >= " & "@SearchRemoveDateFrom")
+                MyAddSqlParam("SearchRemoveDateFrom", sDate, params)
             End If
+
+            '除却時期To SearchRemoveDateTo
+            If Not String.IsNullOrEmpty(_ViewModel.SearchRemoveDateTo) Then
+                Dim sDate As String = CDate(_ViewModel.SearchRemoveDateTo & "-01").ToString("yyyy/MM")
+                sbWhr.AppendLine("  AND LEFT(ia.REMOVE_DATE, 7)" & sRemoveFormatCond)
+                sbWhr.AppendLine("  AND LEFT(ia.REMOVE_DATE, 7) <= " & "@SearchRemoveDateTo")
+                MyAddSqlParam("SearchRemoveDateTo", sDate, params)
+            End If
+            '[CC431] ADD End 20261015
 
             '除却理由
             If (Not IsNothing(_ViewModel.SearchRemoveReason)) AndAlso
@@ -5041,8 +5124,15 @@ Namespace Controllers
 
             '棚卸実施端末（実棚処理ツール区分）
             If Not String.IsNullOrEmpty(_ViewModel.SearchPhyinvToolDiv) Then
-                sbWhr.AppendLine("  AND ia.PHYINV_TOOL_DIV = " & "@SearchPhyinvToolDiv")
-                MyAddSqlParam("SearchPhyinvToolDiv", _ViewModel.SearchPhyinvToolDiv, params)
+                '[CC431] UPD Start 20261015
+                ' 「-」は棚卸実施端末が未設定（NULL・空文字）のデータを抽出する
+                If _ViewModel.SearchPhyinvToolDiv = ProcessToolDiv.NoValue Then
+                    sbWhr.AppendLine("  AND (ia.PHYINV_TOOL_DIV IS NULL OR ia.PHYINV_TOOL_DIV = '')")
+                Else
+                    sbWhr.AppendLine("  AND ia.PHYINV_TOOL_DIV = " & "@SearchPhyinvToolDiv")
+                    MyAddSqlParam("SearchPhyinvToolDiv", _ViewModel.SearchPhyinvToolDiv, params)
+                End If
+                '[CC431] UPD End 20261015
             End If
 
             'フリー項目27 SearchFreeItem27 棚卸ノート（部分一致）
@@ -5345,7 +5435,10 @@ Namespace Controllers
             _viewResult.ElementAt(0).SearchLockEmployee = _ViewModel.SearchLockEmployee
             _viewResult.ElementAt(0).SearchDiversionRemove = _ViewModel.SearchDiversionRemove
             _viewResult.ElementAt(0).SearchOpeStatus = _ViewModel.SearchOpeStatus
-            _viewResult.ElementAt(0).SearchRemoveDate = _ViewModel.SearchRemoveDate
+            '[CC431] UPD Start 20261015
+            _viewResult.ElementAt(0).SearchRemoveDateFrom = _ViewModel.SearchRemoveDateFrom
+            _viewResult.ElementAt(0).SearchRemoveDateTo = _ViewModel.SearchRemoveDateTo
+            '[CC431] UPD End 20261015
             _viewResult.ElementAt(0).SearchRemoveReason = _ViewModel.SearchRemoveReason
             _viewResult.ElementAt(0).SearchRemoveContent = _ViewModel.SearchRemoveContent
 

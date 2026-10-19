@@ -441,6 +441,25 @@ End Code
             document.getElementById("DetailAccordion").innerHTML = "@Model.FirstOrDefault.DetailOpenFlg";
         }
     });
+    //[CC431] ADD Start 20261015
+    $(function () {
+        // 検索条件の開閉状態の復元（OpenFlg が「閉」の文言のときだけ閉じた状態にする。既定は開）
+        if ("@Model.FirstOrDefault.OpenFlg" == "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)") {
+            $("#cond").removeClass("in");
+            $("#cond").addClass("collapse");
+            document.getElementById("SearchCondition").innerHTML = "@Model.FirstOrDefault.OpenFlg";
+        }
+        // 検索の再表示で、エラーなし・1 件以上のときは検索条件を折りたたむ（仕様変更1）。
+        // エラー・0 件のときは追加しない（検索前の状態＝OpenFlg のまま）。ページ変更は検索ボタンの値を送らないため対象外
+        if ("@Request.Form("actionname")" == "@Message.getMessage(CommonLabel.BUTTON_SEARCH)"
+            && "@Model.FirstOrDefault.ErrCode" == "" && Number("@Model.FirstOrDefault.TotalCount") > 0) {
+            $("#cond").removeClass("in");
+            $("#cond").addClass("collapse");
+            document.getElementById("SearchCondition").innerHTML = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)";
+            document.getElementById("OpenFlg").value = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)";
+        }
+    });
+    //[CC431] ADD End 20261015
     //検索ボタンクリック処理
     function btnSearch_onclick() {
         // 処理区分の選択状態をチェック '2019/10/15 nv miyaji LC追加
@@ -516,6 +535,17 @@ End Code
     //        document.getElementById("SearchCondition").innerHTML = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)"
     //    }
     //}
+    //[CC431] ADD Start 20261015
+    //検索条件リンククリック時処理（リンクの文言を入れ替え、開閉状態を hidden OpenFlg に退避する）
+    function SearchCondition_onclick() {
+        if (document.getElementById("SearchCondition").innerHTML == "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)") {
+            document.getElementById("SearchCondition").innerHTML = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_OPEN)"
+        } else {
+            document.getElementById("SearchCondition").innerHTML = "@Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_CLOSE)"
+        }
+        document.getElementById("OpenFlg").value = $.trim(document.getElementById("SearchCondition").innerText);
+    }
+    //[CC431] ADD End 20261015
 
 
     ////クリアボタンクリック処理
@@ -841,12 +871,17 @@ End Code
         @* 検索条件 *@
         @<div Class="search-wrap">
             <a id="SearchCondition" data-toggle="collapse" href="#cond" aria-expanded="true" onclick="SearchCondition_onclick()">
-                @Message.getMessage(CommonLabel.TITLE_SEARCH)
+                @*[CC431] UPD Start 20261015 他の画面に合わせ、開閉で入れ替わる文言（▼検索条件／▲検索条件）にする*@
+                @Message.getMessage(CommonLabel.LABEL_SEARCH_CONDITION_OPEN)
+                @*[CC431] UPD End 20261015*@
             </a>
             <div class="search-border">
                 <div id="cond" class="container collapse in">
                     @* condition-flex：複数選択で項目の高さが伸びても段が崩れないよう flex で並べる（Content\Site.css） *@
-                    <div class="row condition-flex" id="item-conditions">
+                    @*[CC431] UPD Start 20261015 並び順と先頭位置を揃えるため、項目を col-md-12 に入れる（実棚照会と同じ作り）*@
+                    <div class="row" id="item-conditions">
+                        <div class="col-md-12 condition-flex">
+                    @*[CC431] UPD End 20261015*@
                         @* ロケーション 大区分*@
                         <div class="col-sm-2 filter-combo-area" style="display:@(If(Model.FirstOrDefault.GridInfo("LOC_L_CD").DispFlag = "1", "display", "None"))">
                             <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_LOC_L)<font Class="label-require">※</font></div>
@@ -901,16 +936,26 @@ End Code
                                 @Html.EditorFor(Function(model) model.FirstOrDefault.SearchDateTo, New With {.htmlAttributes = New With {.class = "cond-control", .type = "date"}})
                             </div>
                         </div>
+                    @*[CC431] ADD Start 20261015 col-md-12 の閉じタグ*@
+                        </div>
+                    @*[CC431] ADD End 20261015*@
                     </div>
+                    @*[CC431] UPD Start 20261015 並び順と先頭位置を揃えるため、項目を col-md-12 に入れる（実棚照会と同じ作り）*@
                     <div class="row" id="item-conditions">
+                        <div class="col-md-12">
+                    @*[CC431] UPD End 20261015*@
                         @* 処理区分 *@
                         <div style="display:@(If(Model.FirstOrDefault.GridInfo("PROCESS_DIV").DispFlag = "1", "display", "None"))">
-                            <div class="col-sm-6" style="max-width:1500px;">
+                            @*[CC431] UPD Start 20261015 見出しも画面いっぱいの幅（col-md-12）にする*@
+                            <div class="col-md-12">
+                            @*[CC431] UPD End 20261015*@
                                 <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_PROCESS_DIV)</div>
                             </div>
                             <div class="col-md-12">
                                 <div class="grid-condition-col">
-                                    <td class="condition-col radio-group" style="width:1250px;">
+                                    @*[CC431] UPD Start 20261015 処理区分を画面いっぱいの幅にする（固定幅 1250px を 100% に変更）*@
+                                    <td class="condition-col radio-group" style="width:100%;">
+                                    @*[CC431] UPD End 20261015*@
                                         <div class="col">
                                             <div class="input-select-item">@Html.CheckBoxFor(Function(model) model.FirstOrDefault.SearchProcessDivLP, New With {.class = "chkProcDiv"}) @Message.getMessage(CommonLabel.VALUE_PROCESS_DIV_LP)</div>
                                             <div class="input-select-item">@Html.CheckBoxFor(Function(model) model.FirstOrDefault.SearchProcessDivLI, New With {.class = "chkProcDiv"}) @Message.getMessage(CommonLabel.VALUE_PROCESS_DIV_LI)</div>
@@ -921,19 +966,7 @@ End Code
                                             <div class="input-select-item">@Html.CheckBoxFor(Function(model) model.FirstOrDefault.SearchProcessDivMR, New With {.class = "chkProcDiv"}) @Message.getMessage(CommonLabel.VALUE_PROCESS_DIV_MR)</div>
                                             <div class="input-select-item">@Html.CheckBoxFor(Function(model) model.FirstOrDefault.SearchProcessDivMD, New With {.class = "chkProcDiv"}) @Message.getMessage(CommonLabel.VALUE_PROCESS_DIV_MD)</div>
                                             <div class="input-select-item">@Html.CheckBoxFor(Function(model) model.FirstOrDefault.SearchProcessDivCD, New With {.class = "chkProcDiv"}) @Message.getMessage(CommonLabel.VALUE_PROCESS_DIV_CD)</div>
-                                        </div>
-                                    </td>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" id="item-conditions">
-                        @* 処理区分 *@
-                        <div style="display:@(If(Model.FirstOrDefault.GridInfo("PROCESS_DIV").DispFlag = "1", "display", "None"))">
-                            <div class="col-md-12">
-                                <div class="grid-condition-col">
-                                    <td class="condition-col radio-group" style="width:1250px;">
-                                        <div class="col">
+                                            @*[CC431] ADD Start 20261015 2 段目の項目（タグラベル発行＆紐付以降・全選択ボタン）を 1 段目に移動*@
                                             <div class="input-select-item">@Html.CheckBoxFor(Function(model) model.FirstOrDefault.SearchProcessDivT1, New With {.class = "chkProcDiv"}) @Message.getMessage(CommonLabel.VALUE_PROCESS_DIV_T1)</div>
                                             <div class="input-select-item">@Html.CheckBoxFor(Function(model) model.FirstOrDefault.SearchProcessDivT2, New With {.class = "chkProcDiv"}) @Message.getMessage(CommonLabel.VALUE_PROCESS_DIV_T2)</div>
                                             <div class="input-select-item">@Html.CheckBoxFor(Function(model) model.FirstOrDefault.SearchProcessDivBR, New With {.class = "chkProcDiv"}) @Message.getMessage(CommonLabel.VALUE_RETIRE)</div>
@@ -947,13 +980,21 @@ End Code
                                                 End If
                                             End Code
                                             <input id="btnSelectAll" Class="defButton submit-button" type="button" value="@sDispStr" onclick="btnSelectAll_onclick()" />
+                                            @*[CC431] ADD End 20261015*@
                                         </div>
                                     </td>
                                 </div>
                             </div>
                         </div>
+                    @*[CC431] ADD Start 20261015 col-md-12 の閉じタグ*@
+                        </div>
+                    @*[CC431] ADD End 20261015*@
                     </div>
+                    @*[CC431] DEL 20261015 処理区分の 2 段目（タグラベル発行＆紐付ほか・全選択ボタン）を削除し、1 段目に移動*@
+                    @*[CC431] UPD Start 20261015 並び順と先頭位置を揃えるため、項目を col-md-12 に入れる（実棚照会と同じ作り）*@
                     <div class="row" id="item-conditions">
+                        <div class="col-md-12">
+                    @*[CC431] UPD End 20261015*@
                         @* 処理分類 *@
                         <div class="col-sm-2" style="display:@(If(Model.FirstOrDefault.GridInfo("PROCESS_TOOL").DispFlag = "1", "display", "None"));max-width:300px;">
                             <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_PROCESS_TOOL)</div>
@@ -964,8 +1005,14 @@ End Code
                                 <div class="input-select-item">@Html.RadioButtonFor(Function(model) model.FirstOrDefault.SearchProcessToolDiv, ProcessToolDiv.HT, New With {.id = "SearchProcessToolDivHT"}) @Message.getMessage(CommonLabel.LABEL_PROCESS_TOOL_HT)</div>
                             </div>
                         </div>
+                    @*[CC431] ADD Start 20261015 col-md-12 の閉じタグ*@
+                        </div>
+                    @*[CC431] ADD End 20261015*@
                     </div>
+                    @*[CC431] UPD Start 20261015 並び順と先頭位置を揃えるため、項目を col-md-12 に入れる（実棚照会と同じ作り）*@
                     <div class="row" id="item-conditions">
+                        <div class="col-md-12">
+                    @*[CC431] UPD End 20261015*@
                         @* 資産番号 *@
                         <div class="col-sm-2" style="display:@(If(Model.FirstOrDefault.GridInfo("ASSET_NO").DispFlag = "1", "display", "None"))">
                             <div class="grid-head-col">@Message.getMessage(CommonLabel.LABEL_ASSET_NO)</div>
@@ -994,13 +1041,55 @@ End Code
                                 @Html.TextBoxFor(Function(model) model.FirstOrDefault.SearchEmployeeNm, New With {.class = "cond-control", .maxlength = 60})
                             </div>
                         </div>
+                    @*[CC431] ADD Start 20261015 col-md-12 の閉じタグ*@
+                        </div>
+                    @*[CC431] ADD End 20261015*@
                     </div>
+                    @*[CC431] ADD Start 20261015*@
+                    @* 並び順（ラジオボタン15種。処理日時は降順、ほかは昇順。選択値は SearchSortOrder、Controller の GetOrderBy で ORDER BY に変換） *@
+                    <div class="row" id="item-sort">
+                        <div class="col-md-12">
+                            <div class="grid-head-col sort-head-col">@Message.getMessage(CommonLabel.LABEL_SORT_ORDER)</div>
+                            <div id="search-sort" class="grid-condition-col sort-condition-col" style="margin-left: 15px; margin-right: 15px; width: calc(100% - 30px);">
+                                @Code
+                                    Dim sSortAsc As String = Message.getMessage(CommonLabel.LABEL_SORT_ASC)
+                                    Dim sSortDesc As String = Message.getMessage(CommonLabel.LABEL_SORT_DESC)
+                                    Dim lstSort As New List(Of KeyValuePair(Of Integer, String)) From {
+                                        New KeyValuePair(Of Integer, String)(AssetHistorySort.ProcessDtDesc, Message.getMessage(CommonLabel.LABEL_TASK_TS) & sSortDesc),
+                                        New KeyValuePair(Of Integer, String)(AssetHistorySort.CatLAsc, Message.getMessage(CommonLabel.LABEL_CAT_L) & sSortAsc),
+                                        New KeyValuePair(Of Integer, String)(AssetHistorySort.AssetNoAsc, Message.getMessage(CommonLabel.LABEL_ASSET_NO) & sSortAsc),
+                                        New KeyValuePair(Of Integer, String)(AssetHistorySort.LocMAsc, Message.getMessage(CommonLabel.LABEL_LOC_M_DEP_CODE) & sSortAsc),
+                                        New KeyValuePair(Of Integer, String)(AssetHistorySort.LocSAsc, Message.getMessage(CommonLabel.LABEL_LOC_S_PLA_CODE) & sSortAsc),
+                                        New KeyValuePair(Of Integer, String)(AssetHistorySort.Remark1Asc, Message.getMessage(CommonLabel.LABEL_REMARK1) & sSortAsc),
+                                        New KeyValuePair(Of Integer, String)(AssetHistorySort.Remark2Asc, Message.getMessage(CommonLabel.LABEL_REMARK2) & sSortAsc),
+                                        New KeyValuePair(Of Integer, String)(AssetHistorySort.Remark3Asc, Message.getMessage(CommonLabel.LABEL_REMARK3) & sSortAsc),
+                                        New KeyValuePair(Of Integer, String)(AssetHistorySort.Remark4Asc, Message.getMessage(CommonLabel.LABEL_REMARK4) & sSortAsc),
+                                        New KeyValuePair(Of Integer, String)(AssetHistorySort.Remark5Asc, Message.getMessage(CommonLabel.LABEL_REMARK5) & sSortAsc),
+                                        New KeyValuePair(Of Integer, String)(AssetHistorySort.Remark6Asc, Message.getMessage(CommonLabel.LABEL_REMARK6) & sSortAsc),
+                                        New KeyValuePair(Of Integer, String)(AssetHistorySort.Remark7Asc, Message.getMessage(CommonLabel.LABEL_REMARK7) & sSortAsc),
+                                        New KeyValuePair(Of Integer, String)(AssetHistorySort.Remark8Asc, Message.getMessage(CommonLabel.LABEL_REMARK8) & sSortAsc),
+                                        New KeyValuePair(Of Integer, String)(AssetHistorySort.Remark9Asc, Message.getMessage(CommonLabel.LABEL_REMARK9) & sSortAsc),
+                                        New KeyValuePair(Of Integer, String)(AssetHistorySort.Remark10Asc, Message.getMessage(CommonLabel.LABEL_REMARK10) & sSortAsc)
+                                    }
+                                End Code
+                                @For Each kvSort As KeyValuePair(Of Integer, String) In lstSort
+                                    @<div class="input-select-item">
+                                        @Html.RadioButtonFor(Function(model) model.FirstOrDefault.SearchSortOrder, kvSort.Key)@kvSort.Value
+                                    </div>
+                                Next
+                            </div>
+                        </div>
+                    </div>
+                    @*[CC431] ADD End 20261015*@
                     <div class="row">
                         <div class="col-md-12">
                             <a href="#" id="DetailAccordion" onclick="DetailAccordion_onclick();return false;">@Message.getMessage(CommonLabel.LABEL_ASSET_DETAIL_OPEN)</a>
                         </div>
                     </div>
-                    <div class="row condition-flex detail-accordion" id="item-conditions-detail" style="display:none;">
+                    @*[CC431] UPD Start 20261015 並び順と先頭位置を揃えるため、項目を col-md-12 に入れる（実棚照会と同じ作り）*@
+                    <div class="row detail-accordion" id="item-conditions-detail" style="display:none;">
+                        <div class="col-md-12 condition-flex">
+                    @*[CC431] UPD End 20261015*@
                         @Code
                             Dim lstRemark As New List(Of KeyValuePair(Of String, String)) From {
                                 New KeyValuePair(Of String, String)("SearchRemark1", Message.getMessage(CommonLabel.LABEL_REMARK1)),
@@ -1041,6 +1130,9 @@ End Code
                                 </div>
                             </div>
                         Next
+                    @*[CC431] ADD Start 20261015 col-md-12 の閉じタグ*@
+                        </div>
+                    @*[CC431] ADD End 20261015*@
                     </div>
                     <div Class="search-btn">
                         <input class="defButton submit-button" id="Search_Button" name="actionname" type="submit" style="margin-top: 7px;" value="@Message.getMessage(CommonLabel.BUTTON_SEARCH)" onclick="return btnSearch_onclick()" />
@@ -1049,6 +1141,9 @@ End Code
             </div>
         </div>
         @<input type="hidden" id="DetailOpenFlg" name="DetailOpenFlg" value="@Model.FirstOrDefault().DetailOpenFlg" />
+        @*[CC431] ADD Start 20261015*@
+        @<input type="hidden" id="OpenFlg" name="OpenFlg" value="@Model.FirstOrDefault().OpenFlg" />
+        @*[CC431] ADD End 20261015*@
         @<input type="hidden" id="IsRestoreOwnSearchConditions" name="IsRestoreOwnSearchConditions" value="@Model.FirstOrDefault().IsRestoreOwnSearchConditions.ToString()" />
         @<input type="hidden" id="FirstSearch" name="FirstSearch" value="@Model.FirstOrDefault().FirstSearch.ToString()" />
 

@@ -689,6 +689,14 @@ legend.attachment {
 	margin-top: 2px;
 }
 
+/*[CC431] ADD Start 20261016*/
+/* 複数選択のSelect2：未選択（入力欄だけ）のときは、ウォーターマークが途中で切れないよう入力欄を枠いっぱいにする
+   （Select2 は初期化時の枠の幅を px で固定するため、幅が確定する前に測ると「選択してくださ」で切れる） */
+#item-conditions .select2-container--default .select2-selection--multiple .select2-selection__rendered > .select2-search--inline:only-child .select2-search__field {
+	width: 100% !important;
+}
+/*[CC431] ADD End 20261016*/
+
 /* 複数入力（テキストボックス内の×、複数ボタン、複数入力ダイアログ）
 -----------------------------------------------------------*/
 .grid-condition-col-multi {
