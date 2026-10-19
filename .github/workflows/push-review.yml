@@ -1,0 +1,263 @@
+# main に push されたら「差分の取り出し → Claude・Cursor のレビュー(並行) → 結果記録 → メール」を行う(ビルド・テストは行わない版)
+# メールはレビューで medium 以上の不具合が見つかった時だけ、push した人と MAIL_ALWAYS_TO に送る
+# (問題なし・レビュー対象外の時は誰にも送らない)
+# AI 自体が失敗した時(期限切れ・時間切れなど)は MAIL_ALWAYS_TO だけにメールを送り、実行結果も「失敗」にして GitHub の通知を届ける
+name: Push Code Review
+
+on:
+  push:
+    branches: [main]
+
+# 標準は読み取りだけ。コミットにコメントを書く集計のジョブだけ書き込みを許す
+permissions:
+  contents: read
+
+# AI の道具の版。新しい版で使っているオプションが変わっても突然止まらないよう固定する
+# (上げる時はここを書き換え、動作を確認する。Cursor はインストール用スクリプトで版を選べないため最新版を使う)
+env:
+  CLAUDE_CODE_VERSION: "2.1.289"
+
+jobs:
+  # 1. 差分の取り出し。結果(review-diff.txt)は各 AI のジョブに渡す
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      # レビュー対象のファイル(ファイル名のパターンを半角スペース区切り)。初期値はすべてのファイル(言語を問わない)
+      REVIEW_PATHS: "*"
+      # レビュー対象から外すファイル。文書・画像・自動生成ファイル・この仕組み自体など、コードでないものを外す
+      REVIEW_EXCLUDE: >-
+        .github/* .cursor/* CLAUDE.md .gitignore .gitattributes LICENSE*
+        *.md *.txt *.csv *.log
+        *.png *.jpg *.jpeg *.gif *.svg *.ico *.webp *.bmp
+        *.pdf *.doc *.docx *.xls *.xlsx *.ppt *.pptx
+        *.zip *.gz *.tar *.jar *.war *.class *.exe *.dll *.so
+        *.lock package-lock.json pnpm-lock.yaml yarn.lock go.sum
+        *.min.js *.min.css *.map
+    outputs:
+      has_diff: ${{ steps.diff.outputs.has_diff }}
+    steps:
+      # コードを取得(差分を取るため履歴も全部)
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # 今回の変更(差分)を取り出す。2つの AI がこれをレビューする
+      - name: 差分の取り出し
+        id: diff
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+        run: |
+          # REVIEW_PATHS / REVIEW_EXCLUDE はわざと引用符で囲まず、空白で区切られた複数の指定として扱う
+          set -f   # * をこの場でファイル名に展開させない
+          paths=()
+          for p in $REVIEW_PATHS; do paths+=("$p"); done
+          for p in $REVIEW_EXCLUDE; do paths+=(":(exclude)$p"); done
+          set +f
+          if git cat-file -e "$BEFORE_SHA^{commit}" 2>/dev/null; then
+            git diff "$BEFORE_SHA" "$AFTER_SHA" -- "${paths[@]}" > review-diff.txt
+          else
+            # 初回プッシュや履歴の書き換えで比較元が無い時は、最新コミットの変更を対象にする
+            # (--format= でコミットの情報を出さず、対象の変更が無い時は空にする)
+            git show --format= "$AFTER_SHA" -- "${paths[@]}" > review-diff.txt
+          fi
+          # 対象の変更が無ければ、この後の AI レビューは行わない(利用枠の節約)
+          if [ -s review-diff.txt ]; then
+            echo "has_diff=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_diff=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # 各 AI のジョブと集計のジョブに渡す
+      - name: レビューの材料を保存
+        if: always() && steps.diff.outputs.has_diff == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: review-input
+          path: review-diff.txt
+          if-no-files-found: ignore
+          retention-days: 14
+
+  # 2. Claude によるレビュー(Claude Code のコマンド道具をサブスクのトークンで直接実行)
+  #    ※ 公式アクション claude-code-action はプッシュのきっかけに対応していないため使わない
+  #    使える道具は読み取りの Read / Grep / Glob だけにし(--tools)、読める範囲も作業フォルダの中に限る(--restricted)。
+  #    結果はファイルに書かせず、決めた形(review-schema.json)の返答として受け取る(--json-schema)
+  claude:
+    needs: prepare
+    if: needs.prepare.outputs.has_diff == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      outcome: ${{ steps.run.outcome }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false   # AI が読める場所に GitHub のトークンを残さない
+      - uses: actions/download-artifact@v8
+        with:
+          name: review-input
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+      - name: Claude レビュー
+        id: run
+        continue-on-error: true
+        timeout-minutes: 25
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_MODEL: ${{ vars.CLAUDE_MODEL }}   # 使うモデル。未設定なら Claude Code の標準のモデル
+        run: |
+          npm install -g "@anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}"
+          model_args=()
+          if [ -n "$CLAUDE_MODEL" ]; then model_args=(--model "$CLAUDE_MODEL"); fi
+          # 実行の記録(使ったモデル名とレビュー結果を含む)を claude-stream.jsonl に残す。結果は report.js が取り出す
+          claude -p "$(cat .github/review-prompt.md)" \
+            "${model_args[@]}" \
+            --restricted --strict-mcp-config \
+            --tools "Read,Grep,Glob" \
+            --json-schema "$(cat .github/review-schema.json)" \
+            --output-format stream-json --verbose \
+            < /dev/null > claude-stream.jsonl
+          # 決めた形の結果が返っていなければ失敗扱いにする
+          node -e '
+            const lines = require("fs").readFileSync("claude-stream.jsonl", "utf8").split("\n");
+            const ok = lines.some((l) => { try { const e = JSON.parse(l); return e.type === "result" && e.structured_output && typeof e.structured_output === "object"; } catch { return false; } });
+            process.exit(ok ? 0 : 1);
+          '
+      - name: 実行の記録を保存
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: result-claude
+          path: claude-stream.jsonl
+          if-no-files-found: ignore
+          retention-days: 14
+
+  # 3. Cursor によるレビュー(Claude と並行して同じ差分をレビューする)
+  #    Secrets に CURSOR_API_KEY が無い時は実行しない
+  #    ファイルの書き込みやコマンドの実行をさせないため --force は付けず、結果は画面への出力として受け取る
+  cursor:
+    needs: prepare
+    if: needs.prepare.outputs.has_diff == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      outcome: ${{ steps.run.outcome }}
+      skipped: ${{ steps.run.outputs.skipped }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@v8
+        with:
+          name: review-input
+      - name: Cursor レビュー
+        id: run
+        continue-on-error: true
+        timeout-minutes: 25
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+          CURSOR_MODEL: ${{ vars.CURSOR_MODEL }}   # 使うモデル。未設定なら Cursor の標準のモデル
+        run: |
+          if [ -z "$CURSOR_API_KEY" ]; then
+            echo "CURSOR_API_KEY が未登録のため、Cursor のレビューは行いません"
+            echo "skipped=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          curl https://cursor.com/install -fsS | bash
+          export PATH="$HOME/.cursor/bin:$PATH"
+
+          # 指示文は Claude と同じものを使い、結果の渡し方だけ Cursor 用に付け足す
+          prompt="$(cat .github/review-prompt.md)
+
+          ## Cursor で実行する時の注意(上の「出力」より優先する)
+          - ファイルは作成・変更しない。
+          - 上の「出力」の JSON だけを、そのまま出力する。前後に説明文やコードブロックの記号を付けない。"
+
+          model_args=()
+          if [ -n "$CURSOR_MODEL" ]; then model_args=(--model "$CURSOR_MODEL"); fi
+          # --trust:このフォルダを信頼する(自動実行では確認に答えられないため)。
+          #   --force / --yolo は書き込みやコマンド実行も許してしまうので使わない
+          # 実行の記録(使ったモデル名とレビュー結果を含む)を cursor-stream.jsonl に残す。結果は report.js が取り出す
+          agent -p "$prompt" --trust "${model_args[@]}" --output-format stream-json \
+            < /dev/null > cursor-stream.jsonl
+          test -s cursor-stream.jsonl   # 出力が空なら失敗扱いにする
+      - name: 実行の記録を保存
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: result-cursor
+          path: cursor-stream.jsonl
+          if-no-files-found: ignore
+          retention-days: 14
+
+  # 4. 結果をまとめ、コミットにコメントし、問題があればメールを送る
+  #    AI のジョブとは別の環境で、取り出し直したこの仕組みのファイル(report.js)を使うので、AI の動きに左右されない
+  report:
+    needs: [prepare, claude, cursor]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write   # コミットにレビューコメントを書くため
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+      # 各ジョブが保存した材料と実行の記録を results/ にまとめて取り出す
+      - uses: actions/download-artifact@v8
+        continue-on-error: true   # レビュー対象外で何も保存されていない時も集計は行う
+        with:
+          path: results
+          merge-multiple: true
+
+      - name: 結果の集計
+        id: report
+        env:
+          RESULTS_DIR: results
+          HAS_DIFF: ${{ needs.prepare.outputs.has_diff }}
+          CLAUDE_OUTCOME: ${{ needs.claude.outputs.outcome }}
+          CURSOR_OUTCOME: ${{ needs.cursor.outputs.outcome }}
+          CURSOR_SKIPPED: ${{ needs.cursor.outputs.skipped }}
+          CLAUDE_MODEL: ${{ vars.CLAUDE_MODEL }}   # 実行の記録からモデル名が取れなかった時の表示に使う
+          CURSOR_MODEL: ${{ vars.CURSOR_MODEL }}
+          PUSHER_EMAIL: ${{ github.event.pusher.email }}   # push した人には問題がある時だけ送る
+          MAIL_ALWAYS_TO: ${{ vars.MAIL_ALWAYS_TO }}       # push した人に加えて、問題がある時に送る宛先(カンマ区切りで複数可)
+          MAIL_MIN_SEVERITY: ${{ vars.MAIL_MIN_SEVERITY }} # メールを送る指摘の重要度の下限(high / medium / low)。未設定なら medium
+          MAIL_SERVER: ${{ vars.MAIL_SERVER }}             # 未設定の時に警告を出すためだけに渡す
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node .github/scripts/report.js
+
+      # メール送信。宛先は report.js が決める(レビューで不具合が見つかった時は push した人と MAIL_ALWAYS_TO、
+      # AI 自体が失敗しただけの時は MAIL_ALWAYS_TO だけに送る)
+      # 送信に使うメールサーバーは Variables の MAIL_SERVER / MAIL_PORT / MAIL_FROM で指定する(MAIL_SERVER が未設定なら送らない)
+      - name: メール送信
+        if: steps.report.outputs.mail_to != '' && vars.MAIL_SERVER != ''
+        uses: dawidd6/action-send-mail@v22
+        with:
+          server_address: ${{ vars.MAIL_SERVER }}
+          server_port: ${{ vars.MAIL_PORT || '587' }}
+          # 465 番は最初から暗号化して接続する。587 番などは接続後に暗号化へ切り替える(STARTTLS)
+          secure: ${{ vars.MAIL_PORT == '465' }}
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          # 送信者のアドレス。ログイン名がメールアドレスでないサーバーでは MAIL_FROM を設定する
+          from: Code Review Bot <${{ vars.MAIL_FROM || secrets.MAIL_USERNAME }}>
+          to: ${{ steps.report.outputs.mail_to }}
+          subject: ${{ steps.report.outputs.mail_subject }}
+          body: file://mail.txt
+
+      # AI 自体が失敗した時は実行結果を「失敗」にする。GitHub の標準設定では、push した人に失敗の通知が届く
+      # (メールの送信に失敗した時も、この手順は行う)
+      - name: AI の失敗を知らせる
+        if: ${{ !cancelled() && steps.report.outputs.ai_failed == 'true' }}
+        env:
+          AI_FAILED: ${{ steps.report.outputs.ai_failed_names }}
+        run: |
+          echo "::error::${AI_FAILED} のレビューが失敗しました。コミットのコメントか、この画面の Summary で原因の目安を確認してください"
+          exit 1
