@@ -1,0 +1,32 @@
+# AI レビューの Issue(ラベル ai-review)が編集された時に、項目すべてにチェックが付いていれば閉じる
+# AI の判断で最後のチェックが付いた時は push-review.yml が閉じるので、これは人が手で最後のチェックを付けた時のためのもの
+# (push-review.yml が GITHUB_TOKEN で本文を書き換えても、GitHub の仕様でこのワークフローは動かない)
+name: AI Review Issue Close
+
+on:
+  issues:
+    types: [edited]
+
+permissions:
+  contents: read
+
+jobs:
+  close:
+    if: github.event.issue.state == 'open' && contains(github.event.issue.labels.*.name, 'ai-review')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write   # コメントを書いて閉じるため
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+      - name: チェックがそろっていれば閉じる
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node .github/scripts/report.js close-if-done

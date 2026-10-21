@@ -1,9 +1,18 @@
 {
   "type": "object",
   "additionalProperties": false,
-  "required": ["summary", "issues"],
+  "required": ["summary", "issues", "checks"],
   "properties": {
-    "summary": { "type": "string" },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["changes", "checked", "conclusion"],
+      "properties": {
+        "changes": { "type": "array", "items": { "type": "string" } },
+        "checked": { "type": "string" },
+        "conclusion": { "type": "string" }
+      }
+    },
     "issues": {
       "type": "array",
       "items": {
@@ -18,6 +27,20 @@
           "problem": { "type": "string" },
           "improvement": { "type": "string" },
           "fixed_code": { "type": "string" }
+        }
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["issue", "item", "fixed", "reason"],
+        "properties": {
+          "issue": { "type": "integer" },
+          "item": { "type": "integer" },
+          "fixed": { "type": "boolean" },
+          "reason": { "type": "string" }
         }
       }
     }
