@@ -191,6 +191,7 @@ Namespace Controllers
             ''' 列定義の一覧（文言コードで M_CSVHEADER_ORDER と紐付ける）
             ''' </summary>
             '[CC431] UPD Start 20261008 取込対象の列に ImportColumn を追加
+            '[CC431] ADD 20261029 出力列に管理者社員番号・管理者社員名・型式・シリアルNO・備考・装置管理番号・資産グループコードを追加（初期化子の中にはコメント行を書けないため、各行の行末に記載）
             Public Shared ReadOnly ColDefs As List(Of ColDef) = New List(Of ColDef) From {
                 New ColDef With {.WordCd = "WC110011", .GetValue = Function(r) r.PHYINV_LOC_L_CD, .IsText = True},       '実棚会社コード
                 New ColDef With {.WordCd = "WC110012", .GetValue = Function(r) r.PHYINV_LOC_L_NAME},                     '実棚会社名
@@ -203,7 +204,14 @@ Namespace Controllers
                 New ColDef With {.WordCd = "WC110001", .GetValue = Function(r) r.ASSET_NO, .IsText = True},              '資産番号
                 New ColDef With {.WordCd = "WC110027", .GetValue = Function(r) r.SUB_ASSET_NO, .IsText = True},          '旧資産番号
                 New ColDef With {.WordCd = "WC110002", .GetValue = Function(r) r.ASSET_NAME},                            '資産名称
+                New ColDef With {.WordCd = "WC110028", .GetValue = Function(r) r.FREE_ITEM6, .IsText = True},            '管理者社員番号 [CC431] ADD 20261029
+                New ColDef With {.WordCd = "WC110029", .GetValue = Function(r) r.FREE_ITEM6_NAME},                       '管理者社員名 [CC431] ADD 20261029
                 New ColDef With {.WordCd = "WC110031", .GetValue = Function(r) r.FREE_ITEM2, .IsText = True},            '資本化日付
+                New ColDef With {.WordCd = "WC110033", .GetValue = Function(r) r.FREE_ITEM5},                            '型式 [CC431] ADD 20261029
+                New ColDef With {.WordCd = "WC110034", .GetValue = Function(r) r.FREE_ITEM7},                            'シリアルNO [CC431] ADD 20261029
+                New ColDef With {.WordCd = "WC110036", .GetValue = Function(r) r.FREE_ITEM9},                            '備考 [CC431] ADD 20261029
+                New ColDef With {.WordCd = "WC110041", .GetValue = Function(r) r.FREE_ITEM14},                           '装置管理番号 [CC431] ADD 20261029
+                New ColDef With {.WordCd = "WC110042", .GetValue = Function(r) r.FREE_ITEM15},                           '資産グループコード [CC431] ADD 20261029
                 New ColDef With {.WordCd = "WC110082", .GetValue = Function(r) r.OPE_STATUS, .IsText = True, .ImportColumn = "OPE_STATUS", .MaxLength = 4, .IsRequired = True},               '変更後稼働区分
                 New ColDef With {.WordCd = "WC110084", .GetValue = Function(r) r.DIVERSION_REMOVE, .IsText = True, .ImportColumn = "DIVERSION_REMOVE", .MaxLength = 2},     '転用or除却
                 New ColDef With {.WordCd = "WC110085", .GetValue = Function(r) r.REMOVE_DATE, .IsText = True, .ImportColumn = "REMOVE_DATE"},               '除却時期(予定)
