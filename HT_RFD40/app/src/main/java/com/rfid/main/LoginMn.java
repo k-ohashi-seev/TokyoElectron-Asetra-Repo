@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -98,10 +99,9 @@ public class LoginMn extends BaseRFIDActivity implements CommonConfirmDialog.Cal
     private int _timeout = 30000;
     final Context _context = this;
     private int tapCount = 0;          // タップ回数
-    private long firstTapTime = 0;     // 最初のタップ時刻
-    private static final int TAP_LIMIT = 5;       // 5回タップで設定画面
-    private static final long TIME_WINDOW = 1000; // 1秒以内で判定
-    private Handler handler = new Handler();
+    private long lastTapTime = 0;      // 前回のタップ時刻
+    private static final int TAP_LIMIT = 5;        // 5回タップで設定画面
+    private static final long TAP_INTERVAL = 1000; // 前回タップから1秒以内を連続タップとみなす
     private Activity nowActivity = this;
 
     private final static int BUTTON_EXIT = 1;
@@ -137,11 +137,7 @@ public class LoginMn extends BaseRFIDActivity implements CommonConfirmDialog.Cal
             LOGIN_USER_CD="";
 
             //ログイン情報をリセット
-            C_Setting.setLoginEmployeeCode(this, "");
-            C_Setting.setLoginEmployeeName(this, "");
-            C_Setting.setLoginHeadOffice(this, "");
-            C_Setting.setLoginAuth(this, "");
-            C_Setting.setLoginLocRfidFlg(this, "");
+            ClearLoginInfo();
 
             if(empCodeCheck.equals("true") && !empCode.equals("")){
                 ((TextView)findViewById(R.id.txtLoginCd)).setText(empCode);
@@ -306,44 +302,35 @@ public class LoginMn extends BaseRFIDActivity implements CommonConfirmDialog.Cal
             toolbarTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
-                    LogFactory.Insert(CommonConst.PROCESS_CAT.Event,
-                            getLocalClassName() + "," + methodName + ":" +
-                                    SystemSetting.getString(CommonConst.VIEW_WORD_LOGIN_LOGIN, "", nowActivity),
-                            nowActivity);
+                    long now = SystemClock.elapsedRealtime();
 
-                    long now = System.currentTimeMillis();
-
-                    if (tapCount == 0) {
-                        firstTapTime = now;
-                    }
-
-                    if (now - firstTapTime <= TIME_WINDOW) {
+                    //前回タップから一定時間内なら連続タップとしてカウント
+                    if (now - lastTapTime <= TAP_INTERVAL) {
                         tapCount++;
                     } else {
                         tapCount = 1;
-                        firstTapTime = now;
                     }
+                    lastTapTime = now;
 
                     if (tapCount >= TAP_LIMIT) {
-                        handler.removeCallbacksAndMessages(null);
                         tapCount = 0;
-                        firstTapTime = 0;
+                        lastTapTime = 0;
+
+                        //ログイン画面からの遷移は未ログイン扱いとする(ログイン失敗時の残存情報をクリア)
+                        ClearLoginInfo();
+
+                        //ログはシステム設定画面遷移時のみ出力(タップ毎のDB書込で操作が遅延するため)
+                        String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+                        LogFactory.Insert(CommonConst.PROCESS_CAT.Event,
+                                getLocalClassName() + "," + methodName + ":" +
+                                        SystemSetting.getString(CommonConst.VIEW_WORD_LOGIN_LOGIN, "", nowActivity),
+                                nowActivity);
+
                         AllResetButton(false);
                         ReaderOff();
                         Intent intent = new Intent(getApplication(), SystemSett.class);
                         startActivityForResult(intent, BUTTON_SETTEI);
-                        return;
                     }
-
-                    handler.removeCallbacksAndMessages(null);
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            tapCount = 0;
-                            firstTapTime = 0;
-                        }
-                    }, TIME_WINDOW);
                 }
             });
 
@@ -886,6 +873,7 @@ public class LoginMn extends BaseRFIDActivity implements CommonConfirmDialog.Cal
                     _strServer = setting.getConnectServer(this);
                     final CommonOKDialog.Builder  errdialog = new CommonOKDialog.Builder(this, true);
                     if (_strServer == null || _strServer == "") {
+                        ClearLoginInfo();
                         ShowErrorMessage(SystemSetting.getString(CommonConst.VIEW_WORD_WEBAPI_ERROR_SETTING, "", this));
                         return;
                     }
@@ -1209,6 +1197,7 @@ public class LoginMn extends BaseRFIDActivity implements CommonConfirmDialog.Cal
                     if (!UpdateAndroidTime(strGetDate, strGetTime)) {
                         //失敗の場合、キーエンスとiDataは処理内でエラーメッセージを出す
                         //デンソーとZEBTAはエラーの場合、Catchに飛ぶ
+                        ClearLoginInfo();
                         return;
                     }
 
@@ -1224,6 +1213,7 @@ public class LoginMn extends BaseRFIDActivity implements CommonConfirmDialog.Cal
                     });
                     //UPD 20230221 Sato v2.3 END
                 }catch (Exception ex){
+                    ClearLoginInfo();
                     AllResetButton(true);
                     //エラーログ
                     LogFactory.Insert(CommonConst.PROCESS_CAT.Error,
@@ -1234,6 +1224,7 @@ public class LoginMn extends BaseRFIDActivity implements CommonConfirmDialog.Cal
 
             @Override
             public void onError(String strErrMessage) {
+                ClearLoginInfo();
                 AllResetButton(true);
                 ShowErrorMessage(strErrMessage);
             }
@@ -1244,6 +1235,7 @@ public class LoginMn extends BaseRFIDActivity implements CommonConfirmDialog.Cal
              */
             @Override
             public void onConnectError(String strErrMessage) {
+                ClearLoginInfo();
                 AllResetButton(true);
                 runOnUiThread(() -> progressBar.setVisibility(View.INVISIBLE));
                 ShowErrorMessage(strErrMessage);
@@ -1302,6 +1294,7 @@ public class LoginMn extends BaseRFIDActivity implements CommonConfirmDialog.Cal
                         db.close();
                         db = null;
                     }
+                    ClearLoginInfo();
                     AllResetButton(true);
                     LogFactory.Insert(CommonConst.PROCESS_CAT.Error,
                             SystemSetting.getString(CommonConst.VIEW_WORD_ALL_RECIVE_DATA, "", nowActivity) + ":" + Common.toString(ex), nowActivity);
@@ -1322,6 +1315,7 @@ public class LoginMn extends BaseRFIDActivity implements CommonConfirmDialog.Cal
              */
             @Override
             public void onError(String strErrMessage) {
+                ClearLoginInfo();
                 AllResetButton(true);
                 runOnUiThread(() -> progressBar.setVisibility(View.INVISIBLE));
                 ShowErrorMessage(strErrMessage);
@@ -1333,10 +1327,22 @@ public class LoginMn extends BaseRFIDActivity implements CommonConfirmDialog.Cal
              */
             @Override
             public void onConnectError(String strErrMessage) {
+                ClearLoginInfo();
                 AllResetButton(true);
                 ShowErrorMessage(strErrMessage);
             }
         };
+    }
+
+    /**
+     * ログイン情報(社員コード、社員名、本部フラグ、権限、拠点RFIDフラグ)をクリアします
+     */
+    private void ClearLoginInfo() {
+        C_Setting.setLoginEmployeeCode(this, "");
+        C_Setting.setLoginEmployeeName(this, "");
+        C_Setting.setLoginHeadOffice(this, "");
+        C_Setting.setLoginAuth(this, "");
+        C_Setting.setLoginLocRfidFlg(this, "");
     }
 
     /**
