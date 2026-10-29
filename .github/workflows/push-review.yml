@@ -2,6 +2,9 @@
 # メールはレビューで medium 以上の不具合が見つかった時だけ、push した人と MAIL_ALWAYS_TO に送る
 # (問題なし・レビュー対象外の時は誰にも送らない)
 # AI 自体が失敗した時(期限切れ・時間切れなど)は MAIL_ALWAYS_TO だけにメールを送り、実行結果も「失敗」にして GitHub の通知を届ける
+# 指摘は push ごとに1件の Issue(ラベル ai-review)にまとめる(2つの AI の同じ指摘は Claude が1つにまとめる)。
+# 以降の push で指摘のあるファイルを変更すると、
+# AI が直ったかを判断してチェックを付け、全部直ったら Issue を閉じる
 name: Push Code Review
 
 on:
@@ -18,10 +21,13 @@ env:
   CLAUDE_CODE_VERSION: "2.1.289"
 
 jobs:
-  # 1. 差分の取り出し。結果(review-diff.txt)は各 AI のジョブに渡す
+  # 1. 差分と未対応の指摘の取り出し。結果(review-diff.txt / open-issues.json)は各 AI のジョブに渡す
   prepare:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    permissions:
+      contents: read
+      issues: read   # 開いている AI レビューの Issue を読むため
     env:
       # レビュー対象のファイル(ファイル名のパターンを半角スペース区切り)。初期値はすべてのファイル(言語を問わない)
       REVIEW_PATHS: "*"
@@ -70,13 +76,37 @@ jobs:
             echo "has_diff=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - uses: actions/setup-node@v7
+        if: steps.diff.outputs.has_diff == 'true'
+        with:
+          node-version: "22"
+
+      # 開いている AI レビューの Issue のうち、今回変更したファイルにある未対応の項目だけを取り出す
+      # (直すにはそのファイルを変更するはずなので、変更していないファイルの項目は判断しない。Actions の時間を延ばさないため)
+      - name: 未対応の指摘の取り出し
+        if: steps.diff.outputs.has_diff == 'true'
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+          CHANGED_FILES: changed-files.txt
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git cat-file -e "$BEFORE_SHA^{commit}" 2>/dev/null; then
+            git diff --name-only "$BEFORE_SHA" "$AFTER_SHA" > changed-files.txt
+          else
+            git show --name-only --format= "$AFTER_SHA" > changed-files.txt
+          fi
+          node .github/scripts/report.js open-items
+
       # 各 AI のジョブと集計のジョブに渡す
       - name: レビューの材料を保存
         if: always() && steps.diff.outputs.has_diff == 'true'
         uses: actions/upload-artifact@v7
         with:
           name: review-input
-          path: review-diff.txt
+          path: |
+            review-diff.txt
+            open-issues.json
           if-no-files-found: ignore
           retention-days: 14
 
@@ -193,15 +223,76 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
-  # 4. 結果をまとめ、コミットにコメントし、問題があればメールを送る
-  #    AI のジョブとは別の環境で、取り出し直したこの仕組みのファイル(report.js)を使うので、AI の動きに左右されない
-  report:
+  # 4. Claude と Cursor の指摘のうち同じ問題を指すものを、Claude にまとめさせる(Issue に同じ指摘が並ばないように)
+  #    渡すのは指摘の文章だけで、道具は何も使わせない(--tools "")。同じファイルに複数の指摘が無い時は AI を呼ばない。
+  #    失敗した時は、まとめずに Issue にする
+  matome:
+    name: 重複のまとめ
     needs: [prepare, claude, cursor]
+    if: always() && needs.prepare.outputs.has_diff == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "22"
+      - uses: actions/download-artifact@v8
+        continue-on-error: true
+        with:
+          path: results
+          merge-multiple: true
+      - name: まとめる材料の準備
+        id: prep
+        env:
+          RESULTS_DIR: results
+          HAS_DIFF: ${{ needs.prepare.outputs.has_diff }}
+          CLAUDE_OUTCOME: ${{ needs.claude.outputs.outcome }}
+          CURSOR_OUTCOME: ${{ needs.cursor.outputs.outcome }}
+          CURSOR_SKIPPED: ${{ needs.cursor.outputs.skipped }}
+          ISSUE_MIN_SEVERITY: ${{ vars.ISSUE_MIN_SEVERITY }}
+        run: node .github/scripts/report.js matome
+      - name: 重複のまとめ
+        if: steps.prep.outputs.needed == 'true'
+        continue-on-error: true
+        timeout-minutes: 5
+        env:
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # 使うモデル。MATOME_MODEL が未設定なら CLAUDE_MODEL、それも無ければ Claude Code の標準のモデル
+          MATOME_MODEL: ${{ vars.MATOME_MODEL || vars.CLAUDE_MODEL }}
+        run: |
+          npm install -g "@anthropic-ai/claude-code@${CLAUDE_CODE_VERSION}"
+          model_args=()
+          if [ -n "$MATOME_MODEL" ]; then model_args=(--model "$MATOME_MODEL"); fi
+          claude -p "$(cat matome-prompt.txt)" \
+            "${model_args[@]}" \
+            --restricted --strict-mcp-config \
+            --tools "" \
+            --json-schema "$(cat matome-schema.json)" \
+            --output-format stream-json --verbose \
+            < /dev/null > matome-stream.jsonl
+      - name: 実行の記録を保存
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: result-matome
+          path: matome-stream.jsonl
+          if-no-files-found: ignore
+          retention-days: 14
+
+  # 5. 結果をまとめ、コミットにコメントし、Issue を作成・更新し、問題があればメールを送る
+  #    AI のジョブとは別の環境で、取り出し直したこの仕組みのファイル(report.js)を使うので、AI の動きに左右されない
+  #    (AI のジョブには GitHub のトークンを渡さず、Issue の書き込みはここだけで行う)
+  report:
+    needs: [prepare, claude, cursor, matome]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
       contents: write   # コミットにレビューコメントを書くため
+      issues: write     # 指摘の Issue を作り、直った項目にチェックを付けて閉じるため
     steps:
       - uses: actions/checkout@v7
         with:
@@ -229,6 +320,7 @@ jobs:
           PUSHER_EMAIL: ${{ github.event.pusher.email }}   # push した人には問題がある時だけ送る
           MAIL_ALWAYS_TO: ${{ vars.MAIL_ALWAYS_TO }}       # push した人に加えて、問題がある時に送る宛先(カンマ区切りで複数可)
           MAIL_MIN_SEVERITY: ${{ vars.MAIL_MIN_SEVERITY }} # メールを送る指摘の重要度の下限(high / medium / low)。未設定なら medium
+          ISSUE_MIN_SEVERITY: ${{ vars.ISSUE_MIN_SEVERITY }} # Issue にする指摘の重要度の下限(high / medium / low)。未設定なら medium
           MAIL_SERVER: ${{ vars.MAIL_SERVER }}             # 未設定の時に警告を出すためだけに渡す
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: node .github/scripts/report.js
