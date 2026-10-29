@@ -261,11 +261,18 @@ Namespace Controllers
 
             'sb.AppendLine("	,CASE WHEN INV.ASSET_NO IS NULL THEN 'N' ELSE 'Y' END AS invflg ")              '棚卸区分　棚卸資産テーブルにデータがある場合はY、ない場合はN
 
+            '20261029 ver4.3.1要求事項16 修正 Start
+            ' ロケM.管理資産棚卸区分<>Yの場合は、従来どおり棚卸対象区分=Y:棚卸対象とする。
+            'sb.AppendLine(",  CASE WHEN INV.ASSET_NO IS NULL THEN 'N' ")
+            'sb.AppendLine("   ELSE (")
+            'sb.Append("       CASE WHEN (OWN_INV_FLG = 'Y' AND RTRIM(LTRIM(FREE_ITEM6)) = '").Append(plmEmployeeCd).Append("' THEN 'Y' ").AppendLine("")
+            'sb.AppendLine("       ELSE 'N' END ")
+            'sb.AppendLine("   ) End As invflg ")
             sb.AppendLine(",  CASE WHEN INV.ASSET_NO IS NULL THEN 'N' ")
-            sb.AppendLine("   ELSE (")
-            sb.Append("       CASE WHEN (OWN_INV_FLG = 'Y' AND RTRIM(LTRIM(FREE_ITEM6)) = '").Append(plmEmployeeCd).Append("' THEN 'Y' ").AppendLine("")
-            sb.AppendLine("       ELSE 'N' END ")
-            sb.AppendLine("   ) End As invflg ")
+            sb.AppendLine("        WHEN LOC.OWN_INV_FLG = 'Y' THEN ")
+            sb.Append("            CASE WHEN RTRIM(LTRIM(INV.FREE_ITEM6)) = '").Append(plmEmployeeCd.Replace("'", "''")).AppendLine("' THEN 'Y' ELSE 'N' END ")
+            sb.AppendLine("        ELSE 'Y' END AS invflg ")
+            '20261029 ver4.3.1要求事項16 修正 End
             '20260925 Y.Ono ver4.3.1要求事項16 End
             sb.AppendLine("FROM")
             sb.AppendLine($" {CommonConst.MASTER_ASSET} As ASSET")
@@ -296,6 +303,9 @@ Namespace Controllers
             '20260925 Y.Ono ver4.3.1要求事項16 Start
             sb.AppendLine(" LEFT JOIN M_LOCATION AS LOC ")
             sb.AppendLine(" ON ASSET.MNG_LOC_L_CD = LOC.LOC_L_CD ")
+            '20261029 ver4.3.1要求事項16 修正 Start
+            sb.AppendLine(" AND LOC.LOC_DIV = 'L' ")
+            '20261029 ver4.3.1要求事項16 修正 End
             '20260925 Y.Ono ver4.3.1要求事項16 End
             '-- 2020/02/12 v1.2 戸祭 貸出上限機能 END --
             sb.AppendLine($" WHERE ASSET.ASSET_STATUS <> {CommonConst.ASSET_STATUS_RETIRE}")
